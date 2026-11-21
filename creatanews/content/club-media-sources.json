@@ -1,0 +1,145 @@
+{
+  "retrievedAt": "2026-10-25T20:46:05.662Z",
+  "media": [
+    {
+      "asset": "/clubs/media/music-cover.jpg",
+      "source": "https://t.me/aitumusicclub/790",
+      "publisher": "aitumusicclub",
+      "bytes": 140305,
+      "contentType": "image/jpeg"
+    },
+    {
+      "asset": "/clubs/media/music-live.mp4",
+      "source": "https://t.me/aitumusicclub/791",
+      "publisher": "aitumusicclub",
+      "bytes": 6227027,
+      "contentType": "video/mp4"
+    },
+    {
+      "asset": "/clubs/media/music-video.jpg",
+      "source": "https://t.me/aitumusicclub/791",
+      "publisher": "aitumusicclub",
+      "bytes": 25059,
+      "contentType": "image/jpeg"
+    },
+    {
+      "asset": "/clubs/media/seds-cover.jpg",
+      "source": "https://t.me/DSVR_News/3679",
+      "publisher": "DSVR_News",
+      "bytes": 17120,
+      "contentType": "image/jpeg"
+    },
+    {
+      "asset": "/clubs/media/seds-lecture.mp4",
+      "source": "https://t.me/DSVR_News/3679",
+      "publisher": "DSVR_News",
+      "bytes": 4357000,
+      "contentType": "video/mp4"
+    },
+    {
+      "asset": "/clubs/media/seds-quiz.jpg",
+      "source": "https://t.me/DSVR_News/2978",
+      "publisher": "DSVR_News",
+      "bytes": 61533,
+      "contentType": "image/jpeg"
+    },
+    {
+      "asset": "/clubs/media/art-cover.jpg",
+      "source": "https://t.me/AituArtClub/450",
+      "publisher": "AituArtClub",
+      "bytes": 166070,
+      "contentType": "image/jpeg"
+    },
+    {
+      "asset": "/clubs/media/art-meeting.mp4",
+      "source": "https://t.me/AituArtClub/383",
+      "publisher": "AituArtClub",
+      "bytes": 1416624,
+      "contentType": "video/mp4"
+    },
+    {
+      "asset": "/clubs/media/art-video.jpg",
+      "source": "https://t.me/AituArtClub/383",
+      "publisher": "AituArtClub",
+      "bytes": 19663,
+      "contentType": "image/jpeg"
+    },
+    {
+      "asset": "/clubs/media/art-pictionary.jpg",
+      "source": "https://t.me/AituArtClub/451",
+      "publisher": "AituArtClub",
+      "bytes": 181945,
+      "contentType": "image/jpeg"
+    },
+    {
+      "asset": "/clubs/core.png",
+      "source": "https://t.me/core_aitu",
+      "publisher": "core_aitu",
+      "bytes": 61826,
+      "contentType": "image/png"
+    },
+    {
+      "asset": "/clubs/media/core-cover.jpg",
+      "source": "https://t.me/core_aitu/180",
+      "publisher": "core_aitu",
+      "bytes": 95859,
+      "contentType": "image/jpeg"
+    },
+    {
+      "asset": "/clubs/media/core-matrix-video.jpg",
+      "source": "https://www.youtube.com/watch?v=sn-Zrn713do",
+      "publisher": "CORE AITU",
+      "bytes": 24311,
+      "contentType": "image/jpeg"
+    },
+    {
+      "asset": "/clubs/media/core-matrix-poster.jpg",
+      "source": "https://t.me/core_aitu/184",
+      "publisher": "core_aitu",
+      "bytes": 123184,
+      "contentType": "image/jpeg"
+    },
+    {
+      "asset": "/clubs/media/rise-nfactorial-1.jpg",
+      "source": "https://t.me/business_club_aitu/71",
+      "publisher": "business_club_aitu",
+      "bytes": 102722,
+      "contentType": "image/jpeg"
+    },
+    {
+      "asset": "/clubs/media/rise-nfactorial-2.jpg",
+      "source": "https://t.me/business_club_aitu/71",
+      "publisher": "business_club_aitu",
+      "bytes": 74084,
+      "contentType": "image/jpeg"
+    },
+    {
+      "asset": "/clubs/media/rise-nfactorial-3.jpg",
+      "source": "https://t.me/business_club_aitu/71",
+      "publisher": "business_club_aitu",
+      "bytes": 56674,
+      "contentType": "image/jpeg"
+    },
+    {
+      "asset": "/clubs/media/electronics-workshops.jpg",
+      "source": "https://t.me/aituelectronics/149",
+      "publisher": "aituelectronics",
+      "bytes": 121733,
+      "contentType": "image/jpeg"
+    },
+    {
+      "asset": "/clubs/media/electronics-clip.mp4",
+      "source": "https://t.me/aituelectronics/139",
+      "publisher": "aituelectronics",
+      "bytes": 1910054,
+      "contentType": "video/mp4"
+    },
+    {
+      "asset": "/clubs/media/electronics-video.jpg",
+      "source": "https://t.me/aituelectronics/139",
+      "publisher": "aituelectronics",
+      "bytes": 16548,
+      "contentType": "image/jpeg"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+FROM oven/bun:1.4.2 AS build
+WORKDIR /app
+COPY package.json bun.lock ./
+COPY packages ./packages
+COPY creatanews/package.json ./creatanews/package.json
+COPY events-admin/package.json ./events-admin/package.json
+COPY agent-admin/package.json ./agent-admin/package.json
+COPY telegram-bot/package.json ./telegram-bot/package.json
+RUN bun install --frozen-lockfile
+COPY telegram-bot/src/creata ./telegram-bot/src/creata
+RUN bun run --filter @creata/telegram-bot build
+FROM oven/bun:1.4.2-slim
+WORKDIR /app
+COPY --from=build /app/telegram-bot/dist/main.js ./main.js
+USER bun
+EXPOSE 3001
+CMD ["bun", "main.js"]

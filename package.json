@@ -1,0 +1,36 @@
+{
+  "name": "creata-news",
+  "private": true,
+  "packageManager": "bun@1.4.2",
+  "workspaces": [
+    "creatanews",
+    "events-admin",
+    "agent-admin",
+    "telegram-bot",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:all": "bun scripts/dev-local.ts",
+    "dev": "bun scripts/dev-local.ts",
+    "dev:api": "bun scripts/run-api.ts",
+    "build": "bun run --filter '@creata/*' build",
+    "typecheck": "bun run --filter '@creata/*' typecheck",
+    "test": "bun test packages creatanews/src events-admin/src/creata agent-admin/src/creata telegram-bot/src/creata",
+    "contracts": "bun scripts/generate-contracts.ts",
+    "test:api": "cd backend/creata && go test ./...",
+    "test:hermes": "bun scripts/local-hermes.ts -m unittest discover -s hermes-worker/tests -v",
+    "setup:local": "bun scripts/setup-local.ts",
+    "seed:dev": "bun scripts/dev-seed.ts",
+    "demo:prepare": "bun scripts/prepare-demo.ts",
+    "demo:build-admins": "bun scripts/build-demo-admins.ts",
+    "demo:stage": "bun scripts/stage-demo.ts",
+    "test:e2e": "node scripts/browser-smoke.mjs",
+    "test:pipeline": "bun scripts/verify-pipeline.ts",
+    "dev:ui": "bun run --parallel --filter '@creata/web' --filter '@creata/editorial' --filter '@creata/hermes-admin' dev"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.58.2",
+    "typescript": "~5.9.3",
+    "@types/node": "^24.10.1"
+  }
+}

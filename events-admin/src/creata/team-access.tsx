@@ -1,0 +1,14 @@
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from '@/shared/ui/components/table'
+import { useState, type FormEvent } from 'react'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { useAdmin, useCategories } from './hooks'
+import { localized } from './domain'
+import { hasCopy, type CopyKey } from './i18n'
+import { Button, Empty, ErrorPanel, Loading, Modal } from './ui'
+import type { List as DataList, User } from './types'
+export function TeamAccess(){
+ const {api,t,locale,toast}=useAdmin();const client=useQueryClient();const data=useQuery({queryKey:['users'],queryFn:()=>api<DataList<User>>('/admin/users')});const categories=useCategories();const [edit,setEdit]=useState<User|null>(null)
+ const mutation=useMutation({mutationFn:(u:User)=>api(`/admin/users/${encodeURIComponent(u.id)}`,{method:'PATCH',body:JSON.stringify({roles:u.roles,verticals:u.verticals})}),onSuccess:()=>{void client.invalidateQueries({queryKey:['users']});toast(t('saved'));setEdit(null)}})
+ const toggle=(field:'roles'|'verticals',id:string)=>setEdit(u=>u?{...u,[field]:u[field].includes(id)?u[field].filter(x=>x!==id):[...u[field],id]}:u)
+ return <section className='panel section-spacing'><h2>{t('users')}</h2><p className='panel-description'>{t('accessHelp')}</p>{data.isPending?<Loading/>:data.error?<ErrorPanel error={data.error}/>:!data.data?.items.length?<Empty/>:<div className='table-panel'><Table><TableHeader><TableRow><TableHead>{t('name')}</TableHead><TableHead>{t('roles')}</TableHead><th/></TableRow></TableHeader><TableBody>{data.data.items.map(u=><TableRow key={u.id}><TableCell>{u.name}<small>{u.email}</small></TableCell><TableCell>{u.roles.map(r=>hasCopy(r)?t(r):r).join(', ')}</TableCell><TableCell><Button className='small' variant='secondary' onClick={()=>setEdit({...u})}>{t('edit')}</Button></TableCell></TableRow>)}</TableBody></Table></div>}{edit&&<Modal title={edit.name} onClose={()=>setEdit(null)}><form className='form-stack' onSubmit={(e:FormEvent)=>{e.preventDefault();mutation.mutate(edit)}}><h3>{t('roles')}</h3><div className='role-checks'>{['reader','author','editor','chief_editor','admin'].map(r=><label className='checkbox-label' key={r}><input type='checkbox' checked={edit.roles.includes(r)} onChange={()=>toggle('roles',r)}/>{t(r as CopyKey)}</label>)}</div><h3>{t('verticals')}</h3><div className='topic-checks'>{categories.data?.items.map(c=><label className='topic-check' key={c.id}><input type='checkbox' checked={edit.verticals.includes(c.id)} onChange={()=>toggle('verticals',c.id)}/>{localized(c.name,locale)}</label>)}</div>{mutation.error&&<ErrorPanel error={mutation.error}/>}<div className='form-actions'><Button type='button' variant='secondary' onClick={()=>setEdit(null)}>{t('cancel')}</Button><Button disabled={mutation.isPending}>{t('save')}</Button></div></form></Modal>}</section>
+}

@@ -1,0 +1,32 @@
+/* Integration only. Card layout, spacing, type sizes and countdown utilities
+   remain the extracted prototype; shared brand supplies fonts and colors. */
+.prototype-opportunity-scope>article{height:100%}
+.prototype-opportunity-scope .btn{white-space:nowrap;min-width:0}
+.prototype-opportunity-scope .btn svg{flex-shrink:0}
+.prototype-opportunity-scope .h-title a:hover{color:var(--creata-accent)}
+.prototype-opportunity-scope .border{border-style:solid}
+.prototype-opportunity-scope .border-t-2{border-top-style:solid}
+.prototype-opportunity-scope{font-family:'Golos Text',var(--creata-font);font-size:16px;line-height:1.5}
+.prototype-opportunities-band{height:auto;margin-top:44px}
+.prototype-opportunities-band .wrap{padding-inline:0}
+.prototype-opportunities-band .btn{padding-inline:12px}
+.prototype-expired{font-size:12px;color:var(--creata-muted);flex:1}
+.prototype-opportunity-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:20px}
+@media(min-width:640px){.prototype-opportunity-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(min-width:1024px){.prototype-opportunity-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.prototype-opportunity-grid-home{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.opportunity-detail-layout{display:grid;gap:28px;align-items:start}
+.opportunity-detail-layout .opportunity-description{font-family:var(--creata-font);font-size:18px;line-height:1.8}
+@media(min-width:900px){.opportunity-detail-layout{grid-template-columns:minmax(0,1fr) 350px}}
+.opportunity-carousel{min-width:0}
+.opportunity-carousel-viewport{overflow:hidden;touch-action:pan-y pinch-zoom;padding-block:1px}
+.opportunity-carousel-track{display:flex;gap:20px;align-items:stretch}
+.opportunity-carousel-slide{flex:0 0 100%;min-width:0}
+/* Embla measures the end margin as the cycle's closing gap. Keeping it equal
+   to the flex gap enables a real loop with five cards and four visible. */
+.opportunity-carousel-slide:last-child{margin-right:20px}
+.opportunity-carousel-slide>.prototype-opportunity-scope{height:100%}
+.opportunity-carousel-actions{display:flex;justify-content:flex-end;margin-bottom:12px}
+.opportunity-refresh-error{font-size:12px;color:var(--creata-muted);margin-top:15px}
+.opportunity-refresh-error button{color:var(--creata-accent);text-decoration:underline}
+@media(min-width:640px){.opportunity-carousel-slide{flex-basis:calc((100% - 20px)/2)}}
+@media(min-width:1024px){.opportunity-carousel-slide{flex-basis:calc((100% - 60px)/4)}}

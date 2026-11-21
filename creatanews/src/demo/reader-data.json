@@ -1,0 +1,1195 @@
+{
+  "categories": [
+    {
+      "id": "ai",
+      "slug": "ai",
+      "name": {
+        "ru": "AI и данные",
+        "en": "AI & data",
+        "kk": "ЖИ және деректер"
+      }
+    },
+    {
+      "id": "startups",
+      "slug": "startups",
+      "name": {
+        "ru": "Стартапы и венчур",
+        "en": "Startups & VC",
+        "kk": "Стартаптар мен венчур"
+      }
+    },
+    {
+      "id": "stem",
+      "slug": "stem",
+      "name": {
+        "ru": "Наука и STEM",
+        "en": "Science & STEM",
+        "kk": "Ғылым және STEM"
+      }
+    },
+    {
+      "id": "robotics",
+      "slug": "robotics",
+      "name": {
+        "ru": "Робототехника и железо",
+        "en": "Robotics & hardware",
+        "kk": "Робототехника"
+      }
+    },
+    {
+      "id": "space",
+      "slug": "space",
+      "name": {
+        "ru": "Космос",
+        "en": "Space",
+        "kk": "Ғарыш"
+      }
+    },
+    {
+      "id": "climate",
+      "slug": "climate",
+      "name": {
+        "ru": "Климат и импакт",
+        "en": "Climate & impact",
+        "kk": "Климат және әсер"
+      }
+    },
+    {
+      "id": "health",
+      "slug": "health",
+      "name": {
+        "ru": "HealthTech и биотех",
+        "en": "HealthTech & bio",
+        "kk": "Медицина және биотехнология"
+      }
+    },
+    {
+      "id": "edtech",
+      "slug": "edtech",
+      "name": {
+        "ru": "EdTech и образование",
+        "en": "EdTech & education",
+        "kk": "Білім беру"
+      }
+    },
+    {
+      "id": "fintech",
+      "slug": "fintech",
+      "name": {
+        "ru": "FinTech",
+        "en": "FinTech",
+        "kk": "Қаржы технологиялары"
+      }
+    },
+    {
+      "id": "cities",
+      "slug": "cities",
+      "name": {
+        "ru": "Мобильность и умные города",
+        "en": "Mobility & cities",
+        "kk": "Қалалар және көлік"
+      }
+    },
+    {
+      "id": "agri",
+      "slug": "agri",
+      "name": {
+        "ru": "AgriTech и еда",
+        "en": "AgriTech & food",
+        "kk": "Ауыл шаруашылығы"
+      }
+    },
+    {
+      "id": "creative",
+      "slug": "creative",
+      "name": {
+        "ru": "Креативные индустрии",
+        "en": "Creative industries",
+        "kk": "Креативті индустриялар"
+      }
+    },
+    {
+      "id": "eco-group",
+      "slug": "eco-group",
+      "name": {
+        "ru": "Creata Group",
+        "en": "Creata Group",
+        "kk": "Creata Group"
+      }
+    },
+    {
+      "id": "eco-transfornation",
+      "slug": "eco-transfornation",
+      "name": {
+        "ru": "TransforNATION",
+        "en": "TransforNATION",
+        "kk": "TransforNATION"
+      }
+    },
+    {
+      "id": "eco-lab",
+      "slug": "eco-lab",
+      "name": {
+        "ru": "Creata Lab",
+        "en": "Creata Lab",
+        "kk": "Creata Lab"
+      }
+    },
+    {
+      "id": "eco-games",
+      "slug": "eco-games",
+      "name": {
+        "ru": "Creata Games",
+        "en": "Creata Games",
+        "kk": "Creata Games"
+      }
+    },
+    {
+      "id": "eco-ciaq",
+      "slug": "eco-ciaq",
+      "name": {
+        "ru": "CIAQ и GCA",
+        "en": "CIAQ & GCA",
+        "kk": "CIAQ және GCA"
+      }
+    },
+    {
+      "id": "eco-ventures",
+      "slug": "eco-ventures",
+      "name": {
+        "ru": "Creata Ventures",
+        "en": "Creata Ventures",
+        "kk": "Creata Ventures"
+      }
+    },
+    {
+      "id": "eco-team",
+      "slug": "eco-team",
+      "name": {
+        "ru": "Creata Team",
+        "en": "Creata Team",
+        "kk": "Creata Team"
+      }
+    }
+  ],
+  "articles": [
+    {
+      "id": "w-ucode",
+      "slug": "w-ucode",
+      "title": {
+        "ru": "Ucode из Ташкента: ИИ собирает бэкенд за 20 минут",
+        "en": "Tashkent's Ucode: AI builds a backend in 20 minutes",
+        "kk": "Ташкенттің Ucode платформасы: әзірлеушілерге арналған ЖИ"
+      },
+      "lead": {
+        "ru": "Основатели аутсорс-компании Udevs вложили около $300 тысяч собственных денег в платформу для разработчиков и вышли на рынок США.",
+        "en": "The founders of outsourcing firm Udevs put about $300,000 of their own money into a developer platform and entered the US market.",
+        "kk": "Udevs негізін қалаушылар әзірлеушілерге арналған платформаға өз қаражатынан шамамен 300 мың доллар инвестиция салып, АҚШ нарығына шықты."
+      },
+      "body": {
+        "ru": "Кто это сделал? Абдулло Хидоятов и Азизбек Баходиров, которые в 2020 году основали аутсорс-компанию Udevs. Ucode вырос из их собственной боли: поддерживать готовые системы было дорого.\n\nКак работает? Платформа строит и меняет бэкенд по описанию. Для планирования и архитектуры используется Claude, для задач попроще — GPT-5 и Gemini. В одном из проектов получилось 163 таблицы и 293 связи.\n\nКоманда — пять человек. Пилоты в Пакистане, Бангладеш и Индии собрали около 200 заинтересованных пользователей. Осенью 2025 года основатель прошёл Silicon Valley Residency от Astana Hub.",
+        "en": "Who built it? Abdullo Khidoyatov and Azizbek Bakhodirov, who founded the outsourcing company Udevs in 2020. Ucode grew out of their own pain: maintaining finished systems was expensive.\n\nHow does it work? The platform builds and changes a backend from a description. Claude handles planning and architecture; GPT-5 and Gemini handle simpler tasks. One project ended up with 163 tables and 293 relationships.\n\nThe team is five people. Pilots in Pakistan, Bangladesh and India drew about 200 interested users. In autumn 2025 the founder went through Astana Hub's Silicon Valley Residency.",
+        "kk": "Udevs негізін қалаушылар әзірлеушілерге арналған платформаға өз қаражатынан шамамен 300 мың доллар инвестиция салып, АҚШ нарығына шықты."
+      },
+      "summary": {
+        "ru": "Основатели аутсорс-компании Udevs вложили около $300 тысяч собственных денег в платформу для разработчиков и вышли на рынок США.",
+        "en": "The founders of outsourcing firm Udevs put about $300,000 of their own money into a developer platform and entered the US market.",
+        "kk": "Udevs негізін қалаушылар әзірлеушілерге арналған платформаға өз қаражатынан шамамен 300 мың доллар инвестиция салып, АҚШ нарығына шықты."
+      },
+      "actions": {
+        "ru": "Изучите первоисточник и связанные возможности.",
+        "kk": "Түпнұсқаны және байланысты мүмкіндіктерді қараңыз.",
+        "en": "Read the original source and explore related opportunities."
+      },
+      "layer": "world",
+      "categoryId": "ai",
+      "region": "UZ",
+      "tags": [
+        "AI",
+        "стартапы",
+        "Центральная Азия"
+      ],
+      "authorId": "merey",
+      "sources": [
+        {
+          "url": "https://digitalbusiness.kz/en/2026-10-05/uzbekistantsi-vlozhili-300-tisyach-v-ii-servis-dlya-razrabotchikov-i-vishli-na-rinok-ssha/",
+          "title": "DigitalBusiness.kz",
+          "publishedAt": "2026-10-05T00:00:00.000Z"
+        }
+      ],
+      "reviewNotes": [
+        "Development fixture from the supplied reference prototype; not a live editorial publication."
+      ],
+      "media": {
+        "url": "/demo-media/news/maps/UZ.svg",
+        "caption": "Карта: Creata News",
+        "credit": "Карта: Creata News",
+        "rights": "Development reference only; verify reuse rights before production."
+      },
+      "status": "published",
+      "revision": 1,
+      "publishedAt": "2026-11-14T17:40:24.919Z",
+      "createdAt": "2026-11-14T17:40:24.919Z",
+      "updatedAt": "2026-11-14T17:40:24.919Z",
+      "author": {
+        "id": "merey",
+        "name": "Мерей",
+        "bio": {
+          "ru": "Ведёт канбан дня и раз в неделю делает отчёт по метрикам.",
+          "en": "Runs the daily board and sends a weekly metrics report.",
+          "kk": "Creata News редакциясының авторы."
+        },
+        "role": "Выпускающий редактор",
+        "avatarUrl": ""
+      },
+      "opportunityIds": [
+        "o-designthon",
+        "o-creative-start"
+      ]
+    },
+    {
+      "id": "w-uz-hk",
+      "slug": "w-uz-hk",
+      "title": {
+        "ru": "Пять стартапов из Узбекистана съездили на Hong Kong FinTech Week",
+        "en": "Five Uzbek startups went to Hong Kong FinTech Week",
+        "kk": "Өзбекстан стартаптары Hong Kong FinTech Week көрмесінде"
+      },
+      "lead": {
+        "ru": "IT Park привёз в Гонконг Tass Vision, OX System, Unitlab AI, Aziza AI и Qwatt — в ответ на визит Cyberport в Ташкент.",
+        "en": "IT Park brought Tass Vision, OX System, Unitlab AI, Aziza AI and Qwatt to Hong Kong, returning Cyberport's visit to Tashkent.",
+        "kk": "IT Park Гонконгқа Tass Vision, OX System, Unitlab AI, Aziza AI және Qwatt жобаларын таныстырды."
+      },
+      "body": {
+        "ru": "Что за поездка? Программа Global Landing Program 2026 от Cyberport. Это ответный визит: до этого представители Cyberport приезжали на ICT Week Uzbekistan.\n\nЧто получилось? OX System и Tass Vision выступили на питч-сессии Global Track. Обсуждали выход на рынок Гонконга, инкубацию и инвестиции, а с VOTEE AI и FCC Analytics — сотрудничество в ИИ и аналитике данных.",
+        "en": "What trip? Cyberport's Global Landing Program 2026. It was a return visit: Cyberport representatives had earlier attended ICT Week Uzbekistan.\n\nWhat came of it? OX System and Tass Vision pitched at the Global Track session. Talks covered Hong Kong market entry, incubation and investment, plus AI and data analytics cooperation with VOTEE AI and FCC Analytics.",
+        "kk": "IT Park Гонконгқа Tass Vision, OX System, Unitlab AI, Aziza AI және Qwatt жобаларын таныстырды."
+      },
+      "summary": {
+        "ru": "IT Park привёз в Гонконг Tass Vision, OX System, Unitlab AI, Aziza AI и Qwatt — в ответ на визит Cyberport в Ташкент.",
+        "en": "IT Park brought Tass Vision, OX System, Unitlab AI, Aziza AI and Qwatt to Hong Kong, returning Cyberport's visit to Tashkent.",
+        "kk": "IT Park Гонконгқа Tass Vision, OX System, Unitlab AI, Aziza AI және Qwatt жобаларын таныстырды."
+      },
+      "actions": {
+        "ru": "Изучите первоисточник и связанные возможности.",
+        "kk": "Түпнұсқаны және байланысты мүмкіндіктерді қараңыз.",
+        "en": "Read the original source and explore related opportunities."
+      },
+      "layer": "world",
+      "categoryId": "fintech",
+      "region": "UZ",
+      "tags": [
+        "финтех",
+        "венчур"
+      ],
+      "authorId": "merey",
+      "sources": [
+        {
+          "url": "https://www.it-park.uz/en/itpark/news/uzbekistan-s-startups-participate-in-hong-kong-fintech-week-and-cyberport-venture-capital-forum-2026",
+          "title": "IT Park Uzbekistan",
+          "publishedAt": "2026-11-10T00:00:00.000Z"
+        }
+      ],
+      "reviewNotes": [
+        "Development fixture from the supplied reference prototype; not a live editorial publication."
+      ],
+      "media": {
+        "url": "/demo-media/news/maps/UZ.svg",
+        "caption": "Карта: Creata News",
+        "credit": "Карта: Creata News",
+        "rights": "Development reference only; verify reuse rights before production."
+      },
+      "status": "published",
+      "revision": 1,
+      "publishedAt": "2026-11-14T16:40:24.919Z",
+      "createdAt": "2026-11-14T17:40:24.919Z",
+      "updatedAt": "2026-11-14T17:40:24.919Z",
+      "author": {
+        "id": "merey",
+        "name": "Мерей",
+        "bio": {
+          "ru": "Ведёт канбан дня и раз в неделю делает отчёт по метрикам.",
+          "en": "Runs the daily board and sends a weekly metrics report.",
+          "kk": "Creata News редакциясының авторы."
+        },
+        "role": "Выпускающий редактор",
+        "avatarUrl": ""
+      },
+      "opportunityIds": []
+    },
+    {
+      "id": "w-kenya-ai",
+      "slug": "w-kenya-ai",
+      "title": {
+        "ru": "База данных на Raspberry Pi и жестовый язык на 3D-аватарах: ИИ из Найроби",
+        "en": "A database on a Raspberry Pi and sign language on 3D avatars: AI from Nairobi",
+        "kk": "Найробидегі ЖИ: қолжетімді техника және ым тілі"
+      },
+      "lead": {
+        "ru": "На AI Everything Kenya × GITEX Kenya африканские стартапы показали ИИ, который работает на дешёвом железе и для людей, которых технологии обычно забывают.",
+        "en": "At AI Everything Kenya × GITEX Kenya, African startups showed AI that runs on cheap hardware and serves people tech usually forgets.",
+        "kk": "Кениядағы технология көрмесінде стартаптар арзан құрылғыларда жұмыс істейтін және инклюзивтілікті арттыратын ЖИ шешімдерін ұсынды."
+      },
+      "body": {
+        "ru": "Где и когда? Саммит прошёл 19 мая в Sarit Expo Centre, выставка — 20–21 мая 2026 года в KICC, Найроби. Организаторы — inD и офис спецпосланника Кении по технологиям.",
+        "en": "Where and when? The summit took place on 19 May at Sarit Expo Centre and the expo on 20–21 May 2026 at KICC, Nairobi. Organisers: inD and the Office of Kenya's Special Envoy on Technology.",
+        "kk": "Кениядағы технология көрмесінде стартаптар арзан құрылғыларда жұмыс істейтін және инклюзивтілікті арттыратын ЖИ шешімдерін ұсынды."
+      },
+      "summary": {
+        "ru": "На AI Everything Kenya × GITEX Kenya африканские стартапы показали ИИ, который работает на дешёвом железе и для людей, которых технологии обычно забывают.",
+        "en": "At AI Everything Kenya × GITEX Kenya, African startups showed AI that runs on cheap hardware and serves people tech usually forgets.",
+        "kk": "Кениядағы технология көрмесінде стартаптар арзан құрылғыларда жұмыс істейтін және инклюзивтілікті арттыратын ЖИ шешімдерін ұсынды."
+      },
+      "actions": {
+        "ru": "Изучите первоисточник и связанные возможности.",
+        "kk": "Түпнұсқаны және байланысты мүмкіндіктерді қараңыз.",
+        "en": "Read the original source and explore related opportunities."
+      },
+      "layer": "world",
+      "categoryId": "ai",
+      "region": "KE",
+      "tags": [
+        "Африка",
+        "AI",
+        "инклюзия"
+      ],
+      "authorId": "saya",
+      "sources": [
+        {
+          "url": "https://africa.com/whats-happening/african-startups-rewrite-the-ai-playbook-at-ai-everything-kenya-x-gitex-kenya-2026",
+          "title": "Africa.com",
+          "publishedAt": "2026-05-19T00:00:00.000Z"
+        }
+      ],
+      "reviewNotes": [
+        "Development fixture from the supplied reference prototype; not a live editorial publication."
+      ],
+      "media": {
+        "url": "/demo-media/news/maps/KE.svg",
+        "caption": "Карта: Creata News",
+        "credit": "Карта: Creata News",
+        "rights": "Development reference only; verify reuse rights before production."
+      },
+      "status": "published",
+      "revision": 1,
+      "publishedAt": "2026-11-14T15:40:24.919Z",
+      "createdAt": "2026-11-14T17:40:24.919Z",
+      "updatedAt": "2026-11-14T17:40:24.919Z",
+      "author": {
+        "id": "saya",
+        "name": "Сая",
+        "bio": {
+          "ru": "Готовит интервью с фаундерами и следит за согласиями героев на фото.",
+          "en": "Interviews founders and collects photo consent from the people in our stories.",
+          "kk": "Creata News редакциясының авторы."
+        },
+        "role": "Импакт и интервью",
+        "avatarUrl": ""
+      },
+      "opportunityIds": []
+    },
+    {
+      "id": "w-opin",
+      "slug": "w-opin",
+      "title": {
+        "ru": "Бразилия и Индия запустили OPIN — сеть «планетарного интеллекта»",
+        "en": "Brazil and India launch OPIN, an “open planetary intelligence” network",
+        "kk": "Бразилия мен Үндістан OPIN желісін іске қосты"
+      },
+      "lead": {
+        "ru": "Две страны предлагают Глобальному Югу общую цифровую инфраструктуру для климата: от раннего оповещения до платежей фермерам.",
+        "en": "The two countries offer the Global South shared digital infrastructure for climate: from early warnings to payments for farmers.",
+        "kk": "Екі ел климат мәселелеріне арналған ортақ цифрлық инфрақұрылымды ұсынады: ерте ескертуден фермерлерге төлем жасауға дейін."
+      },
+      "body": {
+        "ru": "Что это? Совместная инициатива Бразилии и Индии, которая использует цифровую общественную инфраструктуру (DPI) для климатических задач. Остальные страны Глобального Юга приглашают присоединиться.\n\nНа чём строится? На опыте India Stack, председательства Индии в G20 в 2023 году, Бразилии в G20 в 2024 году и COP30 в 2025 году.",
+        "en": "What is it? A joint Brazil–India initiative that uses digital public infrastructure (DPI) for climate goals. Other Global South countries are invited to join.\n\nWhat does it build on? India Stack, India's 2023 G20 presidency, Brazil's 2024 G20 presidency and COP30 in 2025.",
+        "kk": "Екі ел климат мәселелеріне арналған ортақ цифрлық инфрақұрылымды ұсынады: ерте ескертуден фермерлерге төлем жасауға дейін."
+      },
+      "summary": {
+        "ru": "Две страны предлагают Глобальному Югу общую цифровую инфраструктуру для климата: от раннего оповещения до платежей фермерам.",
+        "en": "The two countries offer the Global South shared digital infrastructure for climate: from early warnings to payments for farmers.",
+        "kk": "Екі ел климат мәселелеріне арналған ортақ цифрлық инфрақұрылымды ұсынады: ерте ескертуден фермерлерге төлем жасауға дейін."
+      },
+      "actions": {
+        "ru": "Изучите первоисточник и связанные возможности.",
+        "kk": "Түпнұсқаны және байланысты мүмкіндіктерді қараңыз.",
+        "en": "Read the original source and explore related opportunities."
+      },
+      "layer": "world",
+      "categoryId": "climate",
+      "region": "BR",
+      "tags": [
+        "климат",
+        "цифровая инфраструктура"
+      ],
+      "authorId": "saya",
+      "sources": [
+        {
+          "url": "https://cop30.br/en/news-about-cop30/following-cop30-and-the-ai-impact-summit-brazil-and-india-launch-the-open-planetary-intelligence-network-opin",
+          "title": "COP30",
+          "publishedAt": "2026-02-22T00:00:00.000Z"
+        }
+      ],
+      "reviewNotes": [
+        "Development fixture from the supplied reference prototype; not a live editorial publication."
+      ],
+      "media": {
+        "url": "/demo-media/news/maps/BR.svg",
+        "caption": "Карта: Creata News",
+        "credit": "Карта: Creata News",
+        "rights": "Development reference only; verify reuse rights before production."
+      },
+      "status": "published",
+      "revision": 1,
+      "publishedAt": "2026-11-14T14:40:24.919Z",
+      "createdAt": "2026-11-14T17:40:24.919Z",
+      "updatedAt": "2026-11-14T17:40:24.919Z",
+      "author": {
+        "id": "saya",
+        "name": "Сая",
+        "bio": {
+          "ru": "Готовит интервью с фаундерами и следит за согласиями героев на фото.",
+          "en": "Interviews founders and collects photo consent from the people in our stories.",
+          "kk": "Creata News редакциясының авторы."
+        },
+        "role": "Импакт и интервью",
+        "avatarUrl": ""
+      },
+      "opportunityIds": []
+    },
+    {
+      "id": "w-tokyo-humanoids",
+      "slug": "w-tokyo-humanoids",
+      "title": {
+        "ru": "Гуманоиды танцуют и вдевают нитку в иголку: Токио догоняет Китай",
+        "en": "Humanoids dance and thread needles: Tokyo tries to catch up with China",
+        "kk": "Токиодағы гуманоид роботтар"
+      },
+      "lead": {
+        "ru": "На Humanoids Summit Tokyo японские разработчики показали роботов для аэропортов и руку, которая вдевает нитку, а китайские — танцующего робота от $5 500.",
+        "en": "At Humanoids Summit Tokyo, Japanese developers showed airport robots and a hand that threads a needle, while Chinese firms showed a dancing robot from $5,500.",
+        "kk": "Жапон әзірлеушілері әуежайларға арналған роботтар мен инеге жіп өткізетін робот қолын көрсетті."
+      },
+      "body": {
+        "ru": "Зачем Японии роботы? Чтобы закрыть нехватку рабочих рук — например, в аэропортах.",
+        "en": "Why does Japan need robots? To fill labour shortages, for example at airports.",
+        "kk": "Жапон әзірлеушілері әуежайларға арналған роботтар мен инеге жіп өткізетін робот қолын көрсетті."
+      },
+      "summary": {
+        "ru": "На Humanoids Summit Tokyo японские разработчики показали роботов для аэропортов и руку, которая вдевает нитку, а китайские — танцующего робота от $5 500.",
+        "en": "At Humanoids Summit Tokyo, Japanese developers showed airport robots and a hand that threads a needle, while Chinese firms showed a dancing robot from $5,500.",
+        "kk": "Жапон әзірлеушілері әуежайларға арналған роботтар мен инеге жіп өткізетін робот қолын көрсетті."
+      },
+      "actions": {
+        "ru": "Изучите первоисточник и связанные возможности.",
+        "kk": "Түпнұсқаны және байланысты мүмкіндіктерді қараңыз.",
+        "en": "Read the original source and explore related opportunities."
+      },
+      "layer": "world",
+      "categoryId": "robotics",
+      "region": "JP",
+      "tags": [
+        "роботы",
+        "Азия"
+      ],
+      "authorId": "zarina",
+      "sources": [
+        {
+          "url": "https://www.ksl.com/article/51503542/humanoids-dance-and-thread-needles-as-japanese-robotics-developers-look-to-outdo-chinese",
+          "title": "Associated Press / KSL.com",
+          "publishedAt": "2026-05-29T00:00:00.000Z"
+        }
+      ],
+      "reviewNotes": [
+        "Development fixture from the supplied reference prototype; not a live editorial publication."
+      ],
+      "media": {
+        "url": "/demo-media/news/maps/JP.svg",
+        "caption": "Карта: Creata News",
+        "credit": "Карта: Creata News",
+        "rights": "Development reference only; verify reuse rights before production."
+      },
+      "status": "published",
+      "revision": 1,
+      "publishedAt": "2026-11-14T13:40:24.919Z",
+      "createdAt": "2026-11-14T17:40:24.919Z",
+      "updatedAt": "2026-11-14T17:40:24.919Z",
+      "author": {
+        "id": "zarina",
+        "name": "Зарина",
+        "bio": {
+          "ru": "Собирает еженедельную подборку «Неделя в Creata».",
+          "en": "Puts together the weekly “Week at Creata” roundup.",
+          "kk": "Creata News редакциясының авторы."
+        },
+        "role": "Редактор: STEM и EdTech",
+        "avatarUrl": ""
+      },
+      "opportunityIds": []
+    },
+    {
+      "id": "a-vahta",
+      "slug": "vahta-airankol",
+      "title": {
+        "ru": "Две недели на вахте: как живут нефтяники Айранколя",
+        "en": "Two weeks on shift: life at the Airankol oil field",
+        "kk": "Айранкөл мұнайшыларының вахтадағы өмірі"
+      },
+      "lead": {
+        "ru": "Завтрак в три ночи, алкотест перед сменой и трубы на 1 400 метров вниз. Пересказываем фоторепортаж Forbes.kz о том, как устроена вахта на месторождении в Атырауской области.",
+        "en": "Breakfast at 3 a.m., a breathalyser before every shift and pipes lowered 1,400 metres down. A retelling of Forbes.kz's photo report from an oil field in Atyrau region.",
+        "kk": "Forbes.kz фоторепортажы Атырау облысындағы кен орнында жұмыс пен тұрмыстың қалай ұйымдастырылғанын көрсетеді."
+      },
+      "body": {
+        "ru": "Где это? Месторождение Айранколь в Атырауской области, его разрабатывает компания «Каспий нефть». Работа идёт в две смены, в каждой около 110 человек. Раньше вахта длилась 15 дней, теперь 14.\n\nКак начинается день? Кухня включается в три часа ночи, рабочий день стартует в 7:30. Живут в вахтовом городке: пять общежитий, в одном из них 20 комнат. Питание бесплатное.\n\nПеред сменой врач меряет давление и пульс и проводит алкотест. Часть контроля уже автоматизирована: электронная система медосмотров (ЭСМО) фиксирует результаты без бумажных журналов.\n\nКорреспондент Forbes.kz застала капитальный подземный ремонт скважины №2. Трубы опускают на глубину 1 400 метров, и только этот этап занимает пять–шесть часов. Оператор центра управления следит за процессом в реальном времени.\n\nПрежде чем нефть уйдёт в трубопровод «КазТрансОйла», лаборатория проверяет серу, вязкость, соль и плотность. Дважды в год, в марте и сентябре, на месторождении проводят спартакиады и интеллектуальные игры.",
+        "en": "Where is this? The Airankol field in Atyrau region, operated by Caspiy Neft. Work runs in two shifts of about 110 people each. A rotation used to last 15 days; now it is 14.\n\nHow does the day start? The kitchen opens at 3 a.m. and the working day begins at 7:30. Workers live in a camp of five dormitories; one of them has 20 rooms. Meals are free.\n\nBefore each shift a doctor checks blood pressure and pulse and runs a breathalyser test. Part of this is already automated: an electronic medical check system records the results without paper logs.\n\nThe Forbes.kz reporter arrived during a major underground repair of well No. 2. Pipes are lowered 1,400 metres down, and that stage alone takes five to six hours. An operator in the control centre watches the process in real time.\n\nBefore the oil goes into the KazTransOil pipeline, a lab checks it for sulphur, viscosity, salt and density. Twice a year, in March and September, the field holds sports days and quiz games.",
+        "kk": "Forbes.kz фоторепортажы Атырау облысындағы кен орнында жұмыс пен тұрмыстың қалай ұйымдастырылғанын көрсетеді."
+      },
+      "summary": {
+        "ru": "Завтрак в три ночи, алкотест перед сменой и трубы на 1 400 метров вниз. Пересказываем фоторепортаж Forbes.kz о том, как устроена вахта на месторождении в Атырауской области.",
+        "en": "Breakfast at 3 a.m., a breathalyser before every shift and pipes lowered 1,400 metres down. A retelling of Forbes.kz's photo report from an oil field in Atyrau region.",
+        "kk": "Forbes.kz фоторепортажы Атырау облысындағы кен орнында жұмыс пен тұрмыстың қалай ұйымдастырылғанын көрсетеді."
+      },
+      "actions": {
+        "ru": "Изучите первоисточник и связанные возможности.",
+        "kk": "Түпнұсқаны және байланысты мүмкіндіктерді қараңыз.",
+        "en": "Read the original source and explore related opportunities."
+      },
+      "layer": "world",
+      "categoryId": "climate",
+      "region": "KZ",
+      "tags": [
+        "энергетика",
+        "профессии",
+        "репортаж"
+      ],
+      "authorId": "tamiris",
+      "sources": [
+        {
+          "url": "https://forbes.kz/articles/zhizn-na-vahte-kak-rabotayut-neftyaniki-kazahstana",
+          "title": "Forbes.kz",
+          "publishedAt": "2024-09-02T00:00:00.000Z"
+        }
+      ],
+      "reviewNotes": [
+        "Development fixture from the supplied reference prototype; not a live editorial publication."
+      ],
+      "media": {
+        "url": "/demo-media/news/photos/vahta-1.jpg",
+        "caption": "Фото: Карлыгаш Нуржан / Forbes.kz",
+        "credit": "Фото: Карлыгаш Нуржан / Forbes.kz",
+        "rights": "Development reference only; verify reuse rights before production."
+      },
+      "status": "published",
+      "revision": 1,
+      "publishedAt": "2026-11-14T12:40:24.919Z",
+      "createdAt": "2026-11-14T17:40:24.919Z",
+      "updatedAt": "2026-11-14T17:40:24.919Z",
+      "author": {
+        "id": "tamiris",
+        "name": "Тамирис",
+        "bio": {
+          "ru": "Пишет репортажи с событий и проверяет статьи вертикали.",
+          "en": "Reports from events and edits stories in her vertical.",
+          "kk": "Creata News редакциясының авторы."
+        },
+        "role": "Редактор: креативные индустрии и гейминг",
+        "avatarUrl": ""
+      },
+      "opportunityIds": []
+    },
+    {
+      "id": "a-akku",
+      "slug": "akku-vtoraya-zhizn",
+      "title": {
+        "ru": "«Аққу» вернётся. Каким его хотят видеть алматинцы",
+        "en": "Akku café is coming back. What Almaty residents want it to be",
+        "kk": "Алматыдағы «Аққу» кафесінің болашағы"
+      },
+      "lead": {
+        "ru": "Кафе у пруда с лебедями полвека было местом встреч писателей, художников и студентов. Его реконструируют, и Zakon.kz спросил горожан, каким должно стать новое «Аққу».",
+        "en": "For half a century the café by the swan pond was where writers, artists and students met. It is being rebuilt, and Zakon.kz asked residents what the new Akku should be.",
+        "kk": "Жазушылар, суретшілер мен студенттер кездескен тарихи кафе қайта жаңғыртылуда. Қала тұрғындары оның болашағын талқылайды."
+      },
+      "body": {
+        "ru": "Что это за место? Кафе «Аққу» в Алматы стояло рядом с Союзом писателей и Театрально-художественным институтом. Около полувека сюда приходили поэты, художники, студенты КазГУ. По словам Аскара Сулейменова, Мукагали Макатаев каждый день записывал здесь мысли в блокнот.\n\nАрхитектурный взгляд: Ержан Сулейменов предлагает лёгкий летний павильон, экологичное здание и обсуждение проекта с горожанами. Еркин Сулейменов — скидки до 18:00 для студентов, семей и пенсионеров.\n\nОдна деталь из воспоминаний: в «Аққу» никогда не продавали алкоголь. Зауреш Кубекова вспоминает, как во время беременности заказала здесь десять шашлыков. По её словам, на нулевом этаже нового проекта разместят кухню и склад.",
+        "en": "What is this place? The Akku café in Almaty stood next to the Writers' Union and the Theatre and Art Institute. For about half a century poets, artists and Kazakh State University students came here. According to Askar Suleimenov, Mukagali Makatayev wrote down his thoughts in a notebook here every day.\n\nAn architect's view: Yerzhan Suleimenov proposes a light summer pavilion, an eco-friendly building and a public discussion of the design. Yerkin Suleimenov suggests discounts before 6 p.m. for students, families and pensioners.\n\nOne detail from the memories: Akku never sold alcohol. Zauresh Kubekova recalls ordering ten skewers of shashlik here when she was pregnant. She says the ground floor of the new building will house the kitchen and storage.",
+        "kk": "Жазушылар, суретшілер мен студенттер кездескен тарихи кафе қайта жаңғыртылуда. Қала тұрғындары оның болашағын талқылайды."
+      },
+      "summary": {
+        "ru": "Кафе у пруда с лебедями полвека было местом встреч писателей, художников и студентов. Его реконструируют, и Zakon.kz спросил горожан, каким должно стать новое «Аққу».",
+        "en": "For half a century the café by the swan pond was where writers, artists and students met. It is being rebuilt, and Zakon.kz asked residents what the new Akku should be.",
+        "kk": "Жазушылар, суретшілер мен студенттер кездескен тарихи кафе қайта жаңғыртылуда. Қала тұрғындары оның болашағын талқылайды."
+      },
+      "actions": {
+        "ru": "Изучите первоисточник и связанные возможности.",
+        "kk": "Түпнұсқаны және байланысты мүмкіндіктерді қараңыз.",
+        "en": "Read the original source and explore related opportunities."
+      },
+      "layer": "world",
+      "categoryId": "cities",
+      "region": "KZ",
+      "tags": [
+        "Алматы",
+        "городская среда",
+        "культура"
+      ],
+      "authorId": "aruzhan",
+      "sources": [
+        {
+          "url": "https://www.zakon.kz/stati/6439769-vtoraya-zhizn-au-chto-dumayut-zhiteli-o-vosstanovlenii-kultovogo-mesta-vstrech-intelligentsii.html",
+          "title": "Zakon.kz",
+          "publishedAt": "2024-06-29T00:00:00.000Z"
+        }
+      ],
+      "reviewNotes": [
+        "Development fixture from the supplied reference prototype; not a live editorial publication."
+      ],
+      "media": {
+        "url": "/demo-media/news/photos/akku-1.jpg",
+        "caption": "Фото: Zakon.kz",
+        "credit": "Фото: Zakon.kz",
+        "rights": "Development reference only; verify reuse rights before production."
+      },
+      "status": "published",
+      "revision": 1,
+      "publishedAt": "2026-11-14T11:40:24.919Z",
+      "createdAt": "2026-11-14T17:40:24.919Z",
+      "updatedAt": "2026-11-14T17:40:24.919Z",
+      "author": {
+        "id": "aruzhan",
+        "name": "Аружан",
+        "bio": {
+          "ru": "Пишет 1–2 больших материала в неделю.",
+          "en": "Writes one or two big features a week.",
+          "kk": "Creata News редакциясының авторы."
+        },
+        "role": "Лонгриды",
+        "avatarUrl": ""
+      },
+      "opportunityIds": []
+    },
+    {
+      "id": "a-mosques",
+      "slug": "mecheti-almaty",
+      "title": {
+        "ru": "От дирхема до минарета: 800 лет мечетей Алматы",
+        "en": "From a dirham to a minaret: 800 years of Almaty's mosques",
+        "kk": "Алматы мешіттерінің сегіз ғасырлық тарихы"
+      },
+      "lead": {
+        "ru": "Самое раннее письменное упоминание города — надпись на монете 1285 года. BES.media проследил, как менялись мечети Алматы от средневекового городища до комплекса на 20 000 человек.",
+        "en": "The earliest written mention of the city is on a coin from 1285. BES.media traced how Almaty's mosques changed from a medieval settlement to a complex for 20,000 people.",
+        "kk": "BES.media Алматы мешіттерінің ортағасырлық қалашықтан қазіргі ірі кешендерге дейінгі өзгерісін зерттеді."
+      },
+      "body": {
+        "ru": "С чего всё начинается? С кузницы. В 1978 году археологи нашли при раскопках городища IX–XIII веков дирхем 1285 года. На нём выбито «балад Алмату» — это самое раннее известное письменное упоминание города.\n\n6 декабря 2024 года несколько десятков прихожан Центральной мечети не поместились во дворе и вышли на проезжую часть улицы Маншук Маметовой — движение встало. Новый комплекс, который неофициально называют «Кулибаевской мечетью», рассчитан на 13 500 м² ковра и парковку на 1 100 машин.\n\nАвторы проекта Центральной мечети — архитекторы С. Баймагамбетов, Ж. Шарапиев и К. Жарылганов. Купол — 20 метров в диаметре и 36 в высоту.",
+        "en": "Where does it begin? With a forge. In 1978 archaeologists excavating a 9th–13th century settlement found a dirham from 1285. It is stamped “balad Almatu”, the earliest known written mention of the city.\n\nOn 6 December 2024 several dozen worshippers at the Central Mosque could not fit in the courtyard and stepped onto Manshuk Mametova Street, stopping traffic. The new complex, unofficially called the “Kulibayev mosque”, is designed for 13,500 m² of carpet and parking for 1,100 cars.\n\nThe Central Mosque was designed by architects S. Baimagambetov, Zh. Sharapiyev and K. Zharylganov. Its dome is 20 metres across and 36 metres high.",
+        "kk": "BES.media Алматы мешіттерінің ортағасырлық қалашықтан қазіргі ірі кешендерге дейінгі өзгерісін зерттеді."
+      },
+      "summary": {
+        "ru": "Самое раннее письменное упоминание города — надпись на монете 1285 года. BES.media проследил, как менялись мечети Алматы от средневекового городища до комплекса на 20 000 человек.",
+        "en": "The earliest written mention of the city is on a coin from 1285. BES.media traced how Almaty's mosques changed from a medieval settlement to a complex for 20,000 people.",
+        "kk": "BES.media Алматы мешіттерінің ортағасырлық қалашықтан қазіргі ірі кешендерге дейінгі өзгерісін зерттеді."
+      },
+      "actions": {
+        "ru": "Изучите первоисточник и связанные возможности.",
+        "kk": "Түпнұсқаны және байланысты мүмкіндіктерді қараңыз.",
+        "en": "Read the original source and explore related opportunities."
+      },
+      "layer": "world",
+      "categoryId": "creative",
+      "region": "KZ",
+      "tags": [
+        "архитектура",
+        "история города",
+        "Алматы"
+      ],
+      "authorId": "zarina",
+      "sources": [
+        {
+          "url": "https://bes.media/news/ot-dirhema-do-minareta-kak-menyalsya-oblik-mechetey-almati-s-xii-veka-dfa233/",
+          "title": "BES.media",
+          "publishedAt": "2025-02-21T00:00:00.000Z"
+        }
+      ],
+      "reviewNotes": [
+        "Development fixture from the supplied reference prototype; not a live editorial publication."
+      ],
+      "media": {
+        "url": "/demo-media/news/photos/mosques-1.jpg",
+        "caption": "Фото: BES.media",
+        "credit": "Фото: BES.media",
+        "rights": "Development reference only; verify reuse rights before production."
+      },
+      "status": "published",
+      "revision": 1,
+      "publishedAt": "2026-11-14T10:40:24.919Z",
+      "createdAt": "2026-11-14T17:40:24.919Z",
+      "updatedAt": "2026-11-14T17:40:24.919Z",
+      "author": {
+        "id": "zarina",
+        "name": "Зарина",
+        "bio": {
+          "ru": "Собирает еженедельную подборку «Неделя в Creata».",
+          "en": "Puts together the weekly “Week at Creata” roundup.",
+          "kk": "Creata News редакциясының авторы."
+        },
+        "role": "Редактор: STEM и EdTech",
+        "avatarUrl": ""
+      },
+      "opportunityIds": []
+    },
+    {
+      "id": "demo-creative-teams",
+      "slug": "demo-creative-teams",
+      "title": {
+        "ru": "Демо: от идеи к первому проекту",
+        "kk": "Демо: идеядан алғашқы жобаға дейін",
+        "en": "Demo: from idea to first project"
+      },
+      "lead": {
+        "ru": "Пример интерактивного графика на условных данных.",
+        "kk": "Шартты деректерге негізделген интерактивті график үлгісі.",
+        "en": "An interactive chart using fictional sample data."
+      },
+      "body": {
+        "ru": "Все значения условные и используются для демонстрации интерфейса.",
+        "kk": "Барлық мәндер шартты және интерфейсті көрсету үшін берілген.",
+        "en": "All values are fictional and used to demonstrate the interface."
+      },
+      "summary": {
+        "ru": "Основатели аутсорс-компании Udevs вложили около $300 тысяч собственных денег в платформу для разработчиков и вышли на рынок США.",
+        "en": "The founders of outsourcing firm Udevs put about $300,000 of their own money into a developer platform and entered the US market.",
+        "kk": "Udevs негізін қалаушылар әзірлеушілерге арналған платформаға өз қаражатынан шамамен 300 мың доллар инвестиция салып, АҚШ нарығына шықты."
+      },
+      "actions": {
+        "ru": "Изучите первоисточник и связанные возможности.",
+        "kk": "Түпнұсқаны және байланысты мүмкіндіктерді қараңыз.",
+        "en": "Read the original source and explore related opportunities."
+      },
+      "layer": "world",
+      "categoryId": "ai",
+      "region": "UZ",
+      "tags": [
+        "AI",
+        "стартапы",
+        "Центральная Азия"
+      ],
+      "authorId": "merey",
+      "sources": [
+        {
+          "url": "https://digitalbusiness.kz/en/2026-10-05/uzbekistantsi-vlozhili-300-tisyach-v-ii-servis-dlya-razrabotchikov-i-vishli-na-rinok-ssha/",
+          "title": "DigitalBusiness.kz",
+          "publishedAt": "2026-10-05T00:00:00.000Z"
+        }
+      ],
+      "reviewNotes": [
+        "Development fixture from the supplied reference prototype; not a live editorial publication."
+      ],
+      "media": {
+        "url": "/demo-media/news/maps/UZ.svg",
+        "caption": "Карта: Creata News",
+        "credit": "Карта: Creata News",
+        "rights": "Development reference only; verify reuse rights before production."
+      },
+      "status": "published",
+      "revision": 1,
+      "publishedAt": "2026-11-14T17:40:24.919Z",
+      "createdAt": "2026-11-14T17:40:24.919Z",
+      "updatedAt": "2026-11-14T17:40:24.919Z",
+      "author": {
+        "id": "merey",
+        "name": "Мерей",
+        "bio": {
+          "ru": "Ведёт канбан дня и раз в неделю делает отчёт по метрикам.",
+          "en": "Runs the daily board and sends a weekly metrics report.",
+          "kk": "Creata News редакциясының авторы."
+        },
+        "role": "Выпускающий редактор",
+        "avatarUrl": ""
+      },
+      "opportunityIds": [
+        "o-designthon",
+        "o-creative-start"
+      ],
+      "format": "graphic",
+      "graphicSection": "technology",
+      "graphic": {
+        "type": "bar",
+        "labels": [
+          {
+            "ru": "Идея",
+            "kk": "Идея",
+            "en": "Idea"
+          },
+          {
+            "ru": "Прототип",
+            "kk": "Прототип",
+            "en": "Prototype"
+          },
+          {
+            "ru": "Первый запуск",
+            "kk": "Алғашқы іске қосу",
+            "en": "First launch"
+          },
+          {
+            "ru": "Развитие",
+            "kk": "Даму",
+            "en": "Growth"
+          }
+        ],
+        "series": [
+          {
+            "name": {
+              "ru": "Демо-команды",
+              "kk": "Демо-командалар",
+              "en": "Demo teams"
+            },
+            "values": [
+              120,
+              85,
+              48,
+              32
+            ]
+          }
+        ],
+        "sourceUrl": "https://example.org/",
+        "sourceName": "Creata demo data",
+        "unit": "teams",
+        "period": "2026",
+        "verified": false,
+        "methodology": {
+          "ru": "Условный набор для проверки графика, не исследование.",
+          "kk": "Графикті тексеруге арналған шартты деректер.",
+          "en": "Fictional data for testing the chart, not research."
+        }
+      }
+    }
+  ],
+  "opportunities": [
+    {
+      "id": "o-designthon",
+      "title": {
+        "ru": "Designthon: дизайн-марафон TransforNATION",
+        "en": "Designthon: TransforNATION design marathon",
+        "kk": "Designthon: TransforNATION дизайн марафоны"
+      },
+      "description": {
+        "ru": "Команды до 4 человек, финал офлайн.",
+        "en": "Teams of up to 4, offline final.",
+        "kk": "Төрт адамға дейінгі командалар. Финал офлайн өтеді."
+      },
+      "organization": "TransforNATION",
+      "type": "contest",
+      "url": "https://example.org/#creata-demo-o-designthon",
+      "country": "KZ",
+      "deadline": "2026-11-28T17:40:24.919Z",
+      "status": "approved",
+      "categoryId": "creative",
+      "photo": "/demo-media/news/photos/c48.jpg",
+      "forWhom": {
+        "ru": "Студенты и молодые дизайнеры",
+        "en": "Students and young designers",
+        "kk": "Студенттер мен жас дизайнерлер"
+      },
+      "languages": [
+        "ru",
+        "kk",
+        "en"
+      ],
+      "photoRights": {
+        "credit": "Creata prototype",
+        "rights": "Demo reference"
+      },
+      "needsRightsReview": true
+    },
+    {
+      "id": "o-creative-start",
+      "title": {
+        "ru": "Creative Start: первый проект в креативных индустриях",
+        "en": "Creative Start: your first project in the creative industries",
+        "kk": "Creative Start: креативті индустриялардағы алғашқы жоба"
+      },
+      "description": {
+        "ru": "Онлайн-заявка, менторы из индустрии.",
+        "en": "Online application, mentors from the industry.",
+        "kk": "Онлайн өтінім және индустрия тәлімгерлері."
+      },
+      "organization": "TransforNATION",
+      "type": "program",
+      "url": "https://example.org/#creata-demo-o-creative-start",
+      "country": "KZ",
+      "deadline": "2026-12-05T17:40:24.919Z",
+      "status": "approved",
+      "categoryId": "creative",
+      "photo": "/demo-media/news/photos/c113.jpg",
+      "forWhom": {
+        "ru": "Школьники старших классов и студенты",
+        "en": "High-school and university students",
+        "kk": "Жоғары сынып оқушылары мен студенттер"
+      },
+      "languages": [
+        "ru",
+        "kk",
+        "en"
+      ],
+      "photoRights": {
+        "credit": "Creata prototype",
+        "rights": "Demo reference"
+      },
+      "needsRightsReview": true
+    },
+    {
+      "id": "o-gamejam",
+      "title": {
+        "ru": "Геймджем Creata Games: игра за 48 часов",
+        "en": "Creata Games jam: a game in 48 hours",
+        "kk": "Creata Games геймджемі: 48 сағатта ойын жасау"
+      },
+      "description": {
+        "ru": "Можно одному или командой.",
+        "en": "Solo or as a team.",
+        "kk": "Жеке немесе командамен қатысуға болады."
+      },
+      "organization": "Creata Games",
+      "type": "hackathon",
+      "url": "https://example.org/#creata-demo-o-gamejam",
+      "country": "Online",
+      "deadline": "2026-12-12T17:40:24.919Z",
+      "status": "approved",
+      "categoryId": "eco-games",
+      "photo": "/demo-media/news/photos/c28.jpg",
+      "forWhom": {
+        "ru": "Разработчики, художники, геймдизайнеры",
+        "en": "Developers, artists, game designers",
+        "kk": "Әзірлеушілер, суретшілер және ойын дизайнерлері"
+      },
+      "languages": [
+        "ru",
+        "kk",
+        "en"
+      ],
+      "photoRights": {
+        "credit": "Creata prototype",
+        "rights": "Demo reference"
+      },
+      "needsRightsReview": true
+    },
+    {
+      "id": "o-academy",
+      "title": {
+        "ru": "Стажёр в Creata Academy",
+        "en": "Intern at Creata Academy",
+        "kk": "Creata Academy тағылымдамасы"
+      },
+      "description": {
+        "ru": "8–11 часов в неделю.",
+        "en": "8–11 hours a week.",
+        "kk": "Аптасына 8–11 сағат."
+      },
+      "organization": "Creata Lab",
+      "type": "internship",
+      "url": "https://example.org/#creata-demo-o-academy",
+      "country": "KZ",
+      "deadline": "2026-12-19T17:40:24.919Z",
+      "status": "approved",
+      "categoryId": "edtech",
+      "photo": "/demo-media/news/photos/c105.jpg",
+      "forWhom": {
+        "ru": "Студенты EdTech и педагогики",
+        "en": "EdTech and pedagogy students",
+        "kk": "EdTech және педагогика студенттері"
+      },
+      "languages": [
+        "ru",
+        "kk",
+        "en"
+      ],
+      "photoRights": {
+        "credit": "Creata prototype",
+        "rights": "Demo reference"
+      },
+      "needsRightsReview": true
+    },
+    {
+      "id": "o-stem-week",
+      "title": {
+        "ru": "Invent Future Global: грант на STEM-проект",
+        "en": "Invent Future Global: a grant for a STEM project",
+        "kk": "Invent Future Global: STEM жобасына грант"
+      },
+      "description": {
+        "ru": "Прототип и видео-питч на 2 минуты.",
+        "en": "A prototype and a 2-minute video pitch.",
+        "kk": "Прототип және екі минуттық бейне таныстырылым."
+      },
+      "organization": "TransforNATION",
+      "type": "grant",
+      "url": "https://example.org/#creata-demo-o-stem-week",
+      "country": "Worldwide",
+      "deadline": "2026-12-26T17:40:24.919Z",
+      "status": "approved",
+      "categoryId": "stem",
+      "photo": "/demo-media/news/photos/c112.jpg",
+      "forWhom": {
+        "ru": "Команды школьников и студентов",
+        "en": "School and student teams",
+        "kk": "Оқушылар мен студенттер командалары"
+      },
+      "languages": [
+        "ru",
+        "kk",
+        "en"
+      ],
+      "photoRights": {
+        "credit": "Creata prototype",
+        "rights": "Demo reference"
+      },
+      "needsRightsReview": true
+    }
+  ],
+  "launches": [
+    {
+      "id": "demo-atlas-studio",
+      "slug": "atlas-studio",
+      "name": "Atlas Studio",
+      "categoryId": "creative",
+      "tagline": {
+        "ru": "Рабочее пространство для креативных команд",
+        "kk": "Креативті командаларға арналған жұмыс кеңістігі",
+        "en": "A workspace for creative teams"
+      },
+      "description": {
+        "ru": "Демонстрационный проект Atlas Studio. Здесь можно посмотреть продукт, поддержать идею и попробовать обсуждение.",
+        "kk": "Atlas Studio — үлгі жоба. Өнімді қарап, идеяны қолдап, пікір қалдырып көріңіз.",
+        "en": "Atlas Studio is a fictional demo project. Explore the product, upvote the idea and try the discussion."
+      },
+      "team": {
+        "ru": "Демо-команда Creata",
+        "kk": "Creata демо-командасы",
+        "en": "Creata demo team"
+      },
+      "url": "https://example.org/",
+      "launchDate": "2026-11-14",
+      "country": "KZ",
+      "photo": "/demo-media/news/photos/c48.jpg",
+      "status": "published",
+      "revision": 1,
+      "createdAt": "2026-11-14T17:40:24.919Z",
+      "updatedAt": "2026-11-14T17:40:24.919Z",
+      "votes": 12,
+      "commentsCount": 0,
+      "tags": [
+        "Demo",
+        "Creata"
+      ]
+    },
+    {
+      "id": "demo-steppe-learn",
+      "slug": "steppe-learn",
+      "name": "Steppe Learn",
+      "categoryId": "edtech",
+      "tagline": {
+        "ru": "Короткие уроки и первые проекты",
+        "kk": "Қысқа сабақтар мен алғашқы жобалар",
+        "en": "Short lessons and first projects"
+      },
+      "description": {
+        "ru": "Демонстрационный проект Steppe Learn. Здесь можно посмотреть продукт, поддержать идею и попробовать обсуждение.",
+        "kk": "Steppe Learn — үлгі жоба. Өнімді қарап, идеяны қолдап, пікір қалдырып көріңіз.",
+        "en": "Steppe Learn is a fictional demo project. Explore the product, upvote the idea and try the discussion."
+      },
+      "team": {
+        "ru": "Демо-команда Creata",
+        "kk": "Creata демо-командасы",
+        "en": "Creata demo team"
+      },
+      "url": "https://example.org/",
+      "launchDate": "2026-11-14",
+      "country": "KZ",
+      "photo": "/demo-media/news/photos/c113.jpg",
+      "status": "published",
+      "revision": 1,
+      "createdAt": "2026-11-14T17:40:24.919Z",
+      "updatedAt": "2026-11-14T17:40:24.919Z",
+      "votes": 21,
+      "commentsCount": 0,
+      "tags": [
+        "Demo",
+        "Creata"
+      ]
+    },
+    {
+      "id": "demo-orbit-data",
+      "slug": "orbit-data",
+      "name": "Orbit Data",
+      "categoryId": "ai",
+      "tagline": {
+        "ru": "Сложные данные — понятные истории",
+        "kk": "Күрделі деректер — түсінікті оқиғалар",
+        "en": "Complex data, clear stories"
+      },
+      "description": {
+        "ru": "Демонстрационный проект Orbit Data. Здесь можно посмотреть продукт, поддержать идею и попробовать обсуждение.",
+        "kk": "Orbit Data — үлгі жоба. Өнімді қарап, идеяны қолдап, пікір қалдырып көріңіз.",
+        "en": "Orbit Data is a fictional demo project. Explore the product, upvote the idea and try the discussion."
+      },
+      "team": {
+        "ru": "Демо-команда Creata",
+        "kk": "Creata демо-командасы",
+        "en": "Creata demo team"
+      },
+      "url": "https://example.org/",
+      "launchDate": "2026-11-14",
+      "country": "KZ",
+      "photo": "/demo-media/news/photos/c28.jpg",
+      "status": "published",
+      "revision": 1,
+      "createdAt": "2026-11-14T17:40:24.919Z",
+      "updatedAt": "2026-11-14T17:40:24.919Z",
+      "votes": 30,
+      "commentsCount": 0,
+      "tags": [
+        "Demo",
+        "Creata"
+      ]
+    },
+    {
+      "id": "demo-green-route",
+      "slug": "green-route",
+      "name": "Green Route",
+      "categoryId": "cities",
+      "tagline": {
+        "ru": "Новый взгляд на городские маршруты",
+        "kk": "Қалалық бағыттарға жаңа көзқарас",
+        "en": "A fresh view of city routes"
+      },
+      "description": {
+        "ru": "Демонстрационный проект Green Route. Здесь можно посмотреть продукт, поддержать идею и попробовать обсуждение.",
+        "kk": "Green Route — үлгі жоба. Өнімді қарап, идеяны қолдап, пікір қалдырып көріңіз.",
+        "en": "Green Route is a fictional demo project. Explore the product, upvote the idea and try the discussion."
+      },
+      "team": {
+        "ru": "Демо-команда Creata",
+        "kk": "Creata демо-командасы",
+        "en": "Creata demo team"
+      },
+      "url": "https://example.org/",
+      "launchDate": "2026-11-14",
+      "country": "KZ",
+      "photo": "/demo-media/news/photos/c105.jpg",
+      "status": "published",
+      "revision": 1,
+      "createdAt": "2026-11-14T17:40:24.919Z",
+      "updatedAt": "2026-11-14T17:40:24.919Z",
+      "votes": 39,
+      "commentsCount": 0,
+      "tags": [
+        "Demo",
+        "Creata"
+      ]
+    }
+  ]
+}

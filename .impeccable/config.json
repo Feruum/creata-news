@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "border-accent-on-rounded",
+        "value": "*",
+        "files": [
+          "creatanews/src/features/opportunities/prototype-card.css"
+        ],
+        "createdAt": "2026-11-14T15:45:24.583Z",
+        "reason": "Codex: false positive in extracted utility CSS; border-t-2 belongs to a square section heading, while rounded opportunity cards use a separate 1px theme border."
+      }
+    ]
+  }
+}

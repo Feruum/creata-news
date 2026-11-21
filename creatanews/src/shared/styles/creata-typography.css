@@ -1,0 +1,7 @@
+/* Typography from the supplied Creata reference, shared with both admin apps. */
+body,.app-shell{font-family:var(--creata-font)}
+.app-shell :is(.eyebrow,.card-kicker,.card-meta,.deadline,.menu-explore-grid h3,.opportunity-detail,.newsletter-copy,.newsletter-copy p){font-family:var(--creata-font)}
+.prototype-opportunity-scope{font-family:var(--creata-font)}
+.prototype-opportunity-scope :is(.font-serif,.font-mono){font-family:var(--creata-font)}
+.app-shell :is(h1,h2,h3,h4,h5,h6),.prototype-opportunity-scope .h-title{font-family:var(--creata-display)}
+.newspaper-issue{--f-display:var(--creata-display);--f-body:var(--creata-font);--f-label:var(--creata-font)}

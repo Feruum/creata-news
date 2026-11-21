@@ -1,0 +1,781 @@
+{
+  "createdOn": "2026-10-26",
+  "kind": "Original AI-generated concept scenes inspired by two user-provided lo-fi pixel-art video references, with deterministic ambient animation. Imagined environments, not actual campus locations or official branding.",
+  "generator": "scripts/generate-volunteer-variations.py",
+  "animation": {
+    "width": 640,
+    "height": 280,
+    "logicalWidth": 320,
+    "logicalHeight": 140,
+    "fps": 20,
+    "frames": 128,
+    "durationMs": 6400,
+    "loop": "infinite"
+  },
+  "designs": [
+    {
+      "id": "aquarium-quiet",
+      "number": 1,
+      "name": "Aquarium Quiet",
+      "scene": "Dark plant-filled lounge with a reading chair left and a large aquarium right. Empty water, no fish yet.",
+      "motion": "fish",
+      "color": "#efa9c6",
+      "area": [
+        165,
+        28,
+        130,
+        50
+      ],
+      "description": {
+        "ru": "Растения, тишина и медленная жизнь аквариума.",
+        "kk": "Өсімдіктер, тыныштық және аквариумның баяу тіршілігі.",
+        "en": "Plants, quiet and slow aquarium life."
+      },
+      "source": "content/volunteer-banner-art/aquarium-quiet.png",
+      "gif": "/teams/variations/aquarium-quiet.gif",
+      "still": "/teams/variations/aquarium-quiet.png",
+      "video": "/teams/variations/aquarium-quiet.mp4",
+      "sha256": {
+        "source": "04062505783bc7a9454ae2519cfa82bd99161a4eca1d8b694a7beb62a4ebc4b8",
+        "gif": "c25cabf85e2bd615020c055d081ec49da2baafece4f38616202858c097c81d1e",
+        "still": "7bf565fdf848aac8f85988e35392c30f3eab849eef63f1a916f1063276aac2f7",
+        "video": "72efa93aabf1a9e7782b1372b93c8360764d991f32788e6e6275151e9826c37d"
+      },
+      "bytes": {
+        "gif": 105588,
+        "still": 40550,
+        "video": 84551
+      },
+      "generation": {
+        "originalFile": "exec-b93c216b-a5f4-403e-be77-27dafecb7137.png",
+        "prompt": "Original dark plant-filled lounge, chair on left, empty glowing aquarium on right; coarse lo-fi pixel art inspired by the supplied video frames."
+      }
+    },
+    {
+      "id": "moss-terminal",
+      "number": 2,
+      "name": "Moss Terminal",
+      "scene": "An original discarded rounded computer terminal resting in oversized moss and grass, slate shell with orange panel, one BLANK front-facing rectangular dark cyan screen at x=42%-68%,y=36%-68%. Cables left. Dark plum forest and cyan glow. No person.",
+      "motion": "screen",
+      "color": "#80d9e7",
+      "area": [
+        173,
+        54,
+        35,
+        22
+      ],
+      "description": {
+        "ru": "Забытый терминал оживает среди мха.",
+        "kk": "Мүк арасындағы ұмыт қалған терминал жанданады.",
+        "en": "A forgotten terminal waking up in the moss."
+      },
+      "source": "content/volunteer-banner-art/moss-terminal.png",
+      "gif": "/teams/variations/moss-terminal.gif",
+      "still": "/teams/variations/moss-terminal.png",
+      "video": "/teams/variations/moss-terminal.mp4",
+      "generation": {
+        "originalFile": "exec-277fb067-f532-464a-acae-f1f8ab39cb01.png",
+        "prompt": "Use the attached frames only as STYLE references. NEW ORIGINAL still pixel-art banner, one wide landscape 16:7 full-bleed composition. Closely match coarse square pixel clusters, restrained muted 24-32-color palette, deep navy/teal/plum shadows, simple flat shading, quiet lo-fi mood. Logical resolution 320x140 enlarged with NEAREST NEIGHBOR: clean square pixels, big readable objects, generous dark negative space. NO text, letters, logos, signatures, watermark, microscopic ornament, photorealistic lighting, smooth gradients or glossy 3D. Do not reproduce the references' character or robot design. Static camera for ambient animation. Scene: An original discarded rounded computer terminal resting in oversized moss and grass, slate shell with orange panel, one BLANK front-facing rectangular dark cyan screen at x=42%-68%,y=36%-68%. Cables left. Dark plum forest and cyan glow. No person."
+      },
+      "sha256": {
+        "source": "8239d15950a37bc70bfa4ba7bd6449afc69688b2c7d585f0413f104dc3bf5bf8",
+        "gif": "9c4fb820bc77da204429963138161b5bc25fdce03f856676acacca520f48b2c0",
+        "still": "d46d689f17a3a349a8ec8450fa88e588f6c9d811d1a496f91af897c74d18d088",
+        "video": "2cb0328c9148debe7ec3171aedb001336d2b8bf9d2095efebb69e329e72f13c4"
+      },
+      "bytes": {
+        "gif": 93489,
+        "still": 52829,
+        "video": 77719
+      }
+    },
+    {
+      "id": "rain-window",
+      "number": 3,
+      "name": "Rain Window",
+      "scene": "Quiet dark plum room, large rectangular window on right x=52%-95%,y=6%-75%, empty cobalt rainy night outside. Low desk left with notebook, mug and one warm amber lamp. No person. Very sparse.",
+      "motion": "rain",
+      "color": "#91b4d3",
+      "area": [
+        168,
+        12,
+        135,
+        90
+      ],
+      "description": {
+        "ru": "Приглушённый синий дождь и тёплая лампа.",
+        "kk": "Бәсең көк жаңбыр мен жылы шам.",
+        "en": "Muted blue rain and one warm desk lamp."
+      },
+      "source": "content/volunteer-banner-art/rain-window.png",
+      "gif": "/teams/variations/rain-window.gif",
+      "still": "/teams/variations/rain-window.png",
+      "video": "/teams/variations/rain-window.mp4",
+      "generation": {
+        "originalFile": "exec-5e67c982-6f44-4c71-a69b-0eba00b948a8.png",
+        "prompt": "Use the attached frames only as STYLE references. NEW ORIGINAL still pixel-art banner, one wide landscape 16:7 full-bleed composition. Closely match coarse square pixel clusters, restrained muted 24-32-color palette, deep navy/teal/plum shadows, simple flat shading, quiet lo-fi mood. Logical resolution 320x140 enlarged with NEAREST NEIGHBOR: clean square pixels, big readable objects, generous dark negative space. NO text, letters, logos, signatures, watermark, microscopic ornament, photorealistic lighting, smooth gradients or glossy 3D. Do not reproduce the references' character or robot design. Static camera for ambient animation. Scene: Quiet dark plum room, large rectangular window on right x=52%-95%,y=6%-75%, empty cobalt rainy night outside. Low desk left with notebook, mug and one warm amber lamp. No person. Very sparse."
+      },
+      "sha256": {
+        "source": "c47b932b48f91fd575b9f3b05b18e3cb4c55828448c149fe02375325eaadbd77",
+        "gif": "c862f9becf5857b5cd5ecf55f14365dfb7244af456b6f80c39995f384c390d9d",
+        "still": "efa9c30b5b6a7024a362fad4f890cbe28987427dc699e65ce4c0b011266e96ca",
+        "video": "6863fd512a235db4b9e608832d8403681c71b04fc94a2cdc1517931989dd233b"
+      },
+      "bytes": {
+        "gif": 132633,
+        "still": 41767,
+        "video": 71448
+      }
+    },
+    {
+      "id": "night-greenhouse",
+      "number": 4,
+      "name": "Night Greenhouse",
+      "scene": "Small dark greenhouse at night, bold silhouettes of hanging pothos leaves, low plant table, broad cyan glass roof, one dim amber grow light. Forest green and navy, pale mint highlights. No people, no ornate details.",
+      "motion": "pollen",
+      "color": "#b4d5ad",
+      "area": [
+        80,
+        18,
+        190,
+        80
+      ],
+      "description": {
+        "ru": "Слои листьев в тихом мятном свете.",
+        "kk": "Тынық жалбыз түсті жарықтағы жапырақтар.",
+        "en": "Layered leaves in a quiet mint-green glow."
+      },
+      "source": "content/volunteer-banner-art/night-greenhouse.png",
+      "gif": "/teams/variations/night-greenhouse.gif",
+      "still": "/teams/variations/night-greenhouse.png",
+      "video": "/teams/variations/night-greenhouse.mp4",
+      "generation": {
+        "originalFile": "exec-f02d7e4a-dcc8-4923-8274-055158d54f6c.png",
+        "prompt": "Use the attached frames only as STYLE references. NEW ORIGINAL still pixel-art banner, one wide landscape 16:7 full-bleed composition. Closely match coarse square pixel clusters, restrained muted 24-32-color palette, deep navy/teal/plum shadows, simple flat shading, quiet lo-fi mood. Logical resolution 320x140 enlarged with NEAREST NEIGHBOR: clean square pixels, big readable objects, generous dark negative space. NO text, letters, logos, signatures, watermark, microscopic ornament, photorealistic lighting, smooth gradients or glossy 3D. Do not reproduce the references' character or robot design. Static camera for ambient animation. Scene: Small dark greenhouse at night, bold silhouettes of hanging pothos leaves, low plant table, broad cyan glass roof, one dim amber grow light. Forest green and navy, pale mint highlights. No people, no ornate details."
+      },
+      "sha256": {
+        "source": "672923e48cae94afaab3d9b0d56ed3fb9a41cc58cb340bcdb6a1531a42e412bb",
+        "gif": "b8123caa57b7b732ab431c677cb9a23617a389f4dbb38f5b0efa5d10eb7be248",
+        "still": "f8282c22df525fe7202d97cbe3b91c36a86b6a2d1c1e02b2a73e5dc8dd2c5861",
+        "video": "e06ce89ec859b78279d9f2ef0bd64b2a8eee64cd2b2fea342069d94896b288d7"
+      },
+      "bytes": {
+        "gif": 85221,
+        "still": 50312,
+        "video": 73035
+      }
+    },
+    {
+      "id": "last-tram",
+      "number": 5,
+      "name": "Last Tram",
+      "scene": "Empty late-night tram interior, plum seats, hanging straps, a crate of plants, broad rectangular teal window right x=55%-95%,y=12%-66% showing an empty midnight-blue city. One soft orange light. Calm lo-fi mood.",
+      "motion": "rain",
+      "color": "#80b9cc",
+      "area": [
+        147,
+        24,
+        140,
+        41
+      ],
+      "description": {
+        "ru": "Полуночная поездка сквозь мягкий дождь.",
+        "kk": "Жұмсақ жаңбыр арасындағы түнгі сапар.",
+        "en": "A midnight ride through soft rain."
+      },
+      "source": "content/volunteer-banner-art/last-tram.png",
+      "gif": "/teams/variations/last-tram.gif",
+      "still": "/teams/variations/last-tram.png",
+      "video": "/teams/variations/last-tram.mp4",
+      "generation": {
+        "originalFile": "exec-c9fc5da7-4454-47a2-8b34-196410bfa9ea.png",
+        "prompt": "Use the attached frames only as STYLE references. NEW ORIGINAL still pixel-art banner, one wide landscape 16:7 full-bleed composition. Closely match coarse square pixel clusters, restrained muted 24-32-color palette, deep navy/teal/plum shadows, simple flat shading, quiet lo-fi mood. Logical resolution 320x140 enlarged with NEAREST NEIGHBOR: clean square pixels, big readable objects, generous dark negative space. NO text, letters, logos, signatures, watermark, microscopic ornament, photorealistic lighting, smooth gradients or glossy 3D. Do not reproduce the references' character or robot design. Static camera for ambient animation. Scene: Empty late-night tram interior, plum seats, hanging straps, a crate of plants, broad rectangular teal window right x=55%-95%,y=12%-66% showing an empty midnight-blue city. One soft orange light. Calm lo-fi mood."
+      },
+      "sha256": {
+        "source": "7109cd47a71aa7d8ecf61402a6c14b4d443cd1f1a7ec9ef2c0cb4164c8cf67cb",
+        "gif": "4c5670031918b8c675f498d9c766fe3aadd146d5c52606c27fd345cee68d2e33",
+        "still": "15157243a41e928edb74a6b97e43bedf59ebb59adbef1162951ecd566c4bee0c",
+        "video": "51a2a9d38feeafb972eb4cd41965d5ab869a71ce97823710abd8f535a1f7003c"
+      },
+      "bytes": {
+        "gif": 115017,
+        "still": 41744,
+        "video": 69244
+      }
+    },
+    {
+      "id": "night-study",
+      "number": 6,
+      "name": "Night Study",
+      "scene": "Student desk with chunky old monitor, book stack, tiny potted plant. Big front-facing rectangular BLANK dark teal monitor screen x=47%-75%,y=20%-62%. Amber desk lamp left, purple wall, no writing or person.",
+      "motion": "screen",
+      "color": "#7ad3d4",
+      "area": [
+        157,
+        35,
+        73,
+        51
+      ],
+      "description": {
+        "ru": "Тихий стол и мягко мерцающий экран.",
+        "kk": "Тыныш үстел мен баяу жыпылықтаған экран.",
+        "en": "A low-lit desk and a gently flickering screen."
+      },
+      "source": "content/volunteer-banner-art/night-study.png",
+      "gif": "/teams/variations/night-study.gif",
+      "still": "/teams/variations/night-study.png",
+      "video": "/teams/variations/night-study.mp4",
+      "generation": {
+        "originalFile": "exec-cc5d2a20-527f-4880-932e-e29ae69cfcf9.png",
+        "prompt": "Use the attached frames only as STYLE references. NEW ORIGINAL still pixel-art banner, one wide landscape 16:7 full-bleed composition. Closely match coarse square pixel clusters, restrained muted 24-32-color palette, deep navy/teal/plum shadows, simple flat shading, quiet lo-fi mood. Logical resolution 320x140 enlarged with NEAREST NEIGHBOR: clean square pixels, big readable objects, generous dark negative space. NO text, letters, logos, signatures, watermark, microscopic ornament, photorealistic lighting, smooth gradients or glossy 3D. Do not reproduce the references' character or robot design. Static camera for ambient animation. Scene: Student desk with chunky old monitor, book stack, tiny potted plant. Big front-facing rectangular BLANK dark teal monitor screen x=47%-75%,y=20%-62%. Amber desk lamp left, purple wall, no writing or person."
+      },
+      "sha256": {
+        "source": "86cacec61298d129950f0bd5eb6b0952363b3483f1c75d7851d8e22e32c73c0d",
+        "gif": "535ed4faae7c88dd17ff4fd30e552e360e919141652ed740811df697e5d0ad41",
+        "still": "5b699e8d9b112e1896ba352ceea7fcfaf0f802a57cf9400c27dac49cac976336",
+        "video": "62df59e121009ba0ae4b8e5328ae0cdf89fcbceec554d462302cd73f2634da79"
+      },
+      "bytes": {
+        "gif": 81745,
+        "still": 37712,
+        "video": 53856
+      }
+    },
+    {
+      "id": "repair-companion",
+      "number": 7,
+      "name": "Repair Companion",
+      "scene": "An ORIGINAL tiny cuboid service robot on a wooden repair bench. Square mint eyes, rounded cuboid blue body, orange tool panel, tiny legs. Do not copy the reference robot. Robot x=45%-70%, soldering tools left, large simple plant right, plum shadows.",
+      "motion": "spark",
+      "color": "#9fdbc7",
+      "area": [
+        143,
+        40,
+        68,
+        50
+      ],
+      "description": {
+        "ru": "Маленький помощник с сонными огоньками.",
+        "kk": "Ұйқылы шамдары бар кішкентай көмекші.",
+        "en": "A little repair companion with sleepy lights."
+      },
+      "source": "content/volunteer-banner-art/repair-companion.png",
+      "gif": "/teams/variations/repair-companion.gif",
+      "still": "/teams/variations/repair-companion.png",
+      "video": "/teams/variations/repair-companion.mp4",
+      "generation": {
+        "originalFile": "exec-0a7de8e9-4937-4e82-ba79-36f0826ab616.png",
+        "prompt": "Use the attached frames only as STYLE references. NEW ORIGINAL still pixel-art banner, one wide landscape 16:7 full-bleed composition. Closely match coarse square pixel clusters, restrained muted 24-32-color palette, deep navy/teal/plum shadows, simple flat shading, quiet lo-fi mood. Logical resolution 320x140 enlarged with NEAREST NEIGHBOR: clean square pixels, big readable objects, generous dark negative space. NO text, letters, logos, signatures, watermark, microscopic ornament, photorealistic lighting, smooth gradients or glossy 3D. Do not reproduce the references' character or robot design. Static camera for ambient animation. Scene: An ORIGINAL tiny cuboid service robot on a wooden repair bench. Square mint eyes, rounded cuboid blue body, orange tool panel, tiny legs. Do not copy the reference robot. Robot x=45%-70%, soldering tools left, large simple plant right, plum shadows."
+      },
+      "sha256": {
+        "source": "269b1f335a643675985b645d836d56e901a6398a32eca688acb2f8c65882f950",
+        "gif": "df59e91b7f21c9a037cd1f83c22ce571bef0f4c0796da37d1fdd040d4b497857",
+        "still": "58cb4b650d7790d78c09b3d32522bde6804486d1297f8f9ebb9f146591220f1c",
+        "video": "14ef07ad61381b10c135dd3dc7f9289882d578f60adc8018cfc48dc4d152f61a"
+      },
+      "bytes": {
+        "gif": 75448,
+        "still": 41009,
+        "video": 62175
+      }
+    },
+    {
+      "id": "river-after-dark",
+      "number": 8,
+      "name": "River After Dark",
+      "scene": "Quiet riverside bench under large leaf silhouettes, backpack and reusable cleanup basket beside it. River lower-right x=45%-95%,y=52%-90%, simple distant city lights. Navy, teal, faded peach and lavender. No people.",
+      "motion": "water",
+      "color": "#83c9cc",
+      "area": [
+        145,
+        76,
+        155,
+        46
+      ],
+      "description": {
+        "ru": "Тихая река и движущиеся отражения.",
+        "kk": "Тыныш өзен мен қозғалған шағылыстар.",
+        "en": "A quiet river and tiny moving reflections."
+      },
+      "source": "content/volunteer-banner-art/river-after-dark.png",
+      "gif": "/teams/variations/river-after-dark.gif",
+      "still": "/teams/variations/river-after-dark.png",
+      "video": "/teams/variations/river-after-dark.mp4",
+      "generation": {
+        "originalFile": "exec-b85e7e23-e897-44ea-ab6c-acd459ffab9f.png",
+        "prompt": "Use the attached frames only as STYLE references. NEW ORIGINAL still pixel-art banner, one wide landscape 16:7 full-bleed composition. Closely match coarse square pixel clusters, restrained muted 24-32-color palette, deep navy/teal/plum shadows, simple flat shading, quiet lo-fi mood. Logical resolution 320x140 enlarged with NEAREST NEIGHBOR: clean square pixels, big readable objects, generous dark negative space. NO text, letters, logos, signatures, watermark, microscopic ornament, photorealistic lighting, smooth gradients or glossy 3D. Do not reproduce the references' character or robot design. Static camera for ambient animation. Scene: Quiet riverside bench under large leaf silhouettes, backpack and reusable cleanup basket beside it. River lower-right x=45%-95%,y=52%-90%, simple distant city lights. Navy, teal, faded peach and lavender. No people."
+      },
+      "sha256": {
+        "source": "0a0206f3317594532a1246e0b39a859f8f4fd191bef9f1c06078e5212b3651f8",
+        "gif": "315742397be5aa6b4604621edf741d8113f223291210a9372538f9047f4ebb25",
+        "still": "3dbc064d83e465cc6ce0e4c1d986a8b9ace39d9b9524618358bebad1d1a14684",
+        "video": "328c483f81892fd7c4b30a46dd27764bca6df97c99b3e76125d4c84879d2d37c"
+      },
+      "bytes": {
+        "gif": 89164,
+        "still": 45282,
+        "video": 71236
+      }
+    },
+    {
+      "id": "orbit-radio",
+      "number": 9,
+      "name": "Orbit Radio",
+      "scene": "Chunky portable shortwave radio on windowsill, coiled cord, small plant. Moon outside, navy and plum sky. Blank front-facing mint-black tuning display x=40%-65%,y=38%-58%, three large buttons, single amber indicator. No lettering.",
+      "motion": "screen",
+      "color": "#a1ded3",
+      "area": [
+        121,
+        70,
+        55,
+        15
+      ],
+      "description": {
+        "ru": "Полуночное радио подаёт тихие сигналы.",
+        "kk": "Түнгі радио тынық сигналдар жібереді.",
+        "en": "A midnight radio sending quiet signals."
+      },
+      "source": "content/volunteer-banner-art/orbit-radio.png",
+      "gif": "/teams/variations/orbit-radio.gif",
+      "still": "/teams/variations/orbit-radio.png",
+      "video": "/teams/variations/orbit-radio.mp4",
+      "generation": {
+        "originalFile": "exec-2502b524-e8fd-4e0f-81cb-e9e4f9145fc2.png",
+        "prompt": "Use the attached frames only as STYLE references. NEW ORIGINAL still pixel-art banner, one wide landscape 16:7 full-bleed composition. Closely match coarse square pixel clusters, restrained muted 24-32-color palette, deep navy/teal/plum shadows, simple flat shading, quiet lo-fi mood. Logical resolution 320x140 enlarged with NEAREST NEIGHBOR: clean square pixels, big readable objects, generous dark negative space. NO text, letters, logos, signatures, watermark, microscopic ornament, photorealistic lighting, smooth gradients or glossy 3D. Do not reproduce the references' character or robot design. Static camera for ambient animation. Scene: Chunky portable shortwave radio on windowsill, coiled cord, small plant. Moon outside, navy and plum sky. Blank front-facing mint-black tuning display x=40%-65%,y=38%-58%, three large buttons, single amber indicator. No lettering."
+      },
+      "sha256": {
+        "source": "fc9125adfe613ca6e37565920389724c5caa950665d5b58f4ce133301c8ae884",
+        "gif": "789f88200b47e740f8eea4e92dc952d3a2f6f0442b213b35434934effa311cfb",
+        "still": "b2ab58b3a76deeea9083e15c7a6528065593e5316476c26442b31c33bd27d8e2",
+        "video": "26bdbf989f3e7eed0e1ae5c97383ce528fd3403d2ff60f20f9ca52ad855a4a64"
+      },
+      "bytes": {
+        "gif": 71122,
+        "still": 40023,
+        "video": 54885
+      }
+    },
+    {
+      "id": "soup-and-steam",
+      "number": 10,
+      "name": "Soup & Steam",
+      "scene": "Small community kitchen at night. One copper soup pot middle-right, rim centered x=57%,y=55%. Bowls and bread left, simple dark tiles, large leaf silhouette. No steam in base; clear dark space above pot. Peach and sage on navy.",
+      "motion": "steam",
+      "color": "#c8d8d1",
+      "area": [
+        175,
+        32,
+        30,
+        42
+      ],
+      "description": {
+        "ru": "Тёплый суп и медленно поднимающийся пар.",
+        "kk": "Жылы сорпа мен баяу көтерілген бу.",
+        "en": "Warm soup and slow curls of steam."
+      },
+      "source": "content/volunteer-banner-art/soup-and-steam.png",
+      "gif": "/teams/variations/soup-and-steam.gif",
+      "still": "/teams/variations/soup-and-steam.png",
+      "video": "/teams/variations/soup-and-steam.mp4",
+      "generation": {
+        "originalFile": "exec-33d86d34-0240-442d-91d8-556ca6ce7ad0.png",
+        "prompt": "Use the attached frames only as STYLE references. NEW ORIGINAL still pixel-art banner, one wide landscape 16:7 full-bleed composition. Closely match coarse square pixel clusters, restrained muted 24-32-color palette, deep navy/teal/plum shadows, simple flat shading, quiet lo-fi mood. Logical resolution 320x140 enlarged with NEAREST NEIGHBOR: clean square pixels, big readable objects, generous dark negative space. NO text, letters, logos, signatures, watermark, microscopic ornament, photorealistic lighting, smooth gradients or glossy 3D. Do not reproduce the references' character or robot design. Static camera for ambient animation. Scene: Small community kitchen at night. One copper soup pot middle-right, rim centered x=57%,y=55%. Bowls and bread left, simple dark tiles, large leaf silhouette. No steam in base; clear dark space above pot. Peach and sage on navy."
+      },
+      "sha256": {
+        "source": "efb17cc9977253a2f7b22a42b0e3cae5eaf0b3f7382baa23def2530621e36d52",
+        "gif": "b7c97dd3e32be13cf7f3563493e6894c79bf19e13c525140b5e7750b64b73e04",
+        "still": "0044cdaf03328c56c6d7b9b3c15e347dc0492d34fb043a380e5df92c20f8d239",
+        "video": "ae126b2f6af4f87d5e2e3be506394de3c6d4a3d7aad19ba6d5bc0bc7f1d58f31"
+      },
+      "bytes": {
+        "gif": 87185,
+        "still": 39175,
+        "video": 58229
+      }
+    },
+    {
+      "id": "quiet-observatory",
+      "number": 11,
+      "name": "Quiet Observatory",
+      "scene": "Small observatory terrace with chunky telescope right, chair and closed notebook left, dark mountain silhouettes low on horizon. Open dark plum sky top half, sparse square stars. Lavender, blue, pale mint, one amber window.",
+      "motion": "stars",
+      "color": "#c5cce5",
+      "area": [
+        25,
+        8,
+        270,
+        54
+      ],
+      "description": {
+        "ru": "Маленькая обсерватория под звёздами.",
+        "kk": "Жұлдыздар астындағы шағын обсерватория.",
+        "en": "A tiny observatory under patient stars."
+      },
+      "source": "content/volunteer-banner-art/quiet-observatory.png",
+      "gif": "/teams/variations/quiet-observatory.gif",
+      "still": "/teams/variations/quiet-observatory.png",
+      "video": "/teams/variations/quiet-observatory.mp4",
+      "generation": {
+        "originalFile": "exec-c6b3b7df-f122-44af-b978-eb082da575e5.png",
+        "prompt": "Use the attached frames only as STYLE references. NEW ORIGINAL still pixel-art banner, one wide landscape 16:7 full-bleed composition. Closely match coarse square pixel clusters, restrained muted 24-32-color palette, deep navy/teal/plum shadows, simple flat shading, quiet lo-fi mood. Logical resolution 320x140 enlarged with NEAREST NEIGHBOR: clean square pixels, big readable objects, generous dark negative space. NO text, letters, logos, signatures, watermark, microscopic ornament, photorealistic lighting, smooth gradients or glossy 3D. Do not reproduce the references' character or robot design. Static camera for ambient animation. Scene: Small observatory terrace with chunky telescope right, chair and closed notebook left, dark mountain silhouettes low on horizon. Open dark plum sky top half, sparse square stars. Lavender, blue, pale mint, one amber window."
+      },
+      "sha256": {
+        "source": "52a9bcbd9aedb1a0e6ec39c73d89ca512149c87203129ae48c43f315b240c2eb",
+        "gif": "68373754c2aa548f2ed5d4d3df5b47e171917720dc3673791c3b9a860198435d",
+        "still": "85e8db7fe42f149a8c26e1a5664f3bd1330bce7466143d5137aa14d7d9219e34",
+        "video": "9ccde317eb4ca75f5d7868bbca26a1f7e7169da48b6c0f3885f14e176db4d268"
+      },
+      "bytes": {
+        "gif": 76207,
+        "still": 45780,
+        "video": 54606
+      }
+    },
+    {
+      "id": "pocket-arcade",
+      "number": 12,
+      "name": "Pocket Arcade",
+      "scene": "Chunky handheld game console on purple cushion beside book and succulent. Large front-facing axis-aligned BLANK dark-blue screen x=38%-64%,y=28%-62%, mint buttons, orange directional pad. Faded lilac shell, navy shadows. No text.",
+      "motion": "arcade",
+      "color": "#9ed7cd",
+      "area": [
+        149,
+        66,
+        47,
+        23
+      ],
+      "description": {
+        "ru": "Ретро-пиксели играют на карманном экране.",
+        "kk": "Қалта экранында ойнаған ретро пиксельдер.",
+        "en": "Retro pixels playing across a pocket screen."
+      },
+      "source": "content/volunteer-banner-art/pocket-arcade.png",
+      "gif": "/teams/variations/pocket-arcade.gif",
+      "still": "/teams/variations/pocket-arcade.png",
+      "video": "/teams/variations/pocket-arcade.mp4",
+      "generation": {
+        "originalFile": "exec-a9aa372b-2f09-4079-8217-aba815c5af7f.png",
+        "prompt": "Use the attached frames only as STYLE references. NEW ORIGINAL still pixel-art banner, one wide landscape 16:7 full-bleed composition. Closely match coarse square pixel clusters, restrained muted 24-32-color palette, deep navy/teal/plum shadows, simple flat shading, quiet lo-fi mood. Logical resolution 320x140 enlarged with NEAREST NEIGHBOR: clean square pixels, big readable objects, generous dark negative space. NO text, letters, logos, signatures, watermark, microscopic ornament, photorealistic lighting, smooth gradients or glossy 3D. Do not reproduce the references' character or robot design. Static camera for ambient animation. Scene: Chunky handheld game console on purple cushion beside book and succulent. Large front-facing axis-aligned BLANK dark-blue screen x=38%-64%,y=28%-62%, mint buttons, orange directional pad. Faded lilac shell, navy shadows. No text."
+      },
+      "sha256": {
+        "source": "e9ffac6ce316191975a073a91d4cdaf67a09eb86bf8ae1ee4ac566bb75f2cc19",
+        "gif": "a18324d5711737659f56acdf3946b77007ad834da2621d8583ae99794166cdd9",
+        "still": "78d7cd2fabf78ef9e96763830dc405b16190ce4a7bb316899ddb70dd9eb4ba01",
+        "video": "86e2f2a95514d96fb7710092b4af4dfe6378f9084901c5f14166675c0c898593"
+      },
+      "bytes": {
+        "gif": 66707,
+        "still": 36835,
+        "video": 54397
+      }
+    },
+    {
+      "id": "seed-library",
+      "number": 13,
+      "name": "Seed Library",
+      "scene": "Dark cozy wooden seed-exchange cabinet with plain unmarked envelopes, chunky glass seed jars, warm tiny lamp, hanging leaves and green watering can. Muted moss, ochre, teal, navy shadows. Simple shapes, no writing or people.",
+      "motion": "dust",
+      "color": "#d6c49b",
+      "area": [
+        55,
+        25,
+        200,
+        75
+      ],
+      "description": {
+        "ru": "Семена, свет лампы и пылинки в воздухе.",
+        "kk": "Тұқымдар, шам жарығы және ауадағы тозаң.",
+        "en": "Seeds, warm lamplight and floating dust."
+      },
+      "source": "content/volunteer-banner-art/seed-library.png",
+      "gif": "/teams/variations/seed-library.gif",
+      "still": "/teams/variations/seed-library.png",
+      "video": "/teams/variations/seed-library.mp4",
+      "generation": {
+        "originalFile": "exec-c2a7e5dc-e286-46b2-90d5-a4fecc16a981.png",
+        "prompt": "Use the attached frames only as STYLE references. NEW ORIGINAL still pixel-art banner, one wide landscape 16:7 full-bleed composition. Closely match coarse square pixel clusters, restrained muted 24-32-color palette, deep navy/teal/plum shadows, simple flat shading, quiet lo-fi mood. Logical resolution 320x140 enlarged with NEAREST NEIGHBOR: clean square pixels, big readable objects, generous dark negative space. NO text, letters, logos, signatures, watermark, microscopic ornament, photorealistic lighting, smooth gradients or glossy 3D. Do not reproduce the references' character or robot design. Static camera for ambient animation. Scene: Dark cozy wooden seed-exchange cabinet with plain unmarked envelopes, chunky glass seed jars, warm tiny lamp, hanging leaves and green watering can. Muted moss, ochre, teal, navy shadows. Simple shapes, no writing or people."
+      },
+      "sha256": {
+        "source": "918b19fa80e4adfdc393675c24ac683d1d4b23ebf89bdb9e2956bdacac7d85a3",
+        "gif": "47d033a6a5f5981c38d7696659de710487e0d34de19e034898ae1747f9464810",
+        "still": "06c31f03c925979947c03e3425037a492a0a1a467a9c9c3c1775701535f188ef",
+        "video": "63c8672c3aa9f8a68354f170833337236a41acebd69ad515f8ea3fa47c4caa9a"
+      },
+      "bytes": {
+        "gif": 87931,
+        "still": 49750,
+        "video": 71963
+      }
+    },
+    {
+      "id": "lantern-steps",
+      "number": 14,
+      "name": "Lantern Steps",
+      "scene": "Small outdoor steps leading to community doorway beneath oversized climbing vine. Two simple amber lanterns, deep navy wall, dark teal leaves, muted plum night sky. Few broad shapes, intimate crop, no people or text.",
+      "motion": "fireflies",
+      "color": "#e3c785",
+      "area": [
+        90,
+        25,
+        185,
+        80
+      ],
+      "description": {
+        "ru": "Янтарные фонари у скрытой садовой лестницы.",
+        "kk": "Жасырын бақ баспалдағындағы кәріптас шамдар.",
+        "en": "Amber lanterns along a hidden garden stair."
+      },
+      "source": "content/volunteer-banner-art/lantern-steps.png",
+      "gif": "/teams/variations/lantern-steps.gif",
+      "still": "/teams/variations/lantern-steps.png",
+      "video": "/teams/variations/lantern-steps.mp4",
+      "generation": {
+        "originalFile": "exec-12e45fb0-246e-496e-9676-379cfe265ead.png",
+        "prompt": "Use the attached frames only as STYLE references. NEW ORIGINAL still pixel-art banner, one wide landscape 16:7 full-bleed composition. Closely match coarse square pixel clusters, restrained muted 24-32-color palette, deep navy/teal/plum shadows, simple flat shading, quiet lo-fi mood. Logical resolution 320x140 enlarged with NEAREST NEIGHBOR: clean square pixels, big readable objects, generous dark negative space. NO text, letters, logos, signatures, watermark, microscopic ornament, photorealistic lighting, smooth gradients or glossy 3D. Do not reproduce the references' character or robot design. Static camera for ambient animation. Scene: Small outdoor steps leading to community doorway beneath oversized climbing vine. Two simple amber lanterns, deep navy wall, dark teal leaves, muted plum night sky. Few broad shapes, intimate crop, no people or text."
+      },
+      "sha256": {
+        "source": "93d56cf7613995ba5004dc2d456d05a0e0f65afbf9420b295a9892e80bc105df",
+        "gif": "33a3c8c5940db1f1b06df15bfef84a4e32e2e4cfeae83ed94c9260a8b482d280",
+        "still": "289e7d1f7c52e7bfff74e0b5c55a9a8e1a7235a51b867747bd48b6c5e9a00c28",
+        "video": "8937e9568aa1dfa95552188c83e5341c52a89faed01d4ca510f689916f46a18f"
+      },
+      "bytes": {
+        "gif": 97392,
+        "still": 48264,
+        "video": 76910
+      }
+    },
+    {
+      "id": "underwater-window",
+      "number": 15,
+      "name": "Underwater Window",
+      "scene": "Submerged research room with broad front-facing viewing window on RIGHT x=50%-95%,y=12%-78%. Simple kelp silhouettes, EMPTY dark teal water, rounded rocks at bottom. Interior left has chunky lamp and small seat. Navy, cyan, muted coral. No fish or bubbles yet.",
+      "motion": "bubbles",
+      "color": "#9eddd5",
+      "area": [
+        165,
+        25,
+        125,
+        65
+      ],
+      "description": {
+        "ru": "Тихое окно в глубокую бирюзовую воду.",
+        "kk": "Терең көгілдір суға ашылған тыныш терезе.",
+        "en": "A quiet window into deep teal water."
+      },
+      "source": "content/volunteer-banner-art/underwater-window.png",
+      "gif": "/teams/variations/underwater-window.gif",
+      "still": "/teams/variations/underwater-window.png",
+      "video": "/teams/variations/underwater-window.mp4",
+      "generation": {
+        "originalFile": "exec-6022c6b0-f023-4699-bde9-0908b1e213cf.png",
+        "prompt": "Use the attached frames only as STYLE references. NEW ORIGINAL still pixel-art banner, one wide landscape 16:7 full-bleed composition. Closely match coarse square pixel clusters, restrained muted 24-32-color palette, deep navy/teal/plum shadows, simple flat shading, quiet lo-fi mood. Logical resolution 320x140 enlarged with NEAREST NEIGHBOR: clean square pixels, big readable objects, generous dark negative space. NO text, letters, logos, signatures, watermark, microscopic ornament, photorealistic lighting, smooth gradients or glossy 3D. Do not reproduce the references' character or robot design. Static camera for ambient animation. Scene: Submerged research room with broad front-facing viewing window on RIGHT x=50%-95%,y=12%-78%. Simple kelp silhouettes, EMPTY dark teal water, rounded rocks at bottom. Interior left has chunky lamp and small seat. Navy, cyan, muted coral. No fish or bubbles yet."
+      },
+      "sha256": {
+        "source": "3abc17e17f4efe58a2d6842beb85171647d5212b634c2bd4b10e03afc8a9242f",
+        "gif": "178ba935f1cb0f1c6db308036dfed334f1d1d08dcdc8982bca4f92a44c73da3f",
+        "still": "f42d4e19f1ab5fe4f1502f7c71ce7588fba0ca6bce91757684bc2df1d78743bc",
+        "video": "9499217e5802f159a89f220a61da3bb38331ee2b1a71b61a01d2263aac561f48"
+      },
+      "bytes": {
+        "gif": 119574,
+        "still": 45177,
+        "video": 77436
+      }
+    },
+    {
+      "id": "solar-rooftop-night",
+      "number": 16,
+      "name": "Solar Rooftop",
+      "scene": "Compact rooftop solar repair station at blue hour, broad solar panel, chunky battery module with square mint indicator lights low at x=60%,y=60%, coiled cable, plants and low city silhouette. Navy, dusty blue, moss, amber.",
+      "motion": "spark",
+      "color": "#99d5bb",
+      "area": [
+        124,
+        99,
+        22,
+        8
+      ],
+      "description": {
+        "ru": "Маленькие солнечные огни над спящим городом.",
+        "kk": "Ұйқыдағы қала үстіндегі шағын күн шамдары.",
+        "en": "Small solar lights above a sleeping city."
+      },
+      "source": "content/volunteer-banner-art/solar-rooftop-night.png",
+      "gif": "/teams/variations/solar-rooftop-night.gif",
+      "still": "/teams/variations/solar-rooftop-night.png",
+      "video": "/teams/variations/solar-rooftop-night.mp4",
+      "generation": {
+        "originalFile": "exec-8ae3da7f-c5e9-44f9-8d92-6236685cb258.png",
+        "prompt": "Use the attached frames only as STYLE references. NEW ORIGINAL still pixel-art banner, one wide landscape 16:7 full-bleed composition. Closely match coarse square pixel clusters, restrained muted 24-32-color palette, deep navy/teal/plum shadows, simple flat shading, quiet lo-fi mood. Logical resolution 320x140 enlarged with NEAREST NEIGHBOR: clean square pixels, big readable objects, generous dark negative space. NO text, letters, logos, signatures, watermark, microscopic ornament, photorealistic lighting, smooth gradients or glossy 3D. Do not reproduce the references' character or robot design. Static camera for ambient animation. Scene: Compact rooftop solar repair station at blue hour, broad solar panel, chunky battery module with square mint indicator lights low at x=60%,y=60%, coiled cable, plants and low city silhouette. Navy, dusty blue, moss, amber."
+      },
+      "sha256": {
+        "source": "a1a029f6b5f7fa1f802b9932ff7027b98817597d6f86a4619b3657feb3038055",
+        "gif": "f5a7ebd807d9d7fd8b451e34791946b6166249a4f35a5bac4042171eaa9684f0",
+        "still": "5942fd3ce17fa01f6077d73feabd1ea05184d88e66fe8becebdfa043bca4e0dd",
+        "video": "9032eda979362b8e579648412c23e1c24469b4fdb788f1ef6a734c65792d9b3b"
+      },
+      "bytes": {
+        "gif": 76244,
+        "still": 44082,
+        "video": 66568
+      }
+    },
+    {
+      "id": "snow-shelter",
+      "number": 17,
+      "name": "Snow Shelter",
+      "scene": "Cozy donation shelf with folded blankets and books by large right window x=55%-95%,y=8%-80%, empty dark blue winter night and simple fir silhouettes outside. Amber lamp, plum walls, muted sage cloth. No people, no writing.",
+      "motion": "snow",
+      "color": "#b8cfe0",
+      "area": [
+        178,
+        16,
+        120,
+        86
+      ],
+      "description": {
+        "ru": "Тёплые одеяла у заснеженного ночного окна.",
+        "kk": "Қарлы түнгі терезе жанындағы жылы көрпелер.",
+        "en": "Warm blankets beside a snowy night window."
+      },
+      "source": "content/volunteer-banner-art/snow-shelter.png",
+      "gif": "/teams/variations/snow-shelter.gif",
+      "still": "/teams/variations/snow-shelter.png",
+      "video": "/teams/variations/snow-shelter.mp4",
+      "generation": {
+        "originalFile": "exec-d9a31034-b155-44d5-a4f3-e252dad31c2f.png",
+        "prompt": "Use the attached frames only as STYLE references. NEW ORIGINAL still pixel-art banner, one wide landscape 16:7 full-bleed composition. Closely match coarse square pixel clusters, restrained muted 24-32-color palette, deep navy/teal/plum shadows, simple flat shading, quiet lo-fi mood. Logical resolution 320x140 enlarged with NEAREST NEIGHBOR: clean square pixels, big readable objects, generous dark negative space. NO text, letters, logos, signatures, watermark, microscopic ornament, photorealistic lighting, smooth gradients or glossy 3D. Do not reproduce the references' character or robot design. Static camera for ambient animation. Scene: Cozy donation shelf with folded blankets and books by large right window x=55%-95%,y=8%-80%, empty dark blue winter night and simple fir silhouettes outside. Amber lamp, plum walls, muted sage cloth. No people, no writing."
+      },
+      "sha256": {
+        "source": "f4a07408279ba76015c4ed21511239423580088082b800fa1c04baddf0fb159c",
+        "gif": "0c436c51202374c4e30c0c302c4bede2c1d3e2f5a3b4fa6846b9626cefc3c2c6",
+        "still": "7227c9339e296dfbb679d2209e847769e2a67903aa748da6b8f28219f7e1e47b",
+        "video": "26581593740a6ba3c0ffcda4c77bd1de9e5a8e7e7418c27e3c579dab30631db5"
+      },
+      "bytes": {
+        "gif": 129740,
+        "still": 44440,
+        "video": 81384
+      }
+    },
+    {
+      "id": "glass-terrarium",
+      "number": 18,
+      "name": "Glass Terrarium",
+      "scene": "One large illuminated glass terrarium on low wooden shelf in dark room. Giant moss shapes, few mushrooms, pale mint stones, trailing plant. Clear interior area x=38%-78%,y=20%-75%. Faded teal, slate, plum and amber. No characters.",
+      "motion": "fireflies",
+      "color": "#b1d9b9",
+      "area": [
+        132,
+        38,
+        100,
+        55
+      ],
+      "description": {
+        "ru": "Маленький мир мха с блуждающими огнями.",
+        "kk": "Кезген жарықтары бар шағын мүк әлемі.",
+        "en": "A small moss world with wandering lights."
+      },
+      "source": "content/volunteer-banner-art/glass-terrarium.png",
+      "gif": "/teams/variations/glass-terrarium.gif",
+      "still": "/teams/variations/glass-terrarium.png",
+      "video": "/teams/variations/glass-terrarium.mp4",
+      "generation": {
+        "originalFile": "exec-c39c2a7b-4b7e-4bff-8db5-c9397a73d83a.png",
+        "prompt": "Use the attached frames only as STYLE references. NEW ORIGINAL still pixel-art banner, one wide landscape 16:7 full-bleed composition. Closely match coarse square pixel clusters, restrained muted 24-32-color palette, deep navy/teal/plum shadows, simple flat shading, quiet lo-fi mood. Logical resolution 320x140 enlarged with NEAREST NEIGHBOR: clean square pixels, big readable objects, generous dark negative space. NO text, letters, logos, signatures, watermark, microscopic ornament, photorealistic lighting, smooth gradients or glossy 3D. Do not reproduce the references' character or robot design. Static camera for ambient animation. Scene: One large illuminated glass terrarium on low wooden shelf in dark room. Giant moss shapes, few mushrooms, pale mint stones, trailing plant. Clear interior area x=38%-78%,y=20%-75%. Faded teal, slate, plum and amber. No characters."
+      },
+      "sha256": {
+        "source": "2043f5ebc4a755f983fc6e68d47c47e07eb765d0d27b0cb15b56095eb6031711",
+        "gif": "29db5380b6874d8a7b4a1cb9559573afefa7fc18fdb394a99f490e821467219d",
+        "still": "cb7d008bf4c11c8a443ed7c52cfac3598c84cddbc8045dbef85d76bf0cf48797",
+        "video": "4d8a50d2095deb0ce2c528662853fc37ef6ccfc401fae49ba27c48736846b56c"
+      },
+      "bytes": {
+        "gif": 82321,
+        "still": 42877,
+        "video": 64038
+      }
+    },
+    {
+      "id": "music-corner",
+      "number": 19,
+      "name": "Music Corner",
+      "scene": "Quiet student music corner with chunky tape player and small speakers, dombyra against dark wall, headphones on table, broad-leaf plant. Blank axis-aligned mint-black display x=45%-67%,y=48%-65%. Muted plum, teal, faded orange. No lettering.",
+      "motion": "equalizer",
+      "color": "#95d4b8",
+      "area": [
+        167,
+        69,
+        59,
+        21
+      ],
+      "description": {
+        "ru": "Тихий плеер и мягко движущиеся полосы.",
+        "kk": "Тынық ойнатқыш пен баяу қозғалған жолақтар.",
+        "en": "A quiet tape player and softly moving bars."
+      },
+      "source": "content/volunteer-banner-art/music-corner.png",
+      "gif": "/teams/variations/music-corner.gif",
+      "still": "/teams/variations/music-corner.png",
+      "video": "/teams/variations/music-corner.mp4",
+      "generation": {
+        "originalFile": "exec-5c81cfaf-9756-4b16-9a08-728fcd710aab.png",
+        "prompt": "Use the attached frames only as STYLE references. NEW ORIGINAL still pixel-art banner, one wide landscape 16:7 full-bleed composition. Closely match coarse square pixel clusters, restrained muted 24-32-color palette, deep navy/teal/plum shadows, simple flat shading, quiet lo-fi mood. Logical resolution 320x140 enlarged with NEAREST NEIGHBOR: clean square pixels, big readable objects, generous dark negative space. NO text, letters, logos, signatures, watermark, microscopic ornament, photorealistic lighting, smooth gradients or glossy 3D. Do not reproduce the references' character or robot design. Static camera for ambient animation. Scene: Quiet student music corner with chunky tape player and small speakers, dombyra against dark wall, headphones on table, broad-leaf plant. Blank axis-aligned mint-black display x=45%-67%,y=48%-65%. Muted plum, teal, faded orange. No lettering."
+      },
+      "sha256": {
+        "source": "f126af0e15ea34eca7b31951b7db011e9f4c7ebe43ec9b02508503cdadc52379",
+        "gif": "d5ae745b1a52f70fbdfb2d52716bf32f0ca516c23491819467bdacba77ecb5de",
+        "still": "6f9c8b6de1a841070d9491d5518aab64f7729de688b9451a083eaebc59c2306c",
+        "video": "2e5527d6b3140f516b6e10f81639ecf91bb1e14edd72ac81c7d3dd6be0592d6d"
+      },
+      "bytes": {
+        "gif": 82689,
+        "still": 47176,
+        "video": 62320
+      }
+    },
+    {
+      "id": "dawn-platform",
+      "number": 20,
+      "name": "Dawn Platform",
+      "scene": "Empty little train-platform shelter at blue dawn. Bench with volunteer backpack, oversized plant silhouettes, distant city windows right, thin peach sky. Shelter left, open atmosphere right. Sparse geometric masses. Slate blue, plum, pale cyan, muted apricot. No signs.",
+      "motion": "breeze",
+      "color": "#b3cdd0",
+      "area": [
+        120,
+        18,
+        170,
+        75
+      ],
+      "description": {
+        "ru": "Первый свет на тихой городской платформе.",
+        "kk": "Тыныш қала платформасындағы алғашқы сәуле.",
+        "en": "The first light at a quiet city platform."
+      },
+      "source": "content/volunteer-banner-art/dawn-platform.png",
+      "gif": "/teams/variations/dawn-platform.gif",
+      "still": "/teams/variations/dawn-platform.png",
+      "video": "/teams/variations/dawn-platform.mp4",
+      "generation": {
+        "originalFile": "exec-d8a16d3c-6877-4f3a-9a17-f34160825f36.png",
+        "prompt": "Use the attached frames only as STYLE references. NEW ORIGINAL still pixel-art banner, one wide landscape 16:7 full-bleed composition. Closely match coarse square pixel clusters, restrained muted 24-32-color palette, deep navy/teal/plum shadows, simple flat shading, quiet lo-fi mood. Logical resolution 320x140 enlarged with NEAREST NEIGHBOR: clean square pixels, big readable objects, generous dark negative space. NO text, letters, logos, signatures, watermark, microscopic ornament, photorealistic lighting, smooth gradients or glossy 3D. Do not reproduce the references' character or robot design. Static camera for ambient animation. Scene: Empty little train-platform shelter at blue dawn. Bench with volunteer backpack, oversized plant silhouettes, distant city windows right, thin peach sky. Shelter left, open atmosphere right. Sparse geometric masses. Slate blue, plum, pale cyan, muted apricot. No signs."
+      },
+      "sha256": {
+        "source": "9444f505ff26991a703a3e61d1ab8f6977bc5e97bb32b9b2f216da9b247996c5",
+        "gif": "7ac68435f7c97091ea6bcc046320058b957e8ff908dcd62c2235bec312786266",
+        "still": "b4ceb1171b283c924fe0448aede60151801f8e184f4b072d5befcd2ed2e3d8e6",
+        "video": "4ee9db7d689e2b422feadb149aac84cc3d97f9051bbdb8a9e7bfa7745fe078d6"
+      },
+      "bytes": {
+        "gif": 87901,
+        "still": 45931,
+        "video": 72318
+      }
+    }
+  ],
+  "references": [
+    "ezgif-6f4de4de9db70203.mp4",
+    "ezgif-60ff663d1d52ef10.mp4"
+  ]
+}

@@ -1,0 +1,74 @@
+name: creata-news
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: creata
+      POSTGRES_USER: creata
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Run setup-local first}
+    ports: ["127.0.0.1:${CREATA_DATABASE_PORT:-54328}:5432"]
+    volumes: ["creata-db:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U creata -d creata"]
+      interval: 3s
+      retries: 20
+  backend:
+    build: {context: ., dockerfile: backend/creata/Dockerfile}
+    env_file: .env
+    environment:
+      DATABASE_URL: postgres://creata:${POSTGRES_PASSWORD}@postgres:5432/creata?sslmode=disable
+      CREATA_MEDIA_DIR: /app/uploads
+      CREATA_DEV_AUTH: "0"
+    ports: ["127.0.0.1:${CREATA_API_PORT:-5555}:5555"]
+    volumes: ["creata-media:/app/uploads"]
+    depends_on:
+      postgres: {condition: service_healthy}
+    restart: unless-stopped
+  web:
+    build:
+      context: .
+      dockerfile: creatanews/Dockerfile
+      args: {CREATA_API_ORIGIN: "http://backend:5555"}
+    environment:
+      CREATA_API_ORIGIN: http://backend:5555
+      CREATA_PUBLIC_URL: ${CREATA_PUBLIC_URL:-http://localhost:3002}
+    ports: ["127.0.0.1:${CREATA_WEB_PORT:-3002}:3002"]
+    depends_on: [backend]
+  editorial:
+    build:
+      context: .
+      dockerfile: events-admin/Dockerfile
+      args:
+        VITE_WEB_URL: ${CREATA_PUBLIC_URL:-http://localhost:3002}
+        VITE_EDITORIAL_URL: ${CREATA_EDITORIAL_URL:-http://localhost:6868}
+        VITE_HERMES_ADMIN_URL: ${CREATA_HERMES_ADMIN_URL:-http://localhost:5174}
+    ports: ["127.0.0.1:${CREATA_EDITORIAL_PORT:-6868}:80"]
+    depends_on: [backend]
+  hermes-admin:
+    build:
+      context: .
+      dockerfile: agent-admin/Dockerfile
+      args:
+        VITE_WEB_URL: ${CREATA_PUBLIC_URL:-http://localhost:3002}
+        VITE_EDITORIAL_URL: ${CREATA_EDITORIAL_URL:-http://localhost:6868}
+        VITE_HERMES_ADMIN_URL: ${CREATA_HERMES_ADMIN_URL:-http://localhost:5174}
+    ports: ["127.0.0.1:${CREATA_HERMES_PORT:-5174}:80"]
+    depends_on: [backend]
+  hermes-worker:
+    build: {context: ., dockerfile: hermes-worker/Dockerfile}
+    env_file: .env
+    environment: {CREATA_API_ORIGIN: "http://backend:5555", CREATA_WORKER_STATE_DIR: "/app/state", CREATA_POSTIZ_API_KEY: ""}
+    volumes: ["hermes-state:/app/state"]
+    depends_on: [backend]
+    restart: unless-stopped
+  telegram-bot:
+    build: {context: ., dockerfile: telegram-bot/Dockerfile.creata}
+    env_file: .env
+    environment: {CREATA_API_ORIGIN: "http://backend:5555", HTTP_PORT: "3001", CREATA_POSTIZ_API_KEY: ""}
+    ports: ["127.0.0.1:${CREATA_BOT_PORT:-3031}:3001"]
+    depends_on: [backend]
+    restart: unless-stopped
+volumes:
+  creata-db:
+  creata-media:
+  hermes-state:

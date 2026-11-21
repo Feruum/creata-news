@@ -1,0 +1,4 @@
+import type { Locale } from '@/lib/models'
+export const opportunityCardCopy={ru:{forWhom:'Для кого',apply:'Подать заявку',save:'Сохранить',saved:'Сохранено'},kk:{forWhom:'Кімдерге',apply:'Өтінім беру',save:'Сақтау',saved:'Сақталды'},en:{forWhom:'For',apply:'Apply',save:'Save',saved:'Saved'}}
+const types=[{aliases:['Contest','Конкурс','Байқау'],ru:'Конкурс',kk:'Байқау',en:'Contest'},{aliases:['Programme','Program','Программа','Бағдарлама'],ru:'Программа',kk:'Бағдарлама',en:'Programme'},{aliases:['Hackathon','Хакатон'],ru:'Хакатон',kk:'Хакатон',en:'Hackathon'},{aliases:['Internship','Стажировка','Тағылымдама'],ru:'Стажировка',kk:'Тағылымдама',en:'Internship'},{aliases:['Grant','Грант'],ru:'Грант',kk:'Грант',en:'Grant'}]
+export function opportunityType(value:string,locale:Locale){return types.find(item=>item.aliases.some(alias=>alias.toLocaleLowerCase()===value.toLocaleLowerCase()))?.[locale]||value}

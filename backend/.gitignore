@@ -1,0 +1,14 @@
+# Compiled binary (at root of backend, not the cmd/server directory)
+/server
+
+# Test coverage
+coverage.out
+coverage.html
+
+# IDE
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store

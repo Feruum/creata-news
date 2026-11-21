@@ -1,0 +1,14 @@
+function OppsBand() {
+  const t = useT();
+  const opps = CN.liveOpps().slice(0, 4);
+  return (
+    <section className="bg-[#0E0E10] py-14 text-[#EDECE8]">
+      <div className="wrap">
+        <div className="mb-6 flex items-end justify-between border-t-2 border-white pt-3">
+          <div><h2 className="h-title text-[26px] sm:text-[32px]"><a href="#opportunities" className="hover:text-[#8C87FF]">{t.oppsTitle} →</a></h2><p className="mt-1 font-serif opacity-70">{t.oppsLead}</p></div>
+        </div>
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">{opps.map((o, i) => <OppCard key={o.id} o={o} i={i} dark />)}</div>
+      </div>
+    </section>
+  );
+}

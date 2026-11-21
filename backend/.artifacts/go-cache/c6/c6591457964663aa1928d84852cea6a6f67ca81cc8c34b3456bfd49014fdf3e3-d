@@ -1,0 +1,8 @@
+./attributes.go
+./doc.go
+./instruments.go
+./interceptor.go
+./option.go
+./otelconnect.go
+./payloadinterceptor.go
+./streaming.go

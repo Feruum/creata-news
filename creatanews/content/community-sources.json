@@ -1,0 +1,113 @@
+{
+  "verifiedAt": "2026-10-22",
+  "channel": {
+    "name": "TYF Media",
+    "handle": "@TYF_Media",
+    "legacyUrl": "https://www.youtube.com/c/AITUPodcast/videos"
+  },
+  "clubDirectory": "https://astanait.edu.kz/en/university-life-2/student-clubs",
+  "episodes": [
+    {
+      "id": "admission",
+      "title": "Стоит ли поступать в AITU? | ВСЕ про AITU и AITUSA",
+      "url": "https://www.youtube.com/watch?v=0jngb8h4wLA",
+      "thumbnail": {
+        "sourceSha256": "fb9e0b94ae17d8a00ff93c1b1c2c6ef1c3edf4cd694b267538b42275a1221d24",
+        "sourceWidth": 720,
+        "sourceHeight": 404,
+        "cachedFile": "public/podcasts/admission.webp",
+        "cachedSha256": "2e466879887d7bd39921c030772c47c127e409cf25d22780a577be435f0c40d7",
+        "cachedWidth": 720,
+        "cachedHeight": 404,
+        "cachedBytes": 37438,
+        "transform": "WebP quality 88 at the original 720x404 geometry; no crop or content edits."
+      }
+    },
+    {
+      "id": "music-club",
+      "title": "Лучший Клуб в AITU? | MUSIC CLUB | AITU PODCAST",
+      "url": "https://www.youtube.com/watch?v=cB0HjH-D51A",
+      "thumbnail": {
+        "sourceSha256": "f9689387e3a306210b76c614082d698873606a234700c2b6a940c326f195f5c9",
+        "sourceWidth": 720,
+        "sourceHeight": 404,
+        "cachedFile": "public/podcasts/music-club.webp",
+        "cachedSha256": "661a37820891f942855767ae2c021609e52c867a3c55cd8afa92b96cede3859c",
+        "cachedWidth": 720,
+        "cachedHeight": 404,
+        "cachedBytes": 37988,
+        "transform": "WebP quality 88 at the original 720x404 geometry; no crop or content edits."
+      }
+    },
+    {
+      "id": "president",
+      "title": "ПРЕЗИДЕНТ AITU | Выпуск #6",
+      "url": "https://www.youtube.com/watch?v=CzRtYc6nbX4",
+      "note": "Historical episode title; no claim about the current AITU president.",
+      "thumbnail": {
+        "sourceSha256": "a3167a1f0cc41aba9303c5dc98f6de709c9e657aa3c4b13f213f5e8a39bf369e",
+        "sourceWidth": 720,
+        "sourceHeight": 404,
+        "cachedFile": "public/podcasts/president.webp",
+        "cachedSha256": "7025a11de36fe035e7466be115c02d95f40cf51c961149058c5599df1d5ab646",
+        "cachedWidth": 720,
+        "cachedHeight": 404,
+        "cachedBytes": 37620,
+        "transform": "WebP quality 88 at the original 720x404 geometry; no crop or content edits."
+      }
+    }
+  ],
+  "clubs": [
+    {
+      "id": "aitu-music-club",
+      "name": "Music Club",
+      "url": "https://map.webspace.cat/club/aitu-music-club",
+      "logoUrl": "https://map.webspace.cat/storage/ems-images/organizations/drafts/u1/ab9d191e-924c-4fcf-9922-ff905590ce45.png",
+      "logo": {
+        "sourceSha256": "4ad665413fafd7885d4f543385ea2f5555538a134acbbc5319659080a43c9b9c",
+        "sourceWidth": 512,
+        "sourceHeight": 512,
+        "cachedFile": "public/clubs/aitu-music-club.webp",
+        "cachedSha256": "63fdb248f3becd89b31779272c37f6762e512c238ae3a4396fa0506911e01282",
+        "cachedWidth": 192,
+        "cachedHeight": 192,
+        "cachedBytes": 16702,
+        "transform": "Proportional resize to fit inside 192x192, then WebP quality 90; no crop or content edits."
+      }
+    },
+    {
+      "id": "seds-aitu",
+      "name": "SEDS AITU",
+      "url": "https://map.webspace.cat/club/seds-aitu",
+      "logoUrl": "https://map.webspace.cat/storage/ems-images/organizations/drafts/u1/cbb0a4b9-1f6d-4baf-96e4-e4246c4c1cfd.png",
+      "logo": {
+        "sourceSha256": "b9a44b6055f5f35c0d45faf787817d470a1943f6f752d7c98132baebf82cdbef",
+        "sourceWidth": 1251,
+        "sourceHeight": 1251,
+        "cachedFile": "public/clubs/seds-aitu.webp",
+        "cachedSha256": "4cc9ee1c0b02daf01326fe0ec9ec33dd681bd3b731065d4e75f49c0c6600c7c3",
+        "cachedWidth": 192,
+        "cachedHeight": 192,
+        "cachedBytes": 10310,
+        "transform": "Proportional resize to fit inside 192x192, then WebP quality 90; no crop or content edits."
+      }
+    },
+    {
+      "id": "aitu-art-club",
+      "name": "AITU Art Club",
+      "url": "https://map.webspace.cat/club/aitu-art-club",
+      "logoUrl": "https://map.webspace.cat/storage/ems-images/organizations/drafts/u1/db33d56f-e729-4ace-8b94-b60e4589c847.png",
+      "logo": {
+        "sourceSha256": "e39340ba8496a4dccec8f8268edce498c73352c9dab88ea5755523527ad714e1",
+        "sourceWidth": 512,
+        "sourceHeight": 512,
+        "cachedFile": "public/clubs/aitu-art-club.webp",
+        "cachedSha256": "ee6b9b56b49bb9dd15dc60dc335924186679e1f6c978b62c435f9806015d7e79",
+        "cachedWidth": 192,
+        "cachedHeight": 192,
+        "cachedBytes": 5324,
+        "transform": "Proportional resize to fit inside 192x192, then WebP quality 90; no crop or content edits."
+      }
+    }
+  ]
+}

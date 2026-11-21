@@ -1,0 +1,1010 @@
+{
+  "source": "https://creata.news/issues/01",
+  "importedAt": "2026-11-14",
+  "sourceSha256": "ecfc0055459a7b519a819501e6fa08a96a72c8bea2461eafe6792b1771227103",
+  "pages": 36,
+  "files": [
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/fonts/08479eba42a7958d.woff2",
+      "path": "/newspaper/fonts/08479eba42a7958d.woff2",
+      "bytes": 1816,
+      "sha256": "5501f713602e4960a52d096d6a4afb72b5d163c5bf27173e93da41a6837e3a2d"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/fonts/10e743c66870944a.woff2",
+      "path": "/newspaper/fonts/10e743c66870944a.woff2",
+      "bytes": 50892,
+      "sha256": "d7f07f8a308ce0a7287d79a65a85cfbc0f4741ef426bf1a3902d24392cc71723"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/fonts/23c16c6df26cbc5a.woff2",
+      "path": "/newspaper/fonts/23c16c6df26cbc5a.woff2",
+      "bytes": 16608,
+      "sha256": "9023f2c5cdbaf98b21f48e21591f777945a30491c59e77994117831608d5bf79"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/fonts/2679bfd9c23caa67.woff2",
+      "path": "/newspaper/fonts/2679bfd9c23caa67.woff2",
+      "bytes": 17956,
+      "sha256": "2c67ea3faf6083ba7f358c17132cfc370e5bc72bfebc26b40f8b3c3aeb2304c3"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/fonts/38ab925f3f7a186e.woff2",
+      "path": "/newspaper/fonts/38ab925f3f7a186e.woff2",
+      "bytes": 31460,
+      "sha256": "c3880f0c5afb7890a102bc4b9c8257703664388f708b4be880ec5f5f68e8ea9d"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/fonts/4b390eeb9020db70.woff2",
+      "path": "/newspaper/fonts/4b390eeb9020db70.woff2",
+      "bytes": 47920,
+      "sha256": "c0963cb295d70107e2966cb2ec37741f9c34f363112298f4828a02ea68d315e7"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/fonts/5aee719cebd989c4.woff2",
+      "path": "/newspaper/fonts/5aee719cebd989c4.woff2",
+      "bytes": 25992,
+      "sha256": "c4ec4a6f26218659f33ff5f176f69b74f43d14c6258472cb8856fe03a95eb2ee"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/fonts/75abf9478fd86459.woff2",
+      "path": "/newspaper/fonts/75abf9478fd86459.woff2",
+      "bytes": 47872,
+      "sha256": "800b84f5801370af4bf15155b952b54964e44863d664c98fc17084d609c888cb"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/fonts/87bf0650804da057.woff2",
+      "path": "/newspaper/fonts/87bf0650804da057.woff2",
+      "bytes": 85780,
+      "sha256": "33b49c485e21a38bbfe68de764cc5b329b82c74e6ae4dc0cd9ace5b349da25fe"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/fonts/903f5d36a345c21d.woff2",
+      "path": "/newspaper/fonts/903f5d36a345c21d.woff2",
+      "bytes": 10040,
+      "sha256": "a7d477748e49ae9656d2c31288898f21b6ba56358192b5e296b08e2bc633d18e"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/fonts/977b9ed7ed0d4b3f.woff2",
+      "path": "/newspaper/fonts/977b9ed7ed0d4b3f.woff2",
+      "bytes": 12132,
+      "sha256": "a9d0b1f392b1e910a5380cf5997c38af5250d5f5a80a46c9b6fe814c5dd28c9d"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/fonts/a94ca91a5a7b5e9a.woff2",
+      "path": "/newspaper/fonts/a94ca91a5a7b5e9a.woff2",
+      "bytes": 70736,
+      "sha256": "3f1abb33549406163ab6f4984f4a5e2e1199bd59377ecf927da0c7484c7ad43d"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/fonts/ae027618076b7a76.woff2",
+      "path": "/newspaper/fonts/ae027618076b7a76.woff2",
+      "bytes": 13856,
+      "sha256": "54a956ea5b2cfddfea2d336dd36bfcba64f40fa8b2d41685d9d4edf4a2910ab8"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/fonts/c5260f21abbad128.woff2",
+      "path": "/newspaper/fonts/c5260f21abbad128.woff2",
+      "bytes": 8500,
+      "sha256": "6c8fa1c9b00ccaf9de65ad77600e4346c3c661961d31d28b8b10ae535d9fad91"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/fonts/dcd6859611676a0f.woff2",
+      "path": "/newspaper/fonts/dcd6859611676a0f.woff2",
+      "bytes": 117648,
+      "sha256": "ed84482df7b95e6a56a113de1ba2a8d54337f499ba19d54ca697a7e15427ff5f"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/fonts/e81feed577c8dea0.woff2",
+      "path": "/newspaper/fonts/e81feed577c8dea0.woff2",
+      "bytes": 18596,
+      "sha256": "24ae3a0414fa4716b2ac45355ca1ca21c1618d521a949b938e40d17af909d899"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/fonts/e8530dec57429095.woff2",
+      "path": "/newspaper/fonts/e8530dec57429095.woff2",
+      "bytes": 17504,
+      "sha256": "6b6c1cde51402c601d450a84465d6837689e2926522acc2bed71dcf97c5d2668"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/fonts/ecaac8a28fa89856.woff2",
+      "path": "/newspaper/fonts/ecaac8a28fa89856.woff2",
+      "bytes": 31964,
+      "sha256": "8520ad8b96118d649eb140d4222d14ef9b5041bfc15da184360389e73a3ad29c"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/fonts/fbe38f9132984e5a.woff2",
+      "path": "/newspaper/fonts/fbe38f9132984e5a.woff2",
+      "bytes": 37440,
+      "sha256": "620a3d45177ddc8f961315a1297e3f1cb2ed801e4723bc6e18b3467604a7df97"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/ac_loop.mp4",
+      "path": "/newspaper/issues/01/media/ac_loop.mp4",
+      "bytes": 108476,
+      "sha256": "a6edba26a302b00ab1630cb90c6bdddd8e211877bb954c25314a299b5b768059"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/ac_loop.webp",
+      "path": "/newspaper/issues/01/media/ac_loop.webp",
+      "bytes": 24788,
+      "sha256": "5bf9fe79b87ac233ac424fdcb3d85c1ba6999cf593723c534a40edc0b4643059"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/afd_panel.webp",
+      "path": "/newspaper/issues/01/media/afd_panel.webp",
+      "bytes": 66442,
+      "sha256": "82c7ef3845053838c9732b303a724df4fec884a8cdc02b5bd891a82d5451be59"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/am_home.webp",
+      "path": "/newspaper/issues/01/media/am_home.webp",
+      "bytes": 15144,
+      "sha256": "ebca0dbae1ec7a8a8c92d737264c30d175def435762fea4ab991f1fe0d7825c8"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/bc_group.webp",
+      "path": "/newspaper/issues/01/media/bc_group.webp",
+      "bytes": 210618,
+      "sha256": "f1a9890b17472c0ff6af72ef7fd792f41e749623675f599addcc9b687201debf"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/bp_cover.webp",
+      "path": "/newspaper/issues/01/media/bp_cover.webp",
+      "bytes": 32842,
+      "sha256": "cc52fa5672c8e075cf0d2ad33a11552544f610a96da2ae0ddc487e0599149b85"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/bt_adyrbai.webp",
+      "path": "/newspaper/issues/01/media/bt_adyrbai.webp",
+      "bytes": 107970,
+      "sha256": "8bf6cab9218ff5ea2ac47f263a51c00a3b0586425e5b773eeacf61bf8c8e8fa4"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/bt_baigozina.webp",
+      "path": "/newspaper/issues/01/media/bt_baigozina.webp",
+      "bytes": 93076,
+      "sha256": "811abd649ef7becc9203696e2b7f721c2100828ba10e0941fae53c7f6789f417"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/bt_burbaev.webp",
+      "path": "/newspaper/issues/01/media/bt_burbaev.webp",
+      "bytes": 48100,
+      "sha256": "df8972936855b87594569a9e2e6ab4ef8c0411a5930cd27fd07bc56117ab915e"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/bt_musina.webp",
+      "path": "/newspaper/issues/01/media/bt_musina.webp",
+      "bytes": 67676,
+      "sha256": "e3f2fc0e015ad4964d5a35d718fd0571175c45c5b8e19311c4be5d0cf9dc9796"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/bt_open1.webp",
+      "path": "/newspaper/issues/01/media/bt_open1.webp",
+      "bytes": 27064,
+      "sha256": "0980ebe6d982f8a8c8eacb0cff2cdf725b1202251f027296f6a4c745b78874be"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/bt_open2.webp",
+      "path": "/newspaper/issues/01/media/bt_open2.webp",
+      "bytes": 23094,
+      "sha256": "de59e1cc4e27fa50eda13382641666f7ef2354ef5c09a6f6326d92154968a1f7"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/bt_rudenko.webp",
+      "path": "/newspaper/issues/01/media/bt_rudenko.webp",
+      "bytes": 94462,
+      "sha256": "7f3d3903d972f90711f1518b2cf659be23ae1bd41c23d0c2cb6b1e1158d7a515"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/bt_shaimardinova.webp",
+      "path": "/newspaper/issues/01/media/bt_shaimardinova.webp",
+      "bytes": 21214,
+      "sha256": "009ce9f3c19937e27f8f7b85f25f426b57feaa5f61dd9e804e42e4d5a40fed2e"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/bt_tabetova.webp",
+      "path": "/newspaper/issues/01/media/bt_tabetova.webp",
+      "bytes": 97938,
+      "sha256": "7705c456a4fb8a04c03308b5be5bdcfba92cea1b9f98925ba47674bd5307988e"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/cgday.mp4",
+      "path": "/newspaper/issues/01/media/cgday.mp4",
+      "bytes": 227827,
+      "sha256": "ed78dad172626ec3a905fa8f953c9b5cf051e9eecd6916bab4fb230af74c6519"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/cgday.webp",
+      "path": "/newspaper/issues/01/media/cgday.webp",
+      "bytes": 32520,
+      "sha256": "2f63d2308ef853450e7052d48c156ce0f9cd4a3850fc05a156f33c5444956128"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/ciaq_dance.mp4",
+      "path": "/newspaper/issues/01/media/ciaq_dance.mp4",
+      "bytes": 224498,
+      "sha256": "be15249a3ae1fac7976274f54d43d56e4f8d5ddf4026b30318a318eb759bea25"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/ciaq_dance.webp",
+      "path": "/newspaper/issues/01/media/ciaq_dance.webp",
+      "bytes": 9244,
+      "sha256": "7a5c3c905751e550611f43b8a6279d83d41d4e9551a612074ebfab00c8377a02"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/concept_almaty.webp",
+      "path": "/newspaper/issues/01/media/concept_almaty.webp",
+      "bytes": 62022,
+      "sha256": "0372406a49e875dc6e5676ace0296a3411d30fd76c7201f9fac980dc75e56735"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/cs_comics.webp",
+      "path": "/newspaper/issues/01/media/cs_comics.webp",
+      "bytes": 142558,
+      "sha256": "2b53339fa20a5bd91837af22a838519a318b3aa28ab5ab9446cb7a5c43266352"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/cs_dbridge.webp",
+      "path": "/newspaper/issues/01/media/cs_dbridge.webp",
+      "bytes": 33074,
+      "sha256": "81347783ebf657897380ee6727d3fc783a17d083303f3b9908d4e224cae325a5"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/cs_ecoshift.webp",
+      "path": "/newspaper/issues/01/media/cs_ecoshift.webp",
+      "bytes": 19556,
+      "sha256": "09020fc4fd40a33b4cce274b814a206ca1c70e99614140b49f31fdeb918ad3ac"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/cs_group.webp",
+      "path": "/newspaper/issues/01/media/cs_group.webp",
+      "bytes": 203576,
+      "sha256": "e4ac2aa09d5f6440c89f6e7bd5452aeab409c76b65f59cfc8a3f8ac5af94fffa"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/cs_jetim.webp",
+      "path": "/newspaper/issues/01/media/cs_jetim.webp",
+      "bytes": 27798,
+      "sha256": "e4bd1e5ef8257f66677a8d2b7dfbfe021801680c17fbf084774cb5a107c42dab"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/cs_konsensus.webp",
+      "path": "/newspaper/issues/01/media/cs_konsensus.webp",
+      "bytes": 42716,
+      "sha256": "29e780c97e88366bdf23fc74008e8cc2f3f9ae94fc1b586d9b688ca8179e72de"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/cs_ph_final.webp",
+      "path": "/newspaper/issues/01/media/cs_ph_final.webp",
+      "bytes": 112488,
+      "sha256": "df4bf19f8b88a248eb6e187cac91e3e0f645c805283dd535d0e3fb87cbfa0bf1"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/cs_qc.webp",
+      "path": "/newspaper/issues/01/media/cs_qc.webp",
+      "bytes": 32940,
+      "sha256": "87f0c424a41ad01d0c707e6c908afc88a4f4011b66605ae06392dd07b176ac60"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/david.webp",
+      "path": "/newspaper/issues/01/media/david.webp",
+      "bytes": 13142,
+      "sha256": "c8cf4a89aeea97effcaaac5a51ea920e3cf0bfebbd6bc8bc07c24a463a31d4fe"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/db_digital.webp",
+      "path": "/newspaper/issues/01/media/db_digital.webp",
+      "bytes": 118438,
+      "sha256": "2c552c36d742e5dc5da80eaea1e08f3c09b90cd8736b39ac7051e37a39c0f79b"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/db_invest.webp",
+      "path": "/newspaper/issues/01/media/db_invest.webp",
+      "bytes": 110802,
+      "sha256": "0801a0688110389c1592bf45cc7f19443b20f1d664178b73eb44f84392652d48"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/db_vision.webp",
+      "path": "/newspaper/issues/01/media/db_vision.webp",
+      "bytes": 61450,
+      "sha256": "86a7a381e4275839d005ad8b51834e2c8ba602a84332bd6080432c22d3974c44"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/dsh_group.webp",
+      "path": "/newspaper/issues/01/media/dsh_group.webp",
+      "bytes": 74084,
+      "sha256": "69ded892f39388ba0837ab002efea1c954af357341437d94f8a9516205e79294"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/duo.webp",
+      "path": "/newspaper/issues/01/media/duo.webp",
+      "bytes": 79756,
+      "sha256": "af11e9ed89369bbb2e28ec98de0adbb98543c3a44315245005d2bfd7a4ccec1c"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/dz_chill.webp",
+      "path": "/newspaper/issues/01/media/dz_chill.webp",
+      "bytes": 54530,
+      "sha256": "b42e8ca4d8ce2c134f4b40e22352678026adc810fbcb835b188a791528ee8def"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/dz_cos1.webp",
+      "path": "/newspaper/issues/01/media/dz_cos1.webp",
+      "bytes": 79460,
+      "sha256": "db66995bf0deff07e85104005e6ed74b38e5c7bd77628bfabb2179bfbd240cd6"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/dz_cos2.webp",
+      "path": "/newspaper/issues/01/media/dz_cos2.webp",
+      "bytes": 49346,
+      "sha256": "59fe7d7a4f31d171d6b75893f2d8af320ebbb481afe43a41067be4485ffa3948"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/dz_cos3.webp",
+      "path": "/newspaper/issues/01/media/dz_cos3.webp",
+      "bytes": 71360,
+      "sha256": "b3232c316cdfb84b68b279a69585f7a96ab0c4403ca7d25fd4295589e9b2a6fc"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/dz_cos4.webp",
+      "path": "/newspaper/issues/01/media/dz_cos4.webp",
+      "bytes": 68348,
+      "sha256": "5d19c7b5fe11f931494ceeb3535c3512b6da58e0939c744b83c0c32be6a8af8d"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/dz_vr2.webp",
+      "path": "/newspaper/issues/01/media/dz_vr2.webp",
+      "bytes": 37532,
+      "sha256": "b06614c34faf455cc95f8abccc12d4ac249b9dbff2c739400bc634e5ce885b30"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/dz2_0042.webp",
+      "path": "/newspaper/issues/01/media/dz2_0042.webp",
+      "bytes": 71408,
+      "sha256": "3a79faf3f9f9d351b9b9bf6cd9154c0f4de84fb880ce1b0b113414f727050717"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/dz2_0124.webp",
+      "path": "/newspaper/issues/01/media/dz2_0124.webp",
+      "bytes": 53526,
+      "sha256": "2486cb8134c0e02bb56e516ed90c353f8385ec02722f907a8dc5ccc7736be338"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/dz2_0140.webp",
+      "path": "/newspaper/issues/01/media/dz2_0140.webp",
+      "bytes": 66282,
+      "sha256": "b1fad3fdd28bade7e1ba79dd30f6728c426e75b6b8c33bc808c1050b7fa83d28"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/dz2_0151.webp",
+      "path": "/newspaper/issues/01/media/dz2_0151.webp",
+      "bytes": 47806,
+      "sha256": "ce14a3c68115f0e51e4fd1ca9a7793b8de5ddc9a91b0d78b6ef3e5e50f189f44"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/dz2_0186.webp",
+      "path": "/newspaper/issues/01/media/dz2_0186.webp",
+      "bytes": 77826,
+      "sha256": "96d39b56639ed3ea51f17a2dbbe278679a8d7b7e107c4949affb0683b561e109"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/dz2_0194.webp",
+      "path": "/newspaper/issues/01/media/dz2_0194.webp",
+      "bytes": 62312,
+      "sha256": "1786c4e8824024cab11df1a665426e6d3dd52a1b1371aea881f1f212fd9052f9"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/dz2_0236.webp",
+      "path": "/newspaper/issues/01/media/dz2_0236.webp",
+      "bytes": 52886,
+      "sha256": "9311aef27bfeaefcff8b9eb973c2dcfccb1f6af02fd75583895f4ef357958d2b"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/dz2_0237.webp",
+      "path": "/newspaper/issues/01/media/dz2_0237.webp",
+      "bytes": 84630,
+      "sha256": "1e93aeb5d490affdeccad05425430209d9d1875f2fbda35edf12c1b9b1400320"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/dz2_0245.webp",
+      "path": "/newspaper/issues/01/media/dz2_0245.webp",
+      "bytes": 55800,
+      "sha256": "257c5ca31e925f7736b449acfc3f5ca340ec21340298edcc4cf3aeec945c39a5"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/dz2_0246.webp",
+      "path": "/newspaper/issues/01/media/dz2_0246.webp",
+      "bytes": 105308,
+      "sha256": "99602bdf6480b0e89c3965107bbef79f54e5f31184cc4fd63edbcc230d2873f0"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/dz2_0264.webp",
+      "path": "/newspaper/issues/01/media/dz2_0264.webp",
+      "bytes": 91478,
+      "sha256": "4645a85a53199b71461b5944ee348d26563cba56df35cf4ec36b78a93860a4f5"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/dz2_0313.webp",
+      "path": "/newspaper/issues/01/media/dz2_0313.webp",
+      "bytes": 60710,
+      "sha256": "a48b18965ac9aeb8b75990069924fa48f3683794f2b312ec4f1acba91f958854"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/efm_ai_stage.webp",
+      "path": "/newspaper/issues/01/media/efm_ai_stage.webp",
+      "bytes": 14368,
+      "sha256": "c62e8fce10af7531a7a951fdd6fef6f7450d015f505c4376c7bd13e7715f137d"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/efm_ai.webp",
+      "path": "/newspaper/issues/01/media/efm_ai.webp",
+      "bytes": 50678,
+      "sha256": "0f752fdccdd3602b09a9e1d2bcd525dbe0000afe9daf1d544ab6f4d3d8704fe4"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/efm_imp_panel.webp",
+      "path": "/newspaper/issues/01/media/efm_imp_panel.webp",
+      "bytes": 70254,
+      "sha256": "3a0a76e22230829f5a81228c6ee380d3146d8eff68ce32ede44de5d7d0367349"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/fp_lead.mp4",
+      "path": "/newspaper/issues/01/media/fp_lead.mp4",
+      "bytes": 1185087,
+      "sha256": "8ca674efe16e7090295a58b3239611b330df44c06945cf75b672095406e91274"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/fp_lead.webp",
+      "path": "/newspaper/issues/01/media/fp_lead.webp",
+      "bytes": 162204,
+      "sha256": "57108406104ccd94f0819c45c4b74bf328338c0d96e4bd04b8eeba4bcf78ba09"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/fp_stand.mp4",
+      "path": "/newspaper/issues/01/media/fp_stand.mp4",
+      "bytes": 428796,
+      "sha256": "db41b7ebbb37921497d6c76b88b3e70d3cee38a57879fbd6f3dc69780d6f3fa8"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/fp_stand.webp",
+      "path": "/newspaper/issues/01/media/fp_stand.webp",
+      "bytes": 18518,
+      "sha256": "d3702ee3162835e9e6b7771e58adb16bf9c38fd9435aaf87eac48dd122b80201"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/gca_ggj.webp",
+      "path": "/newspaper/issues/01/media/gca_ggj.webp",
+      "bytes": 32590,
+      "sha256": "2c2bb5123b5ed7b5abac07f3e97dda86a2744acfd3c0bbd3c3e4a6c6deb17cfc"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/gca_myths.webp",
+      "path": "/newspaper/issues/01/media/gca_myths.webp",
+      "bytes": 52046,
+      "sha256": "1ef80c2f46f46f4ff9e6e9cfbd6476016a5d301c55ec452c39a9a3619a2b7933"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/gca_mytona.webp",
+      "path": "/newspaper/issues/01/media/gca_mytona.webp",
+      "bytes": 13518,
+      "sha256": "ddfe047df5e36daf2395111c08297236fce302a5db182aecbcb64a8af2cb6993"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/gdf_indie2.webp",
+      "path": "/newspaper/issues/01/media/gdf_indie2.webp",
+      "bytes": 27246,
+      "sha256": "72a5b0d5ade2dea4a1690c8e73a816badf048a740a7ebc7ef7fa48439f3a5640"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/gdf_panel.webp",
+      "path": "/newspaper/issues/01/media/gdf_panel.webp",
+      "bytes": 140322,
+      "sha256": "aba73fa99e46444147a4048e734dd9a0c3af28af4911f7438e6d8f37ce41c378"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/gdf_vr.webp",
+      "path": "/newspaper/issues/01/media/gdf_vr.webp",
+      "bytes": 70228,
+      "sha256": "3ed21c782f9ff132de4edbdeb7cec25a024fbff24fb95abf9b0b9f21456368fc"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/gp_top10.webp",
+      "path": "/newspaper/issues/01/media/gp_top10.webp",
+      "bytes": 129246,
+      "sha256": "ca6cc5b5f9c3d8c07876113df5b4407e41b3af49734f83fcc2fe522fc7174839"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/hero.mp4",
+      "path": "/newspaper/issues/01/media/hero.mp4",
+      "bytes": 614798,
+      "sha256": "5519427176d05fa6cb46edbf2093781cef3648b1cccda17fdc194af3ccf73675"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/hero.webp",
+      "path": "/newspaper/issues/01/media/hero.webp",
+      "bytes": 78306,
+      "sha256": "6084bc7cab76cdc1444ecbe12936dd86af76924f839ab67ef01c11f31c9e3061"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/hicham.webp",
+      "path": "/newspaper/issues/01/media/hicham.webp",
+      "bytes": 8374,
+      "sha256": "a818ada63ebdf8379a2871e34e5a93583300bade4a26facc5e4f5dcee32d3d3d"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/ig_anri.webp",
+      "path": "/newspaper/issues/01/media/ig_anri.webp",
+      "bytes": 39818,
+      "sha256": "eedc2c0e02860fdb097daae120c17d1832a4896631da1a4337b4850e6f1b5a60"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/ig_kenz.webp",
+      "path": "/newspaper/issues/01/media/ig_kenz.webp",
+      "bytes": 22156,
+      "sha256": "1123b9528ffed08d8e2b9870d284583c9c6698c7fdcdacfa877355af89a3cb7a"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/ig_yer.webp",
+      "path": "/newspaper/issues/01/media/ig_yer.webp",
+      "bytes": 24282,
+      "sha256": "3b9580006a6421fbeed65db3c1ebd9e28e3f2f45a782f274fe7129b32ded6209"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/imx_info.webp",
+      "path": "/newspaper/issues/01/media/imx_info.webp",
+      "bytes": 62888,
+      "sha256": "57c3140ca79e1893c2317270d128e980bf8e92bbd9c7a0b584b0b252a7af4c31"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/iv_doomers.mp4",
+      "path": "/newspaper/issues/01/media/iv_doomers.mp4",
+      "bytes": 145017,
+      "sha256": "563a7e676a489343e54e3fa2996d65dd50c7a8feb43f7bc74382fc39b3137096"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/iv_doomers.webp",
+      "path": "/newspaper/issues/01/media/iv_doomers.webp",
+      "bytes": 26976,
+      "sha256": "e4cda0918910ca9a475cef8c54f6d72781400d30a54572354d8e4feb62f3ee6b"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/iv_elbow.mp4",
+      "path": "/newspaper/issues/01/media/iv_elbow.mp4",
+      "bytes": 172714,
+      "sha256": "0bc1431684160091d09708f11abbc7d46ff5fbecb1978f9076d1599d8432d5b2"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/iv_elbow.webp",
+      "path": "/newspaper/issues/01/media/iv_elbow.webp",
+      "bytes": 32290,
+      "sha256": "ca26cc23da489e3ab0b9d9ef131f38deab2d9d2014ff2d4f36d2fcbc8b68b53a"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/iv_frontline.mp4",
+      "path": "/newspaper/issues/01/media/iv_frontline.mp4",
+      "bytes": 211323,
+      "sha256": "4ac2c29ad7b5ea06824c338d21ce150cf13a395adefe36765d7cacfb84ed3c3f"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/iv_frontline.webp",
+      "path": "/newspaper/issues/01/media/iv_frontline.webp",
+      "bytes": 30810,
+      "sha256": "a2c38897ebc618d2cbc2043a92971d1573a2b87064e3a3b0d818a3d18d88ae94"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/iv_home.webp",
+      "path": "/newspaper/issues/01/media/iv_home.webp",
+      "bytes": 74118,
+      "sha256": "6ccfd79d02b2d2f5f29891dd837bf975a81d30eb3f4680ddc14aa079e384930d"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/iv_kittens.mp4",
+      "path": "/newspaper/issues/01/media/iv_kittens.mp4",
+      "bytes": 142424,
+      "sha256": "b6c4878cccadf3ea5e236f1f6de16ebe183d4232046c452edeb0422f490b41d9"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/iv_kittens.webp",
+      "path": "/newspaper/issues/01/media/iv_kittens.webp",
+      "bytes": 23584,
+      "sha256": "cfc4fbb03cf2d935a548d191c6f41e7aee0b98e6ba66c6770280f4ee5977deed"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/iv_mytona.mp4",
+      "path": "/newspaper/issues/01/media/iv_mytona.mp4",
+      "bytes": 191824,
+      "sha256": "8f3b6f08c42f3b44720cb5e24a4b18368e21b3f066edd42131a80c656070db51"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/iv_mytona.webp",
+      "path": "/newspaper/issues/01/media/iv_mytona.webp",
+      "bytes": 36352,
+      "sha256": "54df242257a679410a392474d4b227b01e92a7334ae0c655aa65e7066fa350ff"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/iv_ogames.mp4",
+      "path": "/newspaper/issues/01/media/iv_ogames.mp4",
+      "bytes": 160726,
+      "sha256": "378bb0dd91109011ee44ec6bca7cc6f58a13eae0ba2148bdf5a44a38cb8bc230"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/iv_ogames.webp",
+      "path": "/newspaper/issues/01/media/iv_ogames.webp",
+      "bytes": 29156,
+      "sha256": "34862bd8f4c07c762900f3a64965f1f0e406c6ab96a535930c08eae0fa2ffc2a"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/iv_poster.webp",
+      "path": "/newspaper/issues/01/media/iv_poster.webp",
+      "bytes": 16544,
+      "sha256": "0d1480f54762feed789367480709e122e67df44ccf9b80c4299888024a108f4f"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/jam_beat.mp4",
+      "path": "/newspaper/issues/01/media/jam_beat.mp4",
+      "bytes": 719063,
+      "sha256": "0fff28c223a20bd888dbcce420a7043605dd0a33663ab9cb483375f1213cded1"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/jam_beat.webp",
+      "path": "/newspaper/issues/01/media/jam_beat.webp",
+      "bytes": 75874,
+      "sha256": "03551381b81fd4b7a1916ef6a73e90ed0919b17c1dcf9cd339749861626e1ee5"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/jam_candle.mp4",
+      "path": "/newspaper/issues/01/media/jam_candle.mp4",
+      "bytes": 88462,
+      "sha256": "974fa07faf29a17e7cfb07bb414e0ac1ae6a434325f3541e8ac245c35a8658a8"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/jam_candle.webp",
+      "path": "/newspaper/issues/01/media/jam_candle.webp",
+      "bytes": 8524,
+      "sha256": "e90f534e6a94b1d620b4ae63cbb2f6acc05cc14799e20e56faff3f0bed20116d"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/jam_siren.mp4",
+      "path": "/newspaper/issues/01/media/jam_siren.mp4",
+      "bytes": 239454,
+      "sha256": "ad13a66d6a16878bc4f10aed014c0916339fc30ccd647149b32a314b0dc3a025"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/jam_siren.webp",
+      "path": "/newspaper/issues/01/media/jam_siren.webp",
+      "bytes": 14576,
+      "sha256": "d4804c2277ddd66bc319058f0b7f6a3a33506cfcd063988fb5549eddfe37150c"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/jam_stage.webp",
+      "path": "/newspaper/issues/01/media/jam_stage.webp",
+      "bytes": 70110,
+      "sha256": "2497f6370a6cdf79aee0a87ef4a9e232f578c24a3820261c13910d90a0fe5151"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/kur_hero.webp",
+      "path": "/newspaper/issues/01/media/kur_hero.webp",
+      "bytes": 74686,
+      "sha256": "2799504e50be20e28e79b8714d0f9e9f72f4404856178c81ac5dc4d54f032ce2"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/lect_hall.webp",
+      "path": "/newspaper/issues/01/media/lect_hall.webp",
+      "bytes": 88048,
+      "sha256": "dfed7b150b746b247bde4ce45dc2f930aeb8ab820cd676c9983a1867a0b5c1ba"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/lect_ivanov.webp",
+      "path": "/newspaper/issues/01/media/lect_ivanov.webp",
+      "bytes": 47618,
+      "sha256": "ca589d0b091f5592f34c41c7b3c584cf6aa8af3051b678b662095f77fc2ece13"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/lect_petrov.webp",
+      "path": "/newspaper/issues/01/media/lect_petrov.webp",
+      "bytes": 83852,
+      "sha256": "2bffaef889cfab55959ce36ed2616549b80ee130b0b208b29dfaefbd82796442"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/logo_doomers.webp",
+      "path": "/newspaper/issues/01/media/logo_doomers.webp",
+      "bytes": 7006,
+      "sha256": "2d7f72bd644ecf3d331fbf8706fa66815a71d1d90eb061642cb2b3d63cfce702"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/logo_elbow.webp",
+      "path": "/newspaper/issues/01/media/logo_elbow.webp",
+      "bytes": 16076,
+      "sha256": "74d90fd9e9391430d7389c77a22de83adc2a70d270242154127e5628e2598e2a"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/logo_frontline.webp",
+      "path": "/newspaper/issues/01/media/logo_frontline.webp",
+      "bytes": 3726,
+      "sha256": "1f01719ba7852f055d68e3f30f8bbc30b5d770e7a834f0556a87a0bb86130734"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/logo_kittens.webp",
+      "path": "/newspaper/issues/01/media/logo_kittens.webp",
+      "bytes": 5614,
+      "sha256": "03fbf2326438275faef20a6536fbf1e0e3e65e1b2c927096a27f82542e15e7d9"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/logo_mytona.webp",
+      "path": "/newspaper/issues/01/media/logo_mytona.webp",
+      "bytes": 3956,
+      "sha256": "bf11533705cba6d1120e8077b8a42220534ba0b1c091f5f66abb6aa6b79f0e53"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/logo_ogames.webp",
+      "path": "/newspaper/issues/01/media/logo_ogames.webp",
+      "bytes": 6486,
+      "sha256": "32881159849a65f6658ce57993050d550cba2d6b2d904e44f0208a86a07ebc2c"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/maj_hall.webp",
+      "path": "/newspaper/issues/01/media/maj_hall.webp",
+      "bytes": 40164,
+      "sha256": "2354329c6b5e35dfffd6cf0de74fa830bc3ad0e8b65a6c8510750ffe1a009464"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/myt_2d1.webp",
+      "path": "/newspaper/issues/01/media/myt_2d1.webp",
+      "bytes": 34654,
+      "sha256": "a3aa8e906418fc8963cad87aee8199ab7cbdc439309446eb6a97cf70ff0eed49"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/myt_3d3.webp",
+      "path": "/newspaper/issues/01/media/myt_3d3.webp",
+      "bytes": 20068,
+      "sha256": "15442066b5e981837e6f3824fe212dd1cda92c2eac63e89607b05462b47c51b9"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/myt_kz.webp",
+      "path": "/newspaper/issues/01/media/myt_kz.webp",
+      "bytes": 39498,
+      "sha256": "27793783018cc2ded7ae7cd327da5afa815a6cc82d75ed3dbf95fdd4665522c9"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/myt_lead.webp",
+      "path": "/newspaper/issues/01/media/myt_lead.webp",
+      "bytes": 34110,
+      "sha256": "eab902ba88c253d33752e39a1d6dd2922f7ed95599b45863f620c1fcaac1d81d"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/mytona.webp",
+      "path": "/newspaper/issues/01/media/mytona.webp",
+      "bytes": 77614,
+      "sha256": "958add19d5edddc1209e814bec09968f5ee64eaca4a259a64c6f8c047df5987f"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/panels.mp4",
+      "path": "/newspaper/issues/01/media/panels.mp4",
+      "bytes": 407516,
+      "sha256": "4130627179c8730b3c330b7eba2b8c214dca788ea0eca2e839b84b9ba5084050"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/panels.webp",
+      "path": "/newspaper/issues/01/media/panels.webp",
+      "bytes": 44008,
+      "sha256": "8af5d210bb6197aa1f660e388959475e362f86692690daf563ec70b057fd68a0"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/ph_mou.webp",
+      "path": "/newspaper/issues/01/media/ph_mou.webp",
+      "bytes": 109278,
+      "sha256": "185564457cf07a96fdc6e9770921f67e218fbd05e81d31175703d9c439ae81e2"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/qairu_photo.webp",
+      "path": "/newspaper/issues/01/media/qairu_photo.webp",
+      "bytes": 26240,
+      "sha256": "bd5cd803cc682ff077e51a126e652b951322a9963c301b930ea18b245cdbef8f"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/qz_cal.mp4",
+      "path": "/newspaper/issues/01/media/qz_cal.mp4",
+      "bytes": 421932,
+      "sha256": "5ec9336c315169bc6a7712b8ff3e2ecc29151dadafc95306a65b21b1bfd97934"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/qz_cal.webp",
+      "path": "/newspaper/issues/01/media/qz_cal.webp",
+      "bytes": 23298,
+      "sha256": "de704cd87e8728c28ffc0d7f07c148cc012f30ff99352ebf6772b299b93560c1"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/qz_cover.webp",
+      "path": "/newspaper/issues/01/media/qz_cover.webp",
+      "bytes": 35902,
+      "sha256": "a5eea0b1267bdf1aea22738e415e95a212900af8a4ad83821dbbb1242c9400ed"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/qz_finale.webp",
+      "path": "/newspaper/issues/01/media/qz_finale.webp",
+      "bytes": 35472,
+      "sha256": "849cca3742880898969d711d602ccb897048c880838e21de4d504b3c81c51ffa"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/qz_home.webp",
+      "path": "/newspaper/issues/01/media/qz_home.webp",
+      "bytes": 37296,
+      "sha256": "fb5a4ce9eb911a97513153b490c19bc43894eaf810ab4450b36573b76f5a8072"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/qz_marathon.webp",
+      "path": "/newspaper/issues/01/media/qz_marathon.webp",
+      "bytes": 77748,
+      "sha256": "3fc0b6a410f594aa85d19a3201a5259e3a16d58969bbad00cbb9e31e9b14bafe"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/qz_mma.webp",
+      "path": "/newspaper/issues/01/media/qz_mma.webp",
+      "bytes": 13028,
+      "sha256": "3e2f9723d6ba01a02aad82e03ed11c5f7a4c4bf75a84048571e113ea992f2843"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/qz_qamazhai.webp",
+      "path": "/newspaper/issues/01/media/qz_qamazhai.webp",
+      "bytes": 28524,
+      "sha256": "c716f8a9d3dd60dc20fdb97e6a4a75d7b3679633bac65bc56aaf7ed17accda5a"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/qz_qarazhorga.webp",
+      "path": "/newspaper/issues/01/media/qz_qarazhorga.webp",
+      "bytes": 44274,
+      "sha256": "ac9e3a3f81e938f92fe83b701435673f065004ec63e685e5cfa3083628ff6888"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/qz_studio.mp4",
+      "path": "/newspaper/issues/01/media/qz_studio.mp4",
+      "bytes": 381874,
+      "sha256": "c0340a7477d1961368bf62ad563f75de0326af51580c672ba864ed3bedc488f4"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/qz_studio.webp",
+      "path": "/newspaper/issues/01/media/qz_studio.webp",
+      "bytes": 29010,
+      "sha256": "ac15ca87232f638ee62e79d665230d6d6585074e3e62f5daf7efda565d01502a"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/ram.webp",
+      "path": "/newspaper/issues/01/media/ram.webp",
+      "bytes": 59198,
+      "sha256": "f2e2108f30a683015b36594f9b67969df9824148e87c0410abd78a67a5eb213f"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/retro.webp",
+      "path": "/newspaper/issues/01/media/retro.webp",
+      "bytes": 101906,
+      "sha256": "3731d3bb10c34e81a5f13585c18fab952a84fd7c0118d7b31c3caf9b306226e1"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/sft_6221.webp",
+      "path": "/newspaper/issues/01/media/sft_6221.webp",
+      "bytes": 40346,
+      "sha256": "45f7b048534e3500c2861dfe4c41cc9882cb8cfbfcecd7022332aa768c3f2812"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/sft_endo.webp",
+      "path": "/newspaper/issues/01/media/sft_endo.webp",
+      "bytes": 46446,
+      "sha256": "3ae43f376b53cb80c5118190ff67db17cf25fc4d90a0066091aabe7109624192"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/sft_group.webp",
+      "path": "/newspaper/issues/01/media/sft_group.webp",
+      "bytes": 111748,
+      "sha256": "a8ed07db6c2747536a1e38cb49e3f1c767a21951deb41201306d6aa66c0ebbfb"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/sft_jury.webp",
+      "path": "/newspaper/issues/01/media/sft_jury.webp",
+      "bytes": 56846,
+      "sha256": "6e66e79216069a39991da7c03ae5a04dad53cf6018aa18cc860c6b0f2e05d0a3"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/sft_oqu.webp",
+      "path": "/newspaper/issues/01/media/sft_oqu.webp",
+      "bytes": 22598,
+      "sha256": "907254f2f04ada97b5e4da35b23ce3b90886dbd151a88dc1e5913ef1f977241a"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/sft_win.webp",
+      "path": "/newspaper/issues/01/media/sft_win.webp",
+      "bytes": 147756,
+      "sha256": "3a6cee41338b783aadf545c9469cc228c755c9c051dfaf6aa44a0a6c75cb9055"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/sp_antaki.webp",
+      "path": "/newspaper/issues/01/media/sp_antaki.webp",
+      "bytes": 53744,
+      "sha256": "7f26f30c9375f2c7ec1bdc9af19ac51352a2f147e0535fe48878fa8086f23651"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/sp_belousov.webp",
+      "path": "/newspaper/issues/01/media/sp_belousov.webp",
+      "bytes": 71066,
+      "sha256": "da508be9b487297f2c69cc372d5789d42f4ed26e1d14dea2aacf479c0e162bef"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/sp_frontline.webp",
+      "path": "/newspaper/issues/01/media/sp_frontline.webp",
+      "bytes": 43548,
+      "sha256": "b7fc42fc2188a03c8f3c9d99c18af29237a5bba50b05a41808d658d2b041d9ec"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/sp_igibaeva.webp",
+      "path": "/newspaper/issues/01/media/sp_igibaeva.webp",
+      "bytes": 43002,
+      "sha256": "ceb56539300853c5ffd8cbb45a1c0725cec3ce163e00edca49ebb1f2ef9919cb"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/sp_kbtu.webp",
+      "path": "/newspaper/issues/01/media/sp_kbtu.webp",
+      "bytes": 13162,
+      "sha256": "8d01763f31cfed19b183dcd7687d3b2116a267b1e97f632bb2019d98f67034ab"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/sp_open.webp",
+      "path": "/newspaper/issues/01/media/sp_open.webp",
+      "bytes": 96884,
+      "sha256": "aea7d69f7c21c3e3575a944c17f4e686afbb11a9fe7387aaf273f9284b2e3e9e"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/sp_syskin.webp",
+      "path": "/newspaper/issues/01/media/sp_syskin.webp",
+      "bytes": 60074,
+      "sha256": "f9340c465ec8faee0e1e612c6401260d899b91c34536521d12cfd0ea9f64fabd"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/toto_lead.mp4",
+      "path": "/newspaper/issues/01/media/toto_lead.mp4",
+      "bytes": 1492135,
+      "sha256": "bf81d60d209651883e33651fd7b35a37c6a88fff2a0ca9c334dc3ed7c943f677"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/toto_lead.webp",
+      "path": "/newspaper/issues/01/media/toto_lead.webp",
+      "bytes": 25256,
+      "sha256": "5e76164eac556681674e44193939e73ee50e24931367be30a2cc403282baa9e0"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/toto_run.mp4",
+      "path": "/newspaper/issues/01/media/toto_run.mp4",
+      "bytes": 241967,
+      "sha256": "39aaced3be2a0d9a1721d0691d0d86131e0adb1fe5b3935f7489accabccb5475"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/toto_run.webp",
+      "path": "/newspaper/issues/01/media/toto_run.webp",
+      "bytes": 15622,
+      "sha256": "fb98027df977916cedd3b009be7b0adad8f5d9239eeb1fccdc84b1a4e9badeb8"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/vr_award.webp",
+      "path": "/newspaper/issues/01/media/vr_award.webp",
+      "bytes": 64454,
+      "sha256": "a25a54abcd2d2a25e31ea9b0e15c5189d25ca71f3cc2400f28c7472cace9b758"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/vr_loop.mp4",
+      "path": "/newspaper/issues/01/media/vr_loop.mp4",
+      "bytes": 643286,
+      "sha256": "3e12116e5766361d810af761967c7453dafae08d3dccb2d26c893c1a65fc80af"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/vr_loop.webp",
+      "path": "/newspaper/issues/01/media/vr_loop.webp",
+      "bytes": 39136,
+      "sha256": "78dd43ba1f896a534f826bd4efca8662310b4178df5e356156cd88a251923181"
+    },
+    {
+      "source": "https://rjklqsevcrikzer4.public.blob.vercel-storage.com/issues/01/media/zone.webp",
+      "path": "/newspaper/issues/01/media/zone.webp",
+      "bytes": 114186,
+      "sha256": "bc039670749a74ab95111dfbab742dbb757af8762c2e6ce893790b3520570f3f"
+    }
+  ]
+}

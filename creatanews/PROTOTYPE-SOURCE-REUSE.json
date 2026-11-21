@@ -1,0 +1,29 @@
+[
+  {
+    "original": "creata-news-v2/source-v2/src/home.jsx#OppCard",
+    "sourceSha256": "c9b4231e58db7161e23d8ff6cd2af7d63627491ad3231efb960e3354c3fda265",
+    "preserved": "src/features/opportunities/reference/OppCard.jsx.txt",
+    "active": "src/features/opportunities/opportunity-card.tsx",
+    "reuse": "Original OppCard markup and Tailwind classes; API and locale props replace CN hooks; persisted Save replaces local reminder."
+  },
+  {
+    "original": "creata-news-v2/source-v2/src/ui.jsx#Countdown",
+    "sourceSha256": "0c210ec6be6659bdd9df26ea75129e172563250e7ec50c0d2504bfc7f95eaa93",
+    "preserved": "src/features/opportunities/reference/Countdown.jsx.txt",
+    "active": "src/features/opportunities/countdown.tsx",
+    "reuse": "Original digit grid and FlowDigit; hydration-safe timer, explicit locale and reduced motion."
+  },
+  {
+    "original": "creata-news-v2/source-v2/src/home.jsx#OppsBand",
+    "sourceSha256": "7985699bab3a54f76547c5f6d260d13bb141d97a7524de1d8547534c32705e71",
+    "preserved": "src/features/opportunities/reference/OppsBand.jsx.txt",
+    "active": "src/features/opportunities/opportunities-band.tsx",
+    "reuse": "Original band header and lead, original OppCard; static grid extended to a 4/2/1-card looping carousel per user request. API data replaces CN.liveOpps, fixed colors adapt to current Creata theme."
+  },
+  {
+    "original": "creata-news-v2/site-v2/assets/app.css",
+    "sourceSha256": "cefeb7553a5647bb52cfb4c3437b612e1e63b6ecf093689c74b0bd4729607c4f",
+    "active": "src/features/opportunities/prototype-card.css",
+    "reuse": "Original compiled utility declarations for OppCard and Countdown; scoped and semantic colors mapped to @creata/brand."
+  }
+]

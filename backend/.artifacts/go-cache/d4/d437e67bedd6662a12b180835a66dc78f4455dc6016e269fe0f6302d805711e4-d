@@ -1,0 +1,3 @@
+./doc.go
+./fanout.go
+./pubsub.go

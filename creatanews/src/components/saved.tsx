@@ -1,0 +1,10 @@
+'use client'
+import Link from 'next/link'
+import { useEffect,useState } from 'react'
+import type { Article,Category,Locale,Opportunity } from '@/lib/models'
+import { copy,localePath } from '@/lib/i18n'
+import { useAuth } from './auth-context'
+import { ArticleCard,OpportunityCard } from './cards'
+import { StateMessage } from './state-message'
+import { publicArticles } from '@/lib/content'
+export function Saved({locale,categories}: {locale:Locale;categories:Category[]}) {const{auth,loading,error:authError,request}=useAuth(),[data,setData]=useState<{articles:Article[];opportunities:Opportunity[]}|null>(null),[error,setError]=useState(false),t=copy[locale];useEffect(()=>{if(!auth.user)return;let active=true;request<{articles:Article[];opportunities:Opportunity[]}>('/account/saved').then(result=>{if(active)setData(result)}).catch(()=>{if(active)setError(true)});return()=>{active=false}},[auth.user,request]);if(loading)return <div className='state-message' role='status'>…</div>;if(authError||error)return <StateMessage locale={locale} error/>;if(!auth.user)return <div className='state-message'><h2>{t.savedEmpty}</h2><p>{t.loginNeeded}</p><Link href={localePath(locale,'/profile')} className='button button-accent'>{t.signIn} ↗</Link></div>;if(!data)return <div className='state-message' role='status'>…</div>;const articles=publicArticles(data.articles,locale);return !articles.length&&!data.opportunities.length?<StateMessage locale={locale} title={t.savedEmpty} text={t.savedEmptyText}/>:<div className='listing-section'>{articles.length>0&&<section className='editorial-section'><div className='section-heading'><h2>{t.articles}</h2></div><div className='story-grid'>{articles.map(article=><ArticleCard key={article.id} article={article} locale={locale} categories={categories}/>)}</div></section>}{data.opportunities.length>0&&<section className='editorial-section'><div className='section-heading'><h2>{t.opportunities}</h2></div><div className='prototype-opportunity-grid'>{data.opportunities.map(item=><OpportunityCard key={item.id} opportunity={item} locale={locale}/>)}</div></section>}</div>}

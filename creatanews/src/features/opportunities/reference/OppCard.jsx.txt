@@ -1,0 +1,26 @@
+export function OppCard({ o, i = 0, dark }) {
+  const t = useT(), lang = useLang();
+  const on = (CN.prefs.reminders || []).includes(o.id);
+  return (
+    <motion.article initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.06 }}
+      className={"group flex flex-col overflow-hidden rounded-xl " + (dark ? "bg-white/[.06] ring-1 ring-white/15" : "bg-card ring-1 ring-rule")}>
+      {o.photo && <div className="relative aspect-[16/9] overflow-hidden"><img src={o.photo} alt="" loading="lazy" className="h-full w-full object-cover transition duration-700 group-hover:scale-105" />
+        <span className="absolute left-3 top-3 rounded-full bg-[#0E0E10]/80 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-white">{tr(o, "type", lang)}</span></div>}
+      <div className="flex flex-1 flex-col p-4">
+        <p className={"font-mono text-[11px] uppercase tracking-wider " + (dark ? "text-[#8C87FF]" : "text-accent")}>{o.org} · {tr(o, "country", lang)}</p>
+        <h3 className="h-title mt-1.5 text-[18px]">{tr(o, "title", lang)}</h3>
+        <p className={"mt-1.5 text-[14px] " + (dark ? "opacity-70" : "text-muted")}>{t.forWhom}: {tr(o, "forWhom", lang)}</p>
+        <div className="mt-auto pt-4">
+          <p className={"mb-1.5 font-mono text-[10px] uppercase tracking-wider " + (dark ? "opacity-60" : "text-muted")}>{t.deadline}: {fmtDate(o.deadline, lang, { day: "numeric", month: "long" })}</p>
+          <Countdown iso={o.deadline} />
+          <div className="mt-4 flex gap-2">
+            <a href={o.url} target="_blank" rel="noopener" className={"btn h-9 flex-1 text-[13px] " + (dark ? "bg-white text-[#0E0E10] hover:bg-[#8C87FF]" : "bg-ink text-paper hover:bg-accent")}>{t.apply}</a>
+            <button onClick={() => togglePref("reminders", o.id)} aria-pressed={on} className={"btn h-9 border text-[13px] " + (dark ? "border-white/30 hover:bg-white/10" : "border-rule hover:border-ink")}>
+              {on ? <BellRing size={14} /> : <Bell size={14} />}{on ? t.reminded : t.remind}
+            </button>
+          </div>
+        </div>
+      </div>
+    </motion.article>
+  );
+}

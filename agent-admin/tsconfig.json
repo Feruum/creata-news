@@ -1,0 +1,34 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": [
+      "ES2022",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    "strict": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
+    "types": [
+      "vite/client",
+      "bun"
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "../events-admin/src/*"
+      ]
+    },
+    "resolveJsonModule": true
+  },
+  "include": [
+    "src/creata/**/*.ts",
+    "src/creata/**/*.tsx",
+    "src/main.tsx",
+    "vite.config.ts"
+  ]
+}

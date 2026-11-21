@@ -1,0 +1,2 @@
+/* Close the looping seam with the same gap used between existing slides. */
+.slide:last-child { margin-inline-end:26px; }

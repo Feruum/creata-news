@@ -1,0 +1,110 @@
+{
+  "checkedOn": "2026-10-25",
+  "institution": "Astana IT University",
+  "intake": "2026",
+  "tuitionAcademicYear": "2026–2027",
+  "catalog": "https://astanait.edu.kz/en/bachelor",
+  "schoolLeaverRequirements": "https://astanait.edu.kz/en/how-to-apply",
+  "aet": "https://astanait.edu.kz/en/aitu-excellence-test",
+  "creativeExams": "https://astanait.edu.kz/en/creative-exams",
+  "otherRoutes": {
+    "college": "https://astanait.edu.kz/en/admission-after-college",
+    "international": "https://astanait.edu.kz/inc-academ"
+  },
+  "programs": [
+    {
+      "code": "6B06102",
+      "name": "Software Engineering",
+      "url": "https://astanait.edu.kz/en/Software-Engineering-bachelor"
+    },
+    {
+      "code": "6B06101",
+      "name": "Computer Science",
+      "url": "https://astanait.edu.kz/en/Computer-Science-bachelor"
+    },
+    {
+      "code": "6B06103",
+      "name": "Big Data Analysis",
+      "url": "https://astanait.edu.kz/en/BigDataAnalysis-bachelor"
+    },
+    {
+      "code": "6B06107",
+      "name": "Mathematical and Computational Science",
+      "url": "https://astanait.edu.kz/en/mathematicalcomputational-science-bachelor"
+    },
+    {
+      "code": "6B06301",
+      "name": "Cybersecurity",
+      "url": "https://astanait.edu.kz/en/Cybersecurity"
+    },
+    {
+      "code": "6B06302",
+      "name": "Smart Security Technologies",
+      "url": "https://astanait.edu.kz/en/smartsecuritytechnologies-bachelor"
+    },
+    {
+      "code": "6B07101",
+      "name": "Industrial Internet of Things",
+      "url": "https://astanait.edu.kz/en/industrial-internet-things-bachelor"
+    },
+    {
+      "code": "6B07102",
+      "name": "Electronic Engineering",
+      "url": "https://astanait.edu.kz/en/electronic-engineering-bachelor"
+    },
+    {
+      "code": "6B06202",
+      "name": "Smart Technologies",
+      "url": "https://astanait.edu.kz/en/smarttechnologies-bachelor"
+    },
+    {
+      "code": "6B07103",
+      "name": "Digital Technologies in Nuclear Power Engineering",
+      "url": "https://astanait.edu.kz/en/digitaltechnologiesin-nuclear-bachelor"
+    },
+    {
+      "code": "6B06105",
+      "name": "Media Technologies",
+      "url": "https://astanait.edu.kz/en/mediatechbachelor"
+    },
+    {
+      "code": "6B03201",
+      "name": "Digital Journalism",
+      "url": "https://astanait.edu.kz/en/dj"
+    },
+    {
+      "code": "6B04104",
+      "name": "Digital Public Administration",
+      "url": "https://astanait.edu.kz/en/digital-public-administration-bachelor"
+    },
+    {
+      "code": "6B04201",
+      "name": "Digital Jurisprudence",
+      "url": "https://astanait.edu.kz/en/digital-law"
+    },
+    {
+      "code": "6B04103",
+      "name": "AI Business",
+      "url": "https://astanait.edu.kz/en/aibusiness-bachelor"
+    },
+    {
+      "code": "6B04101",
+      "name": "IT Management",
+      "url": "https://astanait.edu.kz/en/itmanagement-bachelor"
+    },
+    {
+      "code": "6B04102",
+      "name": "IT Entrepreneurship",
+      "url": "https://astanait.edu.kz/en/itentrepre-bachelor"
+    }
+  ],
+  "editorialNotes": [
+    "Catalog follows the 17 programs in the current main bachelor catalog. The international page also mentions Big Data in Healthcare; it is omitted because it is absent from the main catalog.",
+    "Program study and career descriptions are brief editorial summaries, translated into Russian and Kazakh. Career examples are not placement promises.",
+    "School-leaver thresholds come from the central 2026 admissions table. These are eligibility minimums, not historical grant-winning scores.",
+    "Digital Jurisprudence grant threshold is an em dash in the official table, represented as null / not published, not zero.",
+    "Creative examinations for Digital Journalism comprise an essay and an interview with mandatory portfolio presentation.",
+    "Duration, English teaching and 2026–2027 tuition are from the bachelor page. Deadlines are linked rather than presented as active dates.",
+    "Interest tags and scoring are editorial guidance; no claim of psychometric validation or admissions eligibility. Answers never leave component state."
+  ]
+}

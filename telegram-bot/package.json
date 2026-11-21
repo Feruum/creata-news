@@ -1,0 +1,22 @@
+{
+  "name": "@creata/telegram-bot",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "bun --watch src/creata/main.ts",
+    "start": "bun src/creata/main.ts",
+    "build": "bun build src/creata/main.ts --outdir dist --target bun",
+    "typecheck": "tsc --noEmit",
+    "test": "bun test src/creata"
+  },
+  "dependencies": {
+    "@creata/contracts": "workspace:*",
+    "grammy": "^1.41.1",
+    "@grammyjs/auto-retry": "^2.0.2"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.3.10",
+    "typescript": "~5.9.3"
+  }
+}

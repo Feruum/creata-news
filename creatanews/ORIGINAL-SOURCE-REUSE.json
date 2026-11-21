@@ -1,0 +1,44 @@
+[
+  {
+    "original": "creatanews/src/features/events/components/home-screen.module.css",
+    "active": "creatanews/src/features/news/components/home-screen.module.css",
+    "sha256": "9c4d323020487903c3ce03a20dde8a842a93f80059d26ca50f516705645c5ab2",
+    "reuse": "unchanged source"
+  },
+  {
+    "original": "creatanews/src/shared/styles/immersive-home.css",
+    "active": "creatanews/src/shared/styles/immersive-home.css",
+    "sha256": "1c817068b2d966264dc16c882b62b9d49c3ad68151955ecadf630b285173929d",
+    "reuse": "unchanged source"
+  },
+  {
+    "original": "creatanews/src/shared/hooks/use-carousel.ts",
+    "active": "creatanews/src/shared/hooks/use-carousel.ts",
+    "sha256": "b48f4fa30a3f577454ec81d7b82c1aa001710d39c0aeb9cffd26bdd1f9979c8c",
+    "reuse": "unchanged source"
+  },
+  {
+    "original": "creatanews/src/shared/lib/motion.ts",
+    "active": "creatanews/src/shared/lib/motion.ts",
+    "sha256": "53289b806bfed125961c9df13369d5c6101fc25a2e7d8395242c151ae6022f84",
+    "reuse": "unchanged source"
+  },
+  {
+    "original": "creatanews/src/shared/components/carousel-actions.module.css",
+    "active": "creatanews/src/shared/components/carousel-actions.module.css",
+    "sha256": "7bea3002bfa94f00ea2e45fcbd725c7d0c68503c6512b21b32d3bc2273df05a7",
+    "reuse": "unchanged source"
+  },
+  {
+    "original": "creatanews/src/features/events/components/pixel-flame.tsx",
+    "active": "creatanews/src/features/news/components/pixel-flame.tsx",
+    "sha256": "3f9babe6114cae82aedad73de14db7d1f0bf6c1119b7496b310dea2169ec3a36",
+    "reuse": "unchanged source"
+  },
+  {
+    "original": "creatanews/src/features/events/components/pixel-flame.module.css",
+    "active": "creatanews/src/features/news/components/pixel-flame.module.css",
+    "sha256": "2266cae235c3a9cc1daf734c38bae1d286cfae038eb76b3a32f8c14c022d500d",
+    "reuse": "unchanged source"
+  }
+]

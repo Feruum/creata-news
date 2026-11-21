@@ -1,0 +1,53 @@
+{
+  "scope": "Homepage cover presentation only. Article media and CMS records are unchanged.",
+  "retrievedOn": "2026-11-16",
+  "assets": [
+    {
+      "slug": "w-ucode",
+      "file": "/images/home/stories/ucode-v1.jpg",
+      "credit": "Sobir Muhammad / Digital Business",
+      "sourcePage": "https://digitalbusiness.kz/en/2026-10-05/uzbekistantsi-vlozhili-300-tisyach-v-ii-servis-dlya-razrabotchikov-i-vishli-na-rinok-ssha/",
+      "sourceImage": "https://digitalbusiness.kz/wp-content/uploads/2026/09/h41a4362-1024x683.jpg",
+      "description": "Abdullo Khidoyatov, Ucode co-founder."
+    },
+    {
+      "slug": "w-uz-hk",
+      "file": "/images/home/stories/hong-kong-fintech-v2.jpg",
+      "credit": "IT Park Uzbekistan",
+      "sourcePage": "https://www.it-park.uz/en/itpark/news/uzbekistan-s-startups-participate-in-hong-kong-fintech-week-and-cyberport-venture-capital-forum-2026",
+      "sourceImage": "https://www.it-park.uz/storage/images/newsimage/IMAGE%202026-11-10%2018%3A49%3A25_1794318964.jpg",
+      "description": "Startup presentation during the Hong Kong visit."
+    },
+    {
+      "slug": "w-kenya-ai",
+      "file": "/images/home/stories/kenya-ai-v1.jpg",
+      "credit": "Africa.com / AI Everything Kenya press material",
+      "sourcePage": "https://africa.com/whats-happening/african-startups-rewrite-the-ai-playbook-at-ai-everything-kenya-x-gitex-kenya-2026",
+      "sourceImage": "https://cdn.cms.africa.com/wp-content/uploads/2026/05/African-Startups.jpg",
+      "description": "Startup exhibition shown in the source article."
+    },
+    {
+      "slug": "w-opin",
+      "file": "/images/home/stories/opin-summit-v1.jpg",
+      "credit": "Ricardo Stuckert / PR, via COP30",
+      "sourcePage": "https://cop30.br/en/news-about-cop30/following-cop30-and-the-ai-impact-summit-brazil-and-india-launch-the-open-planetary-intelligence-network-opin",
+      "sourceImage": "https://cop30.br/en/news-about-cop30/following-cop30-and-the-ai-impact-summit-brazil-and-india-launch-the-open-planetary-intelligence-network-opin/@@images/image-2048-8e2a24804b9ade615cfba41e35176d0e.jpeg",
+      "description": "Official photo at the AI Impact India Summit linked to OPIN."
+    },
+    {
+      "slug": "w-tokyo-humanoids",
+      "file": "/images/home/stories/tokyo-humanoids-v1.jpg",
+      "credit": "Ayaka McGill / Associated Press, via KSL",
+      "sourcePage": "https://www.ksl.com/article/51503542/humanoids-dance-and-thread-needles-as-japanese-robotics-developers-look-to-outdo-chinese",
+      "sourceImage": "https://img.ksl.com/slc/3158/315851/31585159.jpg?filter=kslv2%2Fresponsive_story_lg&v=1780157119",
+      "description": "Hiroshi Ishiguro and Geminoid android at the Tokyo Humanoids Summit."
+    },
+    {
+      "slug": "demo-creative-teams",
+      "file": "/images/home/stories/demo-project-v1.png",
+      "credit": "Creata News",
+      "sourcePage": "/ru/articles/demo-creative-teams",
+      "description": "Export of the existing fictional demo chart rendered by GraphicFigure."
+    }
+  ]
+}

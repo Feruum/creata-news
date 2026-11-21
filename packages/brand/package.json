@@ -1,0 +1,1 @@
+{"name":"@creata/brand","version":"1.0.0","private":true,"type":"module","exports":{"./creata.css":"./creata.css","./logo":"./logo.tsx"},"peerDependencies":{"react":"^19.2.0"},"devDependencies":{"@types/react":"^19.2.0","typescript":"~5.9.3"},"scripts":{"build":"tsc --noEmit","typecheck":"tsc --noEmit"},"sideEffects":["*.css"]}

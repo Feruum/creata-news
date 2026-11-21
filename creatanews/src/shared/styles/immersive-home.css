@@ -1,0 +1,51 @@
+/* The immersive palette belongs to the home page; other routes keep their own surfaces. */
+html:has(.home-shell) { background: #141517; }
+.app-shell.home-shell {
+  --paper: #141517;
+  --home-card-surface: #232427;
+  --home-card-muted: #a8aab4;
+  --white: #232427;
+  --ink: #f5f5f7;
+  --muted: #a8aab4;
+  --line: #ffffff19;
+  --soft: #30323a;
+  --accent: var(--theme-accent, var(--brand-cyan));
+  --brand-blue: var(--accent);
+  width: min(100%, 1216px);
+  padding-inline: 24px;
+  color: var(--ink);
+  background: var(--paper);
+  overflow: clip;
+}
+.home-shell main { display: block; }
+.home-shell .site-header { position: relative; z-index: 2; display: flex; align-items: center; justify-content: space-between; gap: 18px; border: 0; margin-bottom: 0; padding-block: 22px 14px; }
+.home-shell .brand { width: 110px; }
+.home-shell .brand img { filter: grayscale(1) brightness(0) invert(1); }
+.home-shell .language-switch { padding: 3px; background: #17191e66; border-color: #ffffff30; backdrop-filter: blur(16px); }
+.home-shell .language-switch button { color: #eeeef3; min-width: 32px; min-height: 34px; }
+.home-shell .language-switch button[aria-pressed='true'] { background: #ffffff; color: #202126; }
+.home-shell .desktop-nav { background: #17191e66; border-color: #ffffff20; backdrop-filter: blur(16px); }
+.home-shell .desktop-nav a { color: #dbdbe2; }
+.home-shell .desktop-nav a[aria-current='page'] { background: #ffffff18; color: #fff; }
+.home-shell .bottom-nav { background: #232429ed; border-color: #ffffff24; box-shadow: 0 8px 28px #00000050; }
+.home-shell .bottom-nav a { color: #b9bbc5; }
+.home-shell .bottom-nav a[aria-current='page'] { color: #fff; background: #ffffff1c; }
+.home-shell .section-heading { gap: 12px; }
+.home-shell .section-heading h2 { font-size: 20px; letter-spacing: -.03em; }
+.home-shell .section-heading > a { display: inline-flex; align-items: center; gap: 3px; color: #b9bac6; min-height: 40px; }
+.home-shell .search-box { max-width: none; border-color: var(--line); background: #ffffff08; box-shadow: none; border-radius: 14px; }
+.home-shell .search-box input { color: #f5f5f7; font-size: 13px; }
+.home-shell .search-box input::placeholder { color: #a8aab4; }
+.home-shell .search-box:focus-within { border-color: var(--accent); }
+.home-shell .club-card { background: #ffffff04; }
+.home-shell .club-card-avatar { border-color: #232427; }
+.home-shell .empty-state .button { color: #17191e; background: #f5f5f7; }
+.home-shell a:focus-visible, .home-shell button:focus-visible, .home-shell input:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+@media (min-width: 600px) { .app-shell.home-shell { padding-inline: 32px; } }
+@media (min-width: 900px) {
+  .app-shell.home-shell { padding: 0 48px 48px; }
+  .home-shell .site-header { padding-block: 26px 14px; }
+  .home-shell .brand { width: 130px; }
+  .home-shell .section-heading h2 { font-size: 24px; }
+  .home-shell .clubs-section { margin-top: 44px; }
+}

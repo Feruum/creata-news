@@ -1,0 +1,37 @@
+import {test,expect} from '@playwright/test'
+import {resolve} from 'node:path'
+
+test('original admin shell shares Creata styling across responsive layouts',async({page})=>{
+ const errors:string[]=[];page.on('pageerror',error=>errors.push(error.message))
+ await page.emulateMedia({reducedMotion:'reduce'})
+ await page.goto('/today')
+ await page.getByLabel('Роль',{exact:true}).selectOption('chief_editor')
+ await page.getByRole('button',{name:'Войти в локальной разработке',exact:true}).click()
+ await expect(page.getByRole('heading',{name:'Сегодня',exact:true})).toBeVisible()
+ for(const width of [1440,768,360]){
+  await page.setViewportSize({width,height:1000})
+  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth)).toBe(true)
+  await page.screenshot({path:resolve(import.meta.dirname,`../../.runtime/screenshots/editorial-original-owner-${width}.png`)})
+ }
+ await page.getByRole('button',{name:'Сменить тему',exact:true}).click()
+ await expect(page.locator('html')).toHaveAttribute('data-theme','dark')
+ await page.screenshot({path:resolve(import.meta.dirname,'../../.runtime/screenshots/editorial-original-owner-dark-mobile.png')})
+ await page.getByRole('button',{name:'Сменить тему',exact:true}).click()
+ await page.getByRole('button',{name:'Открыть меню',exact:true}).click()
+ await expect(page.getByRole('dialog')).toBeVisible()
+ await expect(page.getByRole('dialog').getByRole('link',{name:'Банк новостей',exact:true})).toBeVisible()
+ await page.keyboard.press('Escape')
+ await expect(page.getByRole('dialog')).not.toBeVisible()
+ await page.getByRole('button',{name:'Открыть меню',exact:true}).click()
+ await page.getByRole('dialog').getByRole('link',{name:'Банк новостей',exact:true}).click()
+ await expect(page.getByRole('dialog')).not.toBeVisible()
+ await expect(page.getByRole('heading',{name:'Банк новостей',exact:true})).toBeVisible()
+ await page.setViewportSize({width:1440,height:1000})
+ await page.goto(process.env.CREATA_HERMES_TEST_URL||'http://localhost:5174')
+ await page.getByRole('button',{name:'Выйти',exact:true}).click()
+ await page.getByLabel('Роль',{exact:true}).selectOption('admin')
+ await page.getByRole('button',{name:'Войти в локальной разработке',exact:true}).click()
+ await expect(page.getByRole('heading',{name:'Источники',exact:true})).toBeVisible()
+ await page.screenshot({path:resolve(import.meta.dirname,'../../.runtime/screenshots/hermes-original-owner-desktop.png')})
+ expect(errors).toEqual([])
+})

@@ -1,0 +1,18 @@
+/* Original Sunday Open shell CSS restored from archived globals.css. */
+.app-shell { position: relative; isolation: isolate; width: min(100%, 480px); min-height: 100dvh; margin: 0 auto; padding: 0 18px calc(100px + env(safe-area-inset-bottom)); }
+.site-header { display: flex; justify-content: space-between; align-items: center; padding: 23px 0 24px; }
+.brand { width: 136px; display: block; overflow: hidden; padding: 0; background: transparent; border-radius: 0; border-bottom: 0; } .brand img { display: block; width: 100%; height: auto; }
+.language-switch { display: flex; border: 1px solid #ffffffb3; background: #ffffff80; padding: 3px; border-radius: 999px; gap: 2px; margin: 0; min-width: 0; }
+.language-switch button { border: 0; background: transparent; font-size: 10px; font-weight: 500; border-radius: 999px; min-height: 32px; min-width: 33px; }
+.language-switch button[aria-pressed='true'] { background: var(--accent); color: var(--white); }
+.desktop-nav { display: none; } .home-heading { font-size: 23px; margin: 0 0 18px; max-width: 360px; }
+.bottom-nav { position: fixed; left: 50%; transform: translateX(-50%); bottom: max(12px, calc(env(safe-area-inset-bottom) + 8px)); width: 198px; display: flex; gap: 4px; justify-content: center; padding: 8px; border-radius: 999px; border: 1px solid #ffffff25; background: #242522e8; backdrop-filter: blur(24px); box-shadow: 0 8px 25px #24252220; z-index: 30; }
+.bottom-nav a { display: grid; place-items: center; height: 40px; width: 56px; border-radius: 999px; color: #c6c7bd; }
+.bottom-nav a[aria-current='page'] { background: var(--accent); color: var(--white); } .bottom-nav a span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+@media (min-width:600px) and (max-width:899px) { .app-shell { width: min(100%,640px); padding-inline: 28px; } }
+@media (min-width:900px) {
+  .app-shell { width: min(calc(100% - 80px),1120px); padding: 0 0 36px; }
+  .site-header { display: grid; grid-template-columns: 1fr auto 1fr; gap: 24px; padding: 26px 0 35px; } .brand { width: 152px; } .language-switch { justify-self: end; }
+  .desktop-nav { display: flex; gap: 5px; border-radius: 999px; padding: 5px; border: 1px solid #fff; background: #ffffffa0; }
+  .desktop-nav a { display: flex; align-items: center; gap: 8px; padding: 9px 18px; border-radius: 999px; font-size: 12px; color: #74766d; } .desktop-nav svg { width: 17px; height: 17px; }
+}

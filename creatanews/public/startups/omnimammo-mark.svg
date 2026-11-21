@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" fill="none">
+  <defs>
+    <linearGradient id="background" x1="16" y1="0" x2="112" y2="128" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#491956"/><stop offset="1" stop-color="#1F102D"/>
+    </linearGradient>
+    <linearGradient id="ribbon" x1="28" y1="26" x2="96" y2="104" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFE3FA"/><stop offset="0.45" stop-color="#FF88D4"/><stop offset="1" stop-color="#CD48FF"/>
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="32" fill="url(#background)"/>
+  <circle cx="64" cy="60" r="39" stroke="#FA93E8" stroke-opacity=".12"/>
+  <path d="M43 95C46 79 82 58 82 43C82 32 74 25 64 25C54 25 46 32 46 43C46 58 82 79 85 95" stroke="url(#ribbon)" stroke-width="12" stroke-linecap="round"/>
+  <path d="M43 95L58 83M85 95L70 83" stroke="#FFC6EF" stroke-width="5" stroke-linecap="round"/>
+  <path d="M101 28L103 34L109 36L103 38L101 44L99 38L93 36L99 34Z" fill="#FFE3FA"/>
+</svg>

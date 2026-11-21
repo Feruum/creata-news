@@ -1,0 +1,115 @@
+/* News adapters for the restored original Shell and immersive HomeScreen.
+   Structural values live in the original CSS files; this layer changes the
+   brand and supplies news-only content without another navigation shell. */
+:root{--logo-blue:#4b44f0;--brand-cyan:#aaa5ff}
+html[data-theme='dark']{--theme-accent:#aaa5ff;--theme-on-accent:#15121f}
+html[data-theme='light']{--theme-accent:#4b44f0;--theme-on-accent:#fff}
+.app-shell{font-family:Creata,Kazakh,Arial,sans-serif}
+.app-shell.home-shell{padding-bottom:100px}
+.app-shell .site-header .brand{width:auto;font-size:inherit;line-height:1;letter-spacing:normal;overflow:visible;flex-shrink:0}
+.brand-mark{display:inline-flex;align-items:center;gap:6px;font-size:26px;font-weight:800;letter-spacing:-.07em;line-height:1;white-space:nowrap}
+.brand-mark>span:first-child{display:inline-flex;align-items:center}
+.brand-mark .brand-news{font-size:7px;letter-spacing:.1em;gap:3px}
+.brand-mark .brand-dot{width:4px;height:4px}
+.brand-mark-small{font-size:23px}
+.site-header .header-controls{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.site-header .language-switch{gap:2px;padding:3px;font-size:10px;letter-spacing:normal}
+.site-header .language-switch button{min-width:30px;min-height:32px}
+.site-header .original-menu-trigger{display:grid;place-items:center;width:38px;height:38px;border:1px solid var(--line);border-radius:50%;background:var(--white);color:var(--ink);padding:0}
+.app-shell .desktop-nav a{white-space:nowrap}
+.app-shell main:focus{outline:none}
+.app-shell .section-heading{border:0;margin-bottom:13px;padding:0;align-items:center}
+.app-shell .section-heading>a{font-size:11px;gap:3px}
+.original-news-section{margin-top:40px;min-width:0}
+.home-shell .story-grid{gap:20px}
+.home-shell .article-card{background:var(--white);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.home-shell .article-card .card-copy{padding:0 17px 19px}
+.home-shell .article-card .card-kicker{font-family:inherit;font-size:10px;letter-spacing:0;text-transform:none;color:var(--accent)}
+.home-shell .article-card h2{font-size:19px;line-height:1.35;font-weight:600;letter-spacing:-.025em}
+.home-shell .article-card .card-meta{font-size:9px;text-transform:none;letter-spacing:0;color:var(--muted);margin-top:12px}
+.home-shell .opportunity-card{border-radius:16px;background:var(--white);padding:22px;min-height:220px}
+.home-shell .opportunity-card h3{font-size:21px;line-height:1.3;font-weight:600}
+.home-shell .opportunity-card .eyebrow{font-family:inherit;text-transform:none;letter-spacing:0}
+.home-shell .deadline{font-family:inherit;font-size:10px;text-transform:none}
+.original-empty{padding:22px;border:1px solid var(--line);border-radius:16px;background:var(--white);font-size:13px;color:var(--muted)}
+.original-digest-card{display:flex;align-items:center;gap:18px;border-radius:18px;border:1px solid var(--line);background:var(--white);padding:24px;margin-top:36px}
+.original-digest-icon{display:grid;place-items:center;flex-shrink:0;width:52px;height:52px;border-radius:15px;background:var(--soft);color:var(--accent)}
+.original-digest-card>span:nth-child(2){min-width:0;flex:1}
+.original-digest-card strong{display:block;font-size:18px;font-weight:600;letter-spacing:-.025em}
+.original-digest-card>span>span{display:block;font-size:12px;color:var(--muted);margin-top:4px;max-width:700px;line-height:1.65}
+.original-site-footer{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;padding:28px 0 0;margin-top:36px;border-top:1px solid var(--line);font-size:10px;color:var(--muted)}
+.original-site-footer>span:first-child{font-weight:650;color:var(--ink)}
+.original-menu-dialog{position:fixed;inset:8px 8px auto;width:min(1720px,calc(100vw - 16px));max-width:none;margin:0 auto;padding:0;border:1px solid var(--line);border-radius:5px;background:var(--paper);color:var(--ink);max-height:calc(100dvh - 16px);overflow:auto;overscroll-behavior:contain;box-shadow:0 12px 40px #0003}
+.original-menu-dialog::backdrop{background:#0005}
+.original-menu-dialog::backdrop{transition:background .18s ease-out}
+.original-menu-dialog[data-state=closing]::backdrop{background:#0000}
+@starting-style{.original-menu-dialog[open]::backdrop{background:#0000}}
+.original-menu-panel{padding:22px 28px 0}
+.original-menu-panel .menu-top-row{display:flex;align-items:center;gap:24px;margin-bottom:34px}
+.menu-top-row>nav{display:flex;align-items:center;gap:25px;font-size:14px;font-weight:650}
+.menu-top-row>nav a{display:flex;align-items:center;min-height:44px}
+.original-menu-panel .search-box{display:flex;align-items:center;gap:8px;margin-left:auto;width:min(320px,30vw);border:0;border-bottom:1px solid var(--line);border-radius:0;background:transparent;padding:0}
+.original-menu-panel .search-box input{min-width:0;width:100%;height:44px;border:0;background:transparent;color:var(--ink);font-size:13px;padding:0 6px}
+.original-menu-panel .search-box button,.menu-top-row>.menu-close{display:grid;place-items:center;width:44px;height:44px;padding:0;flex-shrink:0}
+.menu-top-row>.menu-close{color:var(--accent)}
+.menu-explore-grid{display:grid;grid-template-columns:minmax(150px,.85fr) repeat(3,minmax(0,1fr));gap:28px;padding:0 0 36px}
+.menu-explore-grid>h2{font-size:25px;font-weight:650;line-height:1.3;letter-spacing:-.04em}
+.menu-explore-grid nav{min-width:0}
+.menu-explore-grid h3{font-family:monospace;font-size:12px;font-weight:400;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;margin:8px 0 15px}
+.menu-explore-grid nav>a{display:flex;align-items:center;min-height:44px;padding:7px 0;font-size:16px;font-weight:600;line-height:1.4;letter-spacing:-.02em}
+.menu-explore-grid .text-roll{white-space:normal}
+.menu-bottom-row{display:grid;grid-template-columns:minmax(150px,.85fr) minmax(0,3fr);align-items:center;gap:28px;border-top:1px solid var(--line);padding:20px 0;min-height:85px}
+.menu-bottom-row>.eyebrow{font-size:11px}
+.menu-bottom-row nav{display:flex;align-items:center;flex-wrap:wrap;gap:12px 30px;font-size:13px;font-weight:650}
+.menu-bottom-row nav a{display:flex;align-items:center;min-height:40px}
+.menu-preferences{grid-template-columns:minmax(150px,.85fr) minmax(0,2fr) auto}
+.menu-preferences>p{font-size:12px;color:var(--muted)}
+.menu-preference-controls{display:flex;align-items:center;gap:14px}
+.menu-preference-controls .language-switch{border-color:var(--line);background:var(--panel)}
+.menu-preference-controls .language-switch button{color:var(--ink)}
+.menu-preference-controls .language-switch button[aria-pressed=true]{color:var(--creata-on-accent)}
+
+.latest-section .page-heading{padding-top:22px;margin-bottom:25px}
+.latest-section .page-heading h1{font-size:clamp(38px,4.5vw,58px);font-weight:650;letter-spacing:-.05em}
+.latest-section .page-heading>p:last-child{margin-top:10px;color:var(--muted)}
+.topic-row{display:grid;grid-template-columns:minmax(150px,.85fr) minmax(0,3fr);gap:28px;padding:38px 0;border-bottom:1px solid var(--line)}
+.topic-row>h2{font-size:clamp(22px,2.4vw,30px);font-weight:650;line-height:1.2;letter-spacing:-.04em}
+.topic-row>h2>a{display:flex;align-items:baseline;gap:12px}
+.topic-row>h2 svg{color:var(--accent);flex-shrink:0;align-self:center}
+.topic-row-stories{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:25px;min-width:0}
+.topic-row .article-card{min-width:0;border:0;background:none;border-radius:0}
+.topic-row .article-card .media-frame{aspect-ratio:1.78;border-radius:2px}
+.topic-row .article-card h2{font-size:18px;line-height:1.3;font-weight:650;letter-spacing:-.025em;margin-top:14px}
+.topic-row .card-kicker{display:none}
+.topic-row .card-meta{font-size:9px;line-height:1.5;margin-top:9px;gap:4px 8px}
+.topic-row-empty{grid-column:1/-1;align-self:start;color:var(--muted);font-size:13px;line-height:1.6;padding-top:5px}
+@media(min-width:600px) and (max-width:999px){.menu-explore-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}.menu-explore-grid>h2{grid-column:1/-1}.menu-explore-grid nav>a{font-size:14px}.menu-bottom-row{grid-template-columns:150px minmax(0,1fr)}.menu-preferences{grid-template-columns:150px minmax(0,1fr) auto}.topic-row{grid-template-columns:1fr;gap:22px;padding:30px 0}.topic-row>h2{font-size:27px}.topic-row-stories{gap:20px}.original-menu-panel .search-box{width:220px}}
+@media(max-width:599px){.original-menu-panel{padding:14px 18px 0}.original-menu-panel .menu-top-row{display:grid;grid-template-columns:minmax(0,1fr) 44px;gap:8px 6px;margin-bottom:22px;position:sticky;top:0;background:var(--paper);z-index:2;padding-bottom:10px}.menu-top-row>nav{grid-column:1;grid-row:1;gap:16px;font-size:11px;flex-wrap:wrap}.menu-top-row>.menu-close{grid-column:2;grid-row:1}.original-menu-panel .search-box{grid-column:1/-1;grid-row:2;width:100%;margin:0}.menu-explore-grid{grid-template-columns:1fr;gap:24px;padding-bottom:25px}.menu-explore-grid>h2{font-size:23px}.menu-explore-grid nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 18px}.menu-explore-grid h3{grid-column:1/-1;margin:0 0 8px;font-size:11px}.menu-explore-grid nav>a{font-size:13px;min-height:44px;line-height:1.4}.menu-bottom-row{grid-template-columns:1fr;gap:8px;padding:15px 0}.menu-bottom-row nav{gap:0 20px;font-size:12px}.menu-preferences{grid-template-columns:1fr auto;gap:8px 10px}.menu-preferences>p{grid-column:1/-1;grid-row:2;font-size:11px}.menu-preference-controls{gap:8px}.menu-preference-controls .language-switch{padding:2px}.menu-preference-controls .language-switch button{min-width:28px;min-height:30px}.latest-section .page-heading{padding-top:15px}.latest-section .page-heading>p:last-child{font-size:14px}.topic-row{grid-template-columns:1fr;gap:21px;padding:26px 0}.topic-row>h2{font-size:25px}.topic-row-stories{grid-template-columns:1fr;gap:26px}.topic-row .article-card h2{font-size:21px;margin-top:12px}.topic-row .card-meta{font-size:10px}.topic-row-empty{padding:0;font-size:12px}}
+@media(min-width:900px){.app-shell.home-shell{padding-bottom:48px}.app-shell .bottom-nav{display:none}.home-shell .desktop-nav{margin-left:auto;margin-right:auto}.site-header .brand-mark{font-size:31px}.original-news-section{margin-top:46px}.home-shell .section-heading h2{font-size:24px;font-weight:600}.original-site-footer{font-size:11px}}
+@media(max-width:899px){.app-shell .bottom-nav{width:198px}.app-shell.catalog-shell{padding-bottom:100px}.app-shell .site-header .header-controls{margin-left:auto}.app-shell .site-header{gap:8px}.app-shell .theme-toggle{width:34px;height:34px}.site-header .original-menu-trigger{width:34px;height:34px}}
+@media(max-width:600px){.site-header .brand-mark{font-size:22px}.site-header .brand-mark .brand-news{font-size:6px}.site-header .brand-mark .brand-dot{width:3px;height:3px}.app-shell .site-header .header-controls{gap:4px}.site-header .language-switch{padding:2px}.site-header .language-switch button{min-width:27px;min-height:28px;font-size:9px}.app-shell .theme-toggle,.site-header .original-menu-trigger{width:30px;height:30px}.app-shell .theme-toggle svg{width:16px;height:16px}.app-shell.home-shell{padding-bottom:100px}.home-shell .story-grid{gap:13px}.home-shell .article-card .card-copy{padding:0 12px 15px}.home-shell .article-card h2{font-size:15px;line-height:1.4}.home-shell .article-card .card-meta{font-size:9px;line-height:1.4}.home-shell .article-card .card-kicker{font-size:9px}.home-shell .story-grid .media-frame{aspect-ratio:1.3}.original-news-section{margin-top:32px}.original-digest-card{padding:18px;gap:13px}.original-digest-icon{width:40px;height:40px;border-radius:12px}.original-digest-card strong{font-size:16px}.original-digest-card>span>span{font-size:11px}.original-site-footer>span:nth-child(2){max-width:180px}}
+
+/* All applications consume the same Creata identity; photo overlays retain the
+   existing HomeScreen's visual treatment without defining another palette. */
+html[data-theme]{--theme-paper:var(--creata-page);--theme-surface:var(--creata-panel);--theme-ink:var(--creata-text);--theme-muted:var(--creata-muted);--theme-line:var(--creata-border);--theme-soft:var(--creata-soft);--theme-accent:var(--creata-accent);--theme-on-accent:var(--creata-on-accent);--theme-nav:var(--creata-panel);--paper:var(--creata-page);--panel:var(--creata-panel);--ink:var(--creata-text);--muted:var(--creata-muted);--line:var(--creata-border);--accent:var(--creata-accent);--soft:var(--creata-soft);--band:var(--creata-surface)}
+body,.app-shell{font-family:var(--creata-font)}
+.app-shell .button{border-radius:var(--creata-radius);font-family:var(--creata-font)}
+.app-shell .button-accent{background:var(--creata-accent);color:var(--creata-on-accent)}
+.app-shell .button-accent:hover{background:color-mix(in srgb,var(--creata-accent) 90%,var(--creata-text));color:var(--creata-on-accent)}
+.app-shell .article-prose p,.app-shell .article-header .article-lead,.app-shell .card-lead,.app-shell .opportunity-description,.app-shell .profile-intro p,.app-shell .about-content>p{font-family:var(--creata-font)}
+.site-header .creata-wordmark{font-size:18px}
+.menu-preferences .creata-wordmark,.original-site-footer .creata-wordmark{font-size:12px}
+.media-fallback{grid-template-columns:minmax(0,1fr);place-items:center}
+.media-fallback>.media-fallback-brand{width:min(80%,240px);justify-self:center;font-size:14px;letter-spacing:normal}
+.home-shell .home-primary-cta{background:var(--creata-accent);color:var(--creata-on-accent);border-radius:var(--creata-radius)}
+.home-shell .home-primary-cta:hover{background:color-mix(in srgb,var(--creata-accent) 90%,var(--creata-text));color:var(--creata-on-accent)}
+.home-spotlight-actions{position:relative;z-index:1}
+.catalog-shell :is(.page-heading>p,.article-header .article-lead,.profile-intro p,.about-content>p){font-family:var(--creata-font)}
+.catalog-shell :is(.page-heading h1,.profile-intro h1,.opportunity-detail h1){font-size:clamp(30px,3.2vw,40px);font-weight:650;line-height:1.2}
+.catalog-shell .article-header h1{font-size:clamp(30px,3.8vw,46px);font-weight:650;line-height:1.18}
+.catalog-shell .article-header .article-lead{font-size:20px;line-height:1.65}
+.catalog-shell .article-prose p{font-size:18px;line-height:1.85}
+.catalog-shell .article-prose p:first-child:first-letter{font:inherit;float:none;padding:0;color:inherit}
+.catalog-shell .page-heading>p,.catalog-shell .profile-intro p{font-size:16px;line-height:1.7}
+.catalog-shell :is(.field input,.field select,.search-form input,.listing-toolbar select,.option-chip span,.auth-card,.article-summary,.category-result-grid>a){border-radius:var(--creata-radius)}
+@media(max-width:600px){.site-header .creata-wordmark{font-size:10px}}

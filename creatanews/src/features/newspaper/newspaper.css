@@ -1,0 +1,41 @@
+.gazeta-archive{padding:24px 0 48px}
+.gazeta-archive-heading{max-width:760px;margin-bottom:38px}
+.gazeta-archive-heading>p:first-child{font-size:11px;color:var(--creata-muted);margin-bottom:10px}
+.gazeta-archive-heading h1{font-size:clamp(42px,6vw,72px);font-weight:650;letter-spacing:-.055em;line-height:1.1}
+.gazeta-archive-heading h1>span{color:var(--creata-accent)}
+.gazeta-intro{font-size:15px;line-height:1.8;color:var(--creata-muted);max-width:590px;margin-top:18px}
+.gazeta-issues{display:grid;gap:38px}
+.gazeta-load-error{border:1px solid var(--creata-border);padding:16px;margin-bottom:24px;color:var(--creata-muted)}
+.newspaper-issue .sheet.managed-newspaper-sheet{grid-template-columns:minmax(0,1fr);gap:24px}
+.newspaper-issue .sheet.managed-newspaper-sheet>*{grid-column:1/-1;min-width:0}
+.newspaper-issue .managed-newspaper-sheet .mh-name{font-family:var(--f-display)}
+.newspaper-issue .managed-newspaper-sheet .creata-wordmark{display:block;width:100%;max-width:100%;line-height:0;color:var(--ink);--creata-logo-news:#4b44f0}
+.newspaper-issue .managed-issue-intro{font:italic 18px/1.6 var(--f-body);color:var(--ink-soft)}
+.newspaper-issue .managed-newspaper-photo .frame{aspect-ratio:3/2;max-height:600px}
+.newspaper-issue .managed-newspaper-body{column-count:2;column-gap:32px}
+.newspaper-issue .managed-newspaper-sources{display:grid;gap:8px;font:13px/1.6 var(--f-body);overflow-wrap:anywhere}
+.newspaper-issue .managed-newspaper-sources a{color:var(--spot)}
+@media(max-width:760px){.newspaper-issue .managed-newspaper-body{column-count:1}}
+.gazeta-edition{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:clamp(24px,5vw,76px);align-items:center;border-top:1px solid var(--creata-border);padding-top:30px}
+.gazeta-cover{display:block;background:#c8ccd3;padding:24px 30px;overflow:hidden;transition:background .2s}
+.gazeta-cover:hover{background:#b9bcc4}
+.gazeta-cover img{display:block;width:100%;height:auto;max-height:620px;object-fit:contain;object-position:top;box-shadow:0 12px 26px -14px #0007;transition:transform .3s ease}
+.gazeta-cover:hover img{transform:translateY(-4px)}
+.gazeta-edition-meta{display:flex;flex-wrap:wrap;gap:10px 22px;font-size:11px;color:var(--creata-muted);margin-bottom:18px}
+.gazeta-edition h2{font-size:clamp(27px,3vw,40px);font-weight:650;letter-spacing:-.045em}
+.gazeta-edition h2 span{color:var(--creata-accent);white-space:nowrap}
+.gazeta-headline{font-size:clamp(18px,2vw,24px);line-height:1.5;max-width:400px;margin-top:22px}
+.gazeta-edition-language{font-size:11px;color:var(--creata-muted);margin:14px 0 26px}
+.gazeta-reader-toolbar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px;padding:0 0 22px;font-size:12px}
+.gazeta-reader-toolbar>a{display:flex;align-items:center;gap:7px;min-height:36px}
+.gazeta-reader-toolbar>span{font-size:10px;color:var(--creata-muted)}
+.app-shell:has(.gazeta-reader){width:100%;padding-inline:16px}
+.app-shell:has(.gazeta-reader)>.site-header,.app-shell:has(.gazeta-reader)>.original-site-footer,.gazeta-reader-toolbar{width:min(100%,1120px);margin-inline:auto}
+.gazeta-reader{margin-inline:-16px}
+.gazeta-reader-toolbar{padding-inline:16px}
+.newspaper-issue{overflow:clip;background:var(--desk)}
+@media(min-width:900px){.gazeta-reader-toolbar{padding-inline:0}}
+@media(max-width:760px){.gazeta-edition{grid-template-columns:1fr;gap:24px;padding-top:22px}.gazeta-archive-heading{margin-bottom:26px}.gazeta-cover{padding:24px;max-width:520px}.gazeta-edition-copy{padding-bottom:8px}.gazeta-headline{margin-top:15px}.gazeta-reader-toolbar>span{width:100%;order:3}}
+@media(prefers-reduced-motion:reduce){.gazeta-cover,.gazeta-cover img{transition:none}.gazeta-cover:hover img{transform:none}}
+@page creata-newspaper{size:A3 portrait;margin:0}
+@media print{.app-shell:has(.gazeta-reader){width:100%;padding:0}.app-shell:has(.gazeta-reader)>.site-header,.app-shell:has(.gazeta-reader)>.bottom-nav,.app-shell:has(.gazeta-reader)>.original-site-footer,.gazeta-reader-toolbar{display:none}.gazeta-reader{margin:0}.newspaper-issue{overflow:visible}.newspaper-issue .sheet{page:creata-newspaper}}

@@ -1,0 +1,3 @@
+./platform_role.go
+./relationships.go
+./spicedb.go

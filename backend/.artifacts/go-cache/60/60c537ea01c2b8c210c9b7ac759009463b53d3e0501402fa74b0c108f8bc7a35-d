@@ -1,0 +1,7 @@
+./check_in.go
+./guest.go
+./handler.go
+./organizer.go
+./registrations.go
+./smtp.go
+./telegram.go

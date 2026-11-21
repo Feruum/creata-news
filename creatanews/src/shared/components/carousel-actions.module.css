@@ -1,0 +1,5 @@
+.actions { display: flex; align-items: center; gap: 6px; flex-shrink: 0; margin-inline-start: auto; }
+.actions a { display: inline-flex; align-items: center; gap: 3px; min-height: 44px; margin-inline-end: 4px; color: var(--muted); font-size: 12px; }
+.actions button { display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 1px solid var(--line); border-radius: 50%; background: var(--white); color: var(--ink); }
+.actions button:not(:disabled):hover { background: var(--soft); color: var(--accent); }
+.actions button:disabled { opacity: .4; }

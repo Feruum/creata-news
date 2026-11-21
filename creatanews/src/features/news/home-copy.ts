@@ -1,0 +1,32 @@
+export const homeLabels={
+ ru:{
+  version2:'Главная V2',
+  hero:'Будущее начинается там, где ты',
+  intro:'Большим идеям не нужен правильный адрес. Как технологии, любопытство и локальные сообщества меняют Евразию — и где в этой истории ваше место.',
+  latest:'Новые материалы',all:'Все материалы',technology:'Технологии',science:'Наука',creative:'Креатив',people:'Люди',month:'Материалы месяца',
+  quote:'Будущее не случается.\nЕго делают люди.',
+  newspaper:'Меньше шума.\nБольше смысла.',newspaperText:'Истории, к которым хочется\nвернуться.',newspaperKicker:'Ежемесячная газета',
+  readPaper:'Читать газету',materials:'Материалы',opportunities:'Возможности',peopleNav:'Люди',about:'О медиа',learn:'Читать',act:'Действовать',
+  footer:'Главные идеи.\nВдохновение для ваших дел.',opportunitiesTitle:'Возможности рядом',popular:'Популярное',empty:'В этой рубрике пока нет материалов.',
+ },
+ kk:{
+  version2:'Басты бет V2',
+  hero:'Болашақ сен тұрған жерден басталады',
+  intro:'Үлкен идеяларға арнайы мекенжай керек емес. Технология, қызығушылық пен жергілікті қауымдастықтар Еуразияны қалай өзгертеді — және бұл оқиғадағы сіздің орныңыз.',
+  latest:'Жаңа материалдар',all:'Барлық материалдар',technology:'Технологиялар',science:'Ғылым',creative:'Креатив',people:'Адамдар',month:'Ай материалдары',
+  quote:'Болашақ өздігінен келмейді.\nОны адамдар жасайды.',
+  newspaper:'Шу аз.\nМағына көп.',newspaperText:'Қайта оралғыңыз келетін\nоқиғалар.',newspaperKicker:'Ай сайынғы газет',
+  readPaper:'Газетті оқу',materials:'Материалдар',opportunities:'Мүмкіндіктер',peopleNav:'Адамдар',about:'Медиа туралы',learn:'Оқу',act:'Әрекет ету',
+  footer:'Басты идеялар.\nІстеріңізге шабыт.',opportunitiesTitle:'Жақын мүмкіндіктер',popular:'Танымал',empty:'Бұл айдарда әзірге материалдар жоқ.',
+ },
+ en:{
+  version2:'Homepage V2',
+  hero:'The future starts right where you are',
+  intro:'Big ideas don’t need the right address. How technology, curiosity and local communities are changing Eurasia — and where you fit into the story.',
+  latest:'New stories',all:'All stories',technology:'Technology',science:'Science',creative:'Creative',people:'People',month:'Stories of the month',
+  quote:'The future doesn’t just happen.\nPeople make it.',
+  newspaper:'Less noise.\nMore meaning.',newspaperText:'Stories worth\ncoming back to.',newspaperKicker:'Monthly newspaper',
+  readPaper:'Read the newspaper',materials:'Stories',opportunities:'Opportunities',peopleNav:'People',about:'About us',learn:'Read',act:'Take action',
+  footer:'Big ideas.\nInspiration for what’s next.',opportunitiesTitle:'Opportunities nearby',popular:'Most popular',empty:'There are no stories in this topic yet.',
+ },
+} as const

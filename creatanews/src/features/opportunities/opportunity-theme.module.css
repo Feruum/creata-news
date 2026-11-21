@@ -1,0 +1,18 @@
+/* Theme ownership stays with each component, alongside the original layout. */
+.band { background: var(--creata-page); color: var(--creata-text); }
+.heading { border-color: var(--creata-border); }
+.card { background: var(--creata-panel); color: var(--creata-text); border: 1px solid var(--creata-border); }
+.kicker { color: var(--creata-accent); }
+.muted { color: var(--creata-muted); }
+.photoTag { background: #0e0e10cc; color: #fff; }
+.card .primary { background: var(--creata-accent); color: var(--creata-on-accent); }
+.card .primary:hover { background: color-mix(in srgb, var(--creata-accent) 90%, var(--creata-text)); color: var(--creata-on-accent); }
+.card .secondary { border: 1px solid var(--creata-border); color: var(--creata-text); background: transparent; }
+.card .secondary:hover { border-color: var(--creata-text); background: var(--creata-surface); }
+.timerCell { background: var(--creata-surface); color: var(--creata-text); }
+/* Keep SSR and hydration identical. Reduced motion has a CSS first-paint
+   alternative, so the cards are visible before JavaScript is available. */
+@media (prefers-reduced-motion: reduce) {
+ .card { opacity: 1 !important; transform: none !important; }
+ .card img { transition: none; transform: none; }
+}

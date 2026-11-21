@@ -1,0 +1,12 @@
+./check_in.go
+./guest.go
+./handler.go
+./registrations.go
+./smtp.go
+./telegram.go
+./account_integration_test.go
+./check_in_integration_test.go
+./guest_integration_test.go
+./planner_integration_test.go
+./security_test.go
+./telegram_integration_test.go
