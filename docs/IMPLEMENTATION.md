@@ -1,12 +1,12 @@
 # Creata News implementation
 
-Approved scope: independent RU/kk/en news platform; no AITU data migration. Source archive and per-file SHA256 manifest: archives/pre-creata-2026-11-14.zip. Reference prototype remains in creata-news-v2.
+Creata News is an independent RU/kk/en news platform. The development seed reads the prototype data fixture in `scripts/fixtures/prototype-seed.js`.
 
 ## User visual correction — 14 November 2026
 
 Preserve the existing frontend and admin interface owners. The public app reuses the original Shell, Spotlight, poster rail, carousel and styles from the archive; news data is adapted into those components. Admins reuse the original Sidebar and shadcn/Base UI primitives. A new wholesale interface is not authorized. One shared Creata identity (violet #4B44F0, original local Manrope/Kazakh fonts, common neutrals, logo and controls) replaces the earlier separate pink admin theme. The public header has one responsive primary navigation and one disclosure menu, with no stacked utility/category/menu bars. Rest of World and Skiper supplement the existing interface.
 
-Opportunity cards reuse `OppCard` and the countdown from `creata-news-v2/source-v2` directly. Their layout, photographs and typography are preserved; section, card, text and button colors follow the current shared Creata theme, including the light page background. The API stores the original photo and localized audience; the existing account saves action replaces the prototype-only local reminder. The explicit development seed contains five approved opportunities (including the Creata Games hackathon) and the “Mama Pro” hackathon awaiting editorial review, preserving the prototype's statuses.
+Opportunity cards and the countdown are adapted from the original prototype. `creatanews/PROTOTYPE-SOURCE-REUSE.json` records their origins. The API stores the original photo and localized audience. The development seed contains five approved opportunities, including the Creata Games hackathon, and the “Mama Pro” hackathon awaiting editorial review.
 
 The home opportunity carousel uses the existing Embla/CarouselActions components, loops through all approved records and shows four/two/one cards at desktop/tablet/mobile widths. It advances every six seconds while visible, pauses on hover, focus, dragging and hidden tabs, and disables autoplay for reduced motion. Manual arrows, keyboard and touch remain available. The public list refreshes every minute and on returning to the tab; new approved opportunities appear without source changes.
 

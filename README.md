@@ -31,10 +31,9 @@ The launcher checks Python and the pinned Telethon dependency. It can create or 
 
 Original ecosystem/about/newspaper content and business assets are imported
 idempotently from `backend/creata/content` into PostgreSQL and API/S3 storage.
-Existing editorial revisions are preserved. Edit them in **Контент сайта**;
-manage files and legacy rights review in **Медиатека**. The frontend keeps its
-original components. Legacy source copies are backup references and old media
-URLs forward to API-managed files.
+Edit published pages in **Контент сайта** and manage assets and rights in
+**Медиатека**. Old media URLs resolve through the API. Local `uploads/` holds
+runtime data and is ignored by Git. Keep it with the local PostgreSQL backup.
 
 Hermes uses `CREATA_WORKER_STATE_DIR` for its durable paid-response outbox during
 API interruptions; Compose mounts a separate `hermes-state` volume. Keep this

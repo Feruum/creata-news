@@ -1,5 +1,0 @@
-./handler.go
-./redis_store.go
-./resolver.go
-./signing.go
-./types.go

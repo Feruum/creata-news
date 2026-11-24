@@ -2,7 +2,7 @@
 import {readFileSync,mkdirSync,writeFileSync} from 'node:fs'
 import {runInNewContext} from 'node:vm'
 const context={window:{} as any}
-runInNewContext(readFileSync('creata-news-v2/site-v2/assets/data.js','utf8'),context)
+runInNewContext(readFileSync(new URL('./fixtures/prototype-seed.js', import.meta.url),'utf8'),context)
 const original=context.window.CN_SEED
 const names:Record<string,string>={ai:'ЖИ және деректер',startups:'Стартаптар мен венчур',stem:'Ғылым және STEM',robotics:'Робототехника',space:'Ғарыш',climate:'Климат және әсер',health:'Медицина және биотехнология',edtech:'Білім беру',fintech:'Қаржы технологиялары',cities:'Қалалар және көлік',agri:'Ауыл шаруашылығы',creative:'Креативті индустриялар','eco-group':'Creata Group','eco-transfornation':'TransforNATION','eco-lab':'Creata Lab','eco-games':'Creata Games','eco-ciaq':'CIAQ және GCA','eco-ventures':'Creata Ventures','eco-team':'Creata Team'}
 const kk:Record<string,[string,string]>={

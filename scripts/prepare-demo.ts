@@ -1,6 +1,7 @@
 /** Public reference fixtures only. Never exports users, secrets or editorial drafts. */
-import {readFileSync,writeFileSync,mkdirSync,cpSync} from 'node:fs'
+import {readFileSync,writeFileSync,mkdirSync} from 'node:fs'
 import {resolve} from 'node:path'
+import {copyDemoMedia} from './prepare-demo-assets'
 const root=resolve(import.meta.dirname,'..')
 const seed=JSON.parse(readFileSync(resolve(root,'.runtime/dev-seed.json'),'utf8'))
 const bundle=JSON.parse(readFileSync(resolve(root,'backend/creata/content/pages.json'),'utf8'))
@@ -28,5 +29,5 @@ const newspaper={...original,id:'demo-original-01',format:'original',revision:1,
 mkdirSync(resolve(root,'creatanews/src/demo'),{recursive:true})
 writeFileSync(resolve(root,'creatanews/src/demo/content.json'),JSON.stringify({categories,authors,articles,opportunities,launches,pages,newspapers:[newspaper]},null,2))
 writeFileSync(resolve(root,'creatanews/src/demo/reader-data.json'),JSON.stringify({categories,articles,opportunities,launches},null,2))
-cpSync(resolve(root,'backend/creata/content/assets'),resolve(root,'creatanews/public/demo-media'),{recursive:true})
+copyDemoMedia(resolve(root,'creatanews/public'))
 console.log('Demo bundle: '+articles.length+' articles, '+opportunities.length+' opportunities, '+launches.length+' launches, '+pages.length+' site pages; public media copied')

@@ -1,6 +1,6 @@
 # Hermes Control
 
-Active application: `src/main.tsx`; shared administration modules: `events-admin/src/creata`. The older event/document modules are retained as historical source and excluded from the active TypeScript build. Source backup: `archives/pre-creata-2026-11-14.zip` at the workspace root.
+`src/main.tsx` starts Hermes Control using the shared application in `../events-admin/src/creata`.
 
 Run from the workspace root after `bun install`:
 

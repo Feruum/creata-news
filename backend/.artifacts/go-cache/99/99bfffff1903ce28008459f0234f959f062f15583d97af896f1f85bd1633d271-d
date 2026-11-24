@@ -1,5 +1,0 @@
-./http.go
-./meilisearch.go
-./slog.go
-./spicedb.go
-./telemetry.go

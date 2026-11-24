@@ -1,5 +1,0 @@
-./azure.go
-./client.go
-./image.go
-./provider.go
-./s3.go

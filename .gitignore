@@ -16,4 +16,14 @@ archives/
 **/.hermes-state/
 .frontend-workbench/
 coverage/
-/backend/.local-backend.stdout.log
+**/.artifacts/
+/backend/server.exe
+/backend/.local-backend.*.log
+/.impeccable/hook.cache.json
+/output/
+/uploads/
+/backend/creata/uploads/
+/creatanews/public/demo-media/
+/creatanews/public/demo-apps/
+/creatanews/public/editorial/
+/creatanews/public/hermes/

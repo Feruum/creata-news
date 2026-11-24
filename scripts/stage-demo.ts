@@ -1,22 +1,18 @@
 /** Curated frontend-only deployment. Never stages the repository root or .env. */
-import {cpSync,mkdirSync,readFileSync,writeFileSync,readdirSync,statSync,existsSync} from 'node:fs'
+import {cpSync,mkdirSync,mkdtempSync,readFileSync,writeFileSync,readdirSync,statSync,existsSync} from 'node:fs'
 import {resolve,relative,basename,sep} from 'node:path'
-const root=resolve(import.meta.dirname,'..'),stage=resolve(root,'.runtime/deploy/creata-news-demo-'+Date.now())
-mkdirSync(stage,{recursive:true})
+import {prepareDemoAssets} from './prepare-demo-assets'
+const root=resolve(import.meta.dirname,'..'),deploy=resolve(root,'.runtime/deploy')
+mkdirSync(deploy,{recursive:true})
+const stage=mkdtempSync(resolve(deploy,'creata-news-demo-'))
 const excluded=new Set(['node_modules','.git','.codex','.agents','.vercel','dist','test-results','e2e','coverage'])
 function include(path:string){const parts=relative(root,path).split(sep);return!parts.some(part=>excluded.has(part)||part.startsWith('.env')||part.startsWith('.next'))&&!/\.(?:test|spec)\.[tj]sx?$|\.tsbuildinfo$/.test(path)}
 function copy(from:string,to=from){cpSync(resolve(root,from),resolve(stage,to),{recursive:true,filter:include})}
 copy('creatanews/src','src');copy('creatanews/next.config.ts','next.config.ts');copy('creatanews/tsconfig.json','tsconfig.json')
 for(const name of ['brand','contracts','graphics','demo-pipeline'])copy('packages/'+name)
-for(const folder of ['fonts','newspaper/fonts','demo-media'])copy('creatanews/public/'+folder,'public/'+folder)
-// Current homepage assets, including the generated V2 hero and article covers.
-// Keep unused design variants outside the public deployment.
+for(const folder of ['fonts','newspaper/fonts'])copy('creatanews/public/'+folder,'public/'+folder)
 for(const asset of ['creata-human-hero-v1.png','creata-maker-v1.png','stories'])copy('creatanews/public/images/home/'+asset,'public/images/home/'+asset)
-const adminManifest=resolve(root,'.runtime/demo-admin-assets.json')
-if(existsSync(adminManifest))for(const file of JSON.parse(readFileSync(adminManifest,'utf8')).files){
- if(typeof file!=='string'||file.includes('..')||!['editorial/','hermes/','demo-apps/'].some(prefix=>file.startsWith(prefix)))throw Error('Invalid demo asset path')
- copy('creatanews/public/'+file,'public/'+file)
-}
+await prepareDemoAssets(resolve(stage,'public'))
 const pkg=JSON.parse(readFileSync(resolve(root,'creatanews/package.json'),'utf8'))
 pkg.workspaces=['packages/*'];pkg.packageManager=JSON.parse(readFileSync(resolve(root,'package.json'),'utf8')).packageManager
 pkg.engines={node:'24.x'}

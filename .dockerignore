@@ -13,8 +13,14 @@
 **/.env*
 !.env.example
 archives
+output
+uploads
+backend/creata/uploads
+creatanews/public/demo-media
+creatanews/public/demo-apps
+creatanews/public/editorial
+creatanews/public/hermes
 .runtime
 .git
-creata-news-v2
 *.pdf
 !backend/creata/content/assets/newspaper/issues/01/creata-news-01.pdf

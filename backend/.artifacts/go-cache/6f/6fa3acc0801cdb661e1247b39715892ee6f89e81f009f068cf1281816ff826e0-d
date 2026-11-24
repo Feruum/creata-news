@@ -1,4 +1,0 @@
-./errors.go
-./internal_secret.go
-./middleware.go
-./check_in_availability_test.go

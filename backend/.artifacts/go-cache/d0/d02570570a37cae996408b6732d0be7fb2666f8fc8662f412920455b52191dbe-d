@@ -1,5 +1,0 @@
-./authz.go
-./member_lock.go
-./membership.go
-./organization_lookup.go
-./platform_role.go
