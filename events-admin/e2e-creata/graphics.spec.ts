@@ -51,12 +51,23 @@ test('editor imports financial data, verifies a revision, publishes chart and wi
   await reader.getByRole('heading',{name:title,exact:true}).getByRole('link').click()
   await expect(reader).toHaveURL(/\/charts\/[^/]+$/,{timeout:30000})
   await expect(reader.getByRole('heading',{name:title,exact:true})).toBeVisible({timeout:30000})
-  await expect(reader.locator('[data-chart-ready=true]')).toBeVisible()
-  await reader.getByText('Таблица данных',{exact:true}).click();await expect(reader.getByRole('cell',{name:'120',exact:true})).toBeVisible()
-  const download=reader.waitForEvent('download');await reader.getByRole('button',{name:'Скачать CSV',exact:false}).click();expect((await download).suggestedFilename()).toBe('creata-chart.csv')
+  const chart=reader.locator('.cg-detail > .cg-figure[data-chart-ready=true]')
+  await expect(chart).toBeVisible()
+  const tableSummary=chart.getByText('Таблица данных',{exact:true})
+  const tableValue=chart.getByRole('cell',{name:'120',exact:true})
+  await tableSummary.click()
+  await expect(tableValue).toBeVisible()
+  const download=reader.waitForEvent('download');await chart.getByRole('button',{name:'Скачать CSV',exact:false}).click();expect((await download).suggestedFilename()).toBe('creata-chart.csv')
   await reader.screenshot({path:resolve(screenshotDirectory,'charts-detail-desktop.png'),fullPage:true})
-  for(const width of [360,768,1440]){await reader.setViewportSize({width,height:900});expect(await reader.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1)).toBe(false)}
-  await reader.setViewportSize({width:360,height:800});await reader.screenshot({path:resolve(screenshotDirectory,'charts-detail-mobile.png'),fullPage:true})
+  for(const width of [360,768,1440]){
+   await reader.setViewportSize({width,height:width===360?800:900})
+   await reader.reload()
+   await tableSummary.click()
+   await expect(tableValue).toBeVisible()
+   const pageWidth=await reader.evaluate(()=>document.documentElement.scrollWidth)
+   expect(pageWidth,`Page width with the data table expanded at ${width}px`).toBeLessThanOrEqual(width+1)
+   if(width===360)await reader.screenshot({path:resolve(screenshotDirectory,'charts-detail-mobile.png'),fullPage:true})
+  }
   await readerContext.close();expect(errors).toEqual([])
  }finally{
   if(id){const root=`${origin}/api/creata/v1/admin/articles/${id}`,requestHeaders={...headers,Cookie:cookie,'Content-Type':'application/json'},current=await(await fetch(root,{headers:requestHeaders,signal:AbortSignal.timeout(5000)})).json();for(const action of [...(current.publishedRevision?['unpublish']:[]),'reject'])await fetch(root+'/actions',{method:'POST',headers:requestHeaders,body:JSON.stringify({action,expectedRevision:current.revision,note:'Development UI verification complete'}),signal:AbortSignal.timeout(5000)})}

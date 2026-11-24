@@ -21,6 +21,10 @@ test('newspaper menu opens an archive and the complete server-rendered edition',
 })
 
 test('photographs respond to keyboard and stop when reduced motion is enabled', async ({ page }) => {
+  await page.addInitScript(() => {
+    const connection = Object.assign(new EventTarget(), { effectiveType: '4g', saveData: false })
+    Object.defineProperty(navigator, 'connection', { value: connection })
+  })
   await page.goto('/ru/gazeta/01')
   const photo = page.locator('.live').first()
   await expect(photo).toHaveAttribute('role', 'button')
@@ -47,6 +51,36 @@ test('newspaper adapts to mobile and tablet without leaking its layout into the 
   await expect(page.locator('.site-header')).toHaveCount(1)
   await expect(page.locator('.desktop-nav a')).toHaveCount(3)
   await expect(page.locator('.gazeta-cover img').first()).toBeVisible()
+})
+
+test('newspaper follows the Creata palette in both themes and prints on white', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' })
+  await page.goto('/ru/gazeta/01')
+  const issue = page.locator('.newspaper-issue')
+  const sheet = issue.locator('.sheet').first()
+  const accent = sheet.locator('.lead-head .kicker').first()
+  const mastheadNews = sheet.locator('.mh-news')
+
+  await expect(issue).toHaveCSS('background-color', 'rgb(251, 250, 247)')
+  await expect(sheet).toHaveCSS('background-color', 'rgb(255, 255, 255)')
+  await expect(accent).toHaveCSS('color', 'rgb(75, 68, 240)')
+  await expect(mastheadNews).toHaveCSS('color', 'rgb(75, 68, 240)')
+
+  await page.getByRole('button', { name: 'Включить тёмную тему', exact: true }).click()
+  await expect(sheet).toHaveCSS('background-color', 'rgb(25, 25, 30)')
+  await expect(sheet).toHaveCSS('color', 'rgb(242, 241, 245)')
+  await expect(accent).toHaveCSS('color', 'rgb(155, 149, 255)')
+  await expect(mastheadNews).toHaveCSS('color', 'rgb(155, 149, 255)')
+  await expect(issue.locator('.cta-qr').first()).toHaveCSS('background-color', 'rgb(255, 255, 255)')
+
+  await page.emulateMedia({ media: 'print' })
+  await expect(sheet).toHaveCSS('background-color', 'rgb(255, 255, 255)')
+  await expect(sheet).toHaveCSS('color', 'rgb(14, 14, 16)')
+  await expect(accent).toHaveCSS('color', 'rgb(75, 68, 240)')
+
+  await page.emulateMedia({ media: 'screen' })
+  await page.getByRole('link', { name: 'Все выпуски', exact: true }).click()
+  await expect(page.locator('.gazeta-cover').first()).toHaveCSS('background-color', 'rgb(34, 34, 41)')
 })
 
 test('issue archive has three interface languages, a legacy URL and real 404s', async ({ page, request }) => {

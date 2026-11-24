@@ -1,7 +1,7 @@
 /** Isolated integration/browser runner. Never targets the working API/database. */
 import {spawn,type ChildProcess} from 'node:child_process'
 import {resolve} from 'node:path'
-import {existsSync,mkdirSync} from 'node:fs'
+import {existsSync,mkdirSync,rmSync} from 'node:fs'
 import {randomBytes} from 'node:crypto'
 import {allocatePorts} from './local-ports'
 import {startPostizFixture} from './postiz-fixture'
@@ -11,6 +11,7 @@ const ports=await allocatePorts({CREATA_API_PORT:process.env.CREATA_VERIFY_API_P
 const env={...process.env,DATABASE_URL:dsn,CREATA_ENV:'test',CREATA_S3_ENDPOINT:'',CREATA_S3_BUCKET:'',CREATA_S3_ACCESS_KEY:'',CREATA_S3_SECRET_KEY:'',TELEGRAM_BOT_TOKEN:'',CREATA_WORKER_STATE_DIR:resolve(root,'.runtime/verification-hermes-state'),CREATA_DEV_AUTH:'1',CREATA_ALLOW_PRIVATE_SOURCES:'1',CREATA_ADDRESS:`127.0.0.1:${ports.api}`,CREATA_API_URL:api,CREATA_API_ORIGIN:api,CREATA_PUBLIC_URL:web,CREATA_ORIGINS:[web,editorial,hermes].join(','),CREATA_SESSION_SECRET:randomBytes(32).toString('hex'),CREATA_WORKER_TOKEN:randomBytes(32).toString('hex'),CREATA_BOT_SERVICE_TOKEN:randomBytes(32).toString('hex'),CREATA_TELEGRAM_CHANNEL_ID:'-100123456',VITE_WEB_URL:web,VITE_EDITORIAL_URL:editorial,VITE_HERMES_ADMIN_URL:hermes,CREATA_WEB_URL:web,CREATA_WEB_TEST_URL:web,CREATA_EDITORIAL_TEST_URL:editorial,CREATA_HERMES_TEST_URL:hermes,CREATA_TEST_API_ORIGIN:api,CREATA_TEST_BROWSER_ORIGIN:editorial,CREATA_NEWSPAPER_WEB_URL:web,CREATA_MEDIA_DIR:resolve(root,'.runtime/verification-media'),GOCACHE:process.env.GOCACHE||resolve(root,'.runtime/go-cache'),GOMODCACHE:process.env.GOMODCACHE||resolve(root,'.runtime/go-mod')}
 mkdirSync(resolve(root,'.runtime/screenshots'),{recursive:true})
 const schema='verify_'+randomBytes(8).toString('hex')
+const seedPath=resolve(root,'.runtime',`${schema}-seed.json`)
 let binary=''
 const children:ChildProcess[]=[]
 const live=new Set<ChildProcess>()
@@ -29,9 +30,17 @@ Object.assign(env, postiz.env, {
 })
 try{
  await command(process.execPath,['scripts/dev-seed.ts'])
+ const seed=await Bun.file(resolve(root,'.runtime/dev-seed.json')).json() as {opportunities:{deadline:string}[]}
+ // Preserve the sample ordering while keeping every approved opportunity available during E2E.
+ const firstDeadline=Date.now()+7*86_400_000
+ const opportunities=[...seed.opportunities].sort((a,b)=>Date.parse(a.deadline)-Date.parse(b.deadline))
+ for(const [index,opportunity] of opportunities.entries()){
+  opportunity.deadline=new Date(firstDeadline+index*86_400_000).toISOString()
+ }
+ await Bun.write(seedPath,JSON.stringify(seed))
  binary=resolve(root,'.runtime',process.platform==='win32'?'creata-verify-api.exe':'creata-verify-api')
  await command('go',['build','-o',binary,'./cmd/server'],resolve(root,'backend/creata'))
- start(binary,['--test-schema',schema,'--seed',resolve(root,'.runtime/dev-seed.json'),'--import-content',resolve(root,'backend/creata/content')]);await ready(api+'/health')
+ start(binary,['--test-schema',schema,'--seed',seedPath,'--import-content',resolve(root,'backend/creata/content')]);await ready(api+'/health')
  await command(process.execPath,['scripts/test-live-pipeline.ts'])
  await command(process.execPath,['scripts/test-telegram-pipeline.ts'])
  await command(process.execPath,['run','build'],resolve(root,'creatanews'))
@@ -46,5 +55,8 @@ try{
  try{
   await stop()
   if(binary)await command(binary,['--drop-test-schema',schema])
- }finally{await postiz.stop()}
+ }finally{
+  rmSync(seedPath,{force:true})
+  await postiz.stop()
+ }
 }

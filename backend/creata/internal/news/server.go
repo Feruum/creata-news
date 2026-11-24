@@ -15,6 +15,7 @@ import (
 	"log/slog"
 	"net"
 	"net/http"
+	"net/netip"
 	"net/url"
 	"os"
 	"strings"
@@ -24,17 +25,58 @@ import (
 const base = "/api/creata/v1"
 
 type Config struct {
-	PostizAPIKey, PostizAPIURL, PostizMode                                                                                                                                                                                                                                    string
-	CookieDomain                                                                                                                                                                                                                                                              string
-	DatabaseURL, SessionSecret, WorkerToken, BotServiceToken, PublicURL, BotUsername, ChannelID, MediaDir, S3Endpoint, S3Region, S3Bucket, S3AccessKey, S3SecretKey, Environment, Address, GoogleClientID, GoogleClientSecret, TelegramClientID, TelegramClientSecret, APIURL string
-	Origins                                                                                                                                                                                                                                                                   []string
-	DevAuth                                                                                                                                                                                                                                                                   bool
-	AllowPrivateSources                                                                                                                                                                                                                                                       bool
+	DatabaseURL, Environment, Address                                  string
+	PublicURL, APIURL, CookieDomain                                    string
+	Origins                                                            []string
+	SessionSecret, WorkerToken, BotServiceToken, SSRToken              string
+	TrustedProxies                                                     string
+	DevAuth, AllowPrivateSources                                       bool
+	GoogleClientID, GoogleClientSecret                                 string
+	TelegramClientID, TelegramClientSecret                             string
+	BotUsername, ChannelID                                             string
+	TelegramChannelOnly                                                bool
+	TelegramBotUnconfigured                                            bool
+	MediaDir, S3Endpoint, S3Region, S3Bucket, S3AccessKey, S3SecretKey string
+	PostizAPIKey, PostizAPIURL, PostizMode                             string
 }
 
 func ConfigFromEnv() Config {
-	return Config{PostizAPIKey: os.Getenv("CREATA_POSTIZ_API_KEY"), PostizAPIURL: os.Getenv("CREATA_POSTIZ_API_URL"), PostizMode: os.Getenv("CREATA_POSTIZ_MODE"), CookieDomain: os.Getenv("CREATA_COOKIE_DOMAIN"), DatabaseURL: os.Getenv("DATABASE_URL"), SessionSecret: os.Getenv("CREATA_SESSION_SECRET"), WorkerToken: os.Getenv("CREATA_WORKER_TOKEN"), BotServiceToken: os.Getenv("CREATA_BOT_SERVICE_TOKEN"), PublicURL: env("CREATA_PUBLIC_URL", "http://localhost:3002"), APIURL: env("CREATA_API_URL", "http://localhost:5555"), BotUsername: os.Getenv("CREATA_TELEGRAM_BOT_USERNAME"), ChannelID: os.Getenv("CREATA_TELEGRAM_CHANNEL_ID"), MediaDir: env("CREATA_MEDIA_DIR", ".runtime/media"), S3Endpoint: os.Getenv("CREATA_S3_ENDPOINT"), S3Region: env("CREATA_S3_REGION", "us-east-1"), S3Bucket: os.Getenv("CREATA_S3_BUCKET"), S3AccessKey: os.Getenv("CREATA_S3_ACCESS_KEY"), S3SecretKey: os.Getenv("CREATA_S3_SECRET_KEY"), Environment: env("CREATA_ENV", "development"), Address: env("CREATA_ADDRESS", ":5555"), GoogleClientID: os.Getenv("CREATA_GOOGLE_CLIENT_ID"), GoogleClientSecret: os.Getenv("CREATA_GOOGLE_CLIENT_SECRET"), TelegramClientID: os.Getenv("CREATA_TELEGRAM_CLIENT_ID"), TelegramClientSecret: os.Getenv("CREATA_TELEGRAM_CLIENT_SECRET"), Origins: strings.Split(env("CREATA_ORIGINS", "http://localhost:3002,http://localhost:6868,http://localhost:5174"), ","), DevAuth: os.Getenv("CREATA_DEV_AUTH") == "1", AllowPrivateSources: os.Getenv("CREATA_ALLOW_PRIVATE_SOURCES") == "1"}
+	telegramBotConfigured, telegramBotKnown := os.LookupEnv("CREATA_TELEGRAM_BOT_CONFIGURED")
+	return Config{
+		DatabaseURL:             os.Getenv("DATABASE_URL"),
+		Environment:             env("CREATA_ENV", "development"),
+		Address:                 env("CREATA_ADDRESS", ":5555"),
+		PublicURL:               env("CREATA_PUBLIC_URL", "http://localhost:3002"),
+		APIURL:                  env("CREATA_API_URL", "http://localhost:5555"),
+		CookieDomain:            os.Getenv("CREATA_COOKIE_DOMAIN"),
+		Origins:                 strings.Split(env("CREATA_ORIGINS", "http://localhost:3002,http://localhost:6868,http://localhost:5174"), ","),
+		SessionSecret:           os.Getenv("CREATA_SESSION_SECRET"),
+		WorkerToken:             os.Getenv("CREATA_WORKER_TOKEN"),
+		BotServiceToken:         os.Getenv("CREATA_BOT_SERVICE_TOKEN"),
+		SSRToken:                os.Getenv("CREATA_SSR_TOKEN"),
+		TrustedProxies:          os.Getenv("CREATA_TRUSTED_PROXIES"),
+		DevAuth:                 os.Getenv("CREATA_DEV_AUTH") == "1",
+		AllowPrivateSources:     os.Getenv("CREATA_ALLOW_PRIVATE_SOURCES") == "1",
+		GoogleClientID:          os.Getenv("CREATA_GOOGLE_CLIENT_ID"),
+		GoogleClientSecret:      os.Getenv("CREATA_GOOGLE_CLIENT_SECRET"),
+		TelegramClientID:        os.Getenv("CREATA_TELEGRAM_CLIENT_ID"),
+		TelegramClientSecret:    os.Getenv("CREATA_TELEGRAM_CLIENT_SECRET"),
+		BotUsername:             os.Getenv("CREATA_TELEGRAM_BOT_USERNAME"),
+		ChannelID:               os.Getenv("CREATA_TELEGRAM_CHANNEL_ID"),
+		TelegramChannelOnly:     os.Getenv("CREATA_TELEGRAM_CHANNEL_ONLY") == "1",
+		TelegramBotUnconfigured: telegramBotKnown && telegramBotConfigured != "1",
+		MediaDir:                env("CREATA_MEDIA_DIR", ".runtime/media"),
+		S3Endpoint:              os.Getenv("CREATA_S3_ENDPOINT"),
+		S3Region:                env("CREATA_S3_REGION", "us-east-1"),
+		S3Bucket:                os.Getenv("CREATA_S3_BUCKET"),
+		S3AccessKey:             os.Getenv("CREATA_S3_ACCESS_KEY"),
+		S3SecretKey:             os.Getenv("CREATA_S3_SECRET_KEY"),
+		PostizAPIKey:            os.Getenv("CREATA_POSTIZ_API_KEY"),
+		PostizAPIURL:            os.Getenv("CREATA_POSTIZ_API_URL"),
+		PostizMode:              os.Getenv("CREATA_POSTIZ_MODE"),
+	}
 }
+
 func env(k, v string) string {
 	if s := os.Getenv(k); s != "" {
 		return s
@@ -43,34 +85,69 @@ func env(k, v string) string {
 }
 
 type Server struct {
-	postiz  *postizClient
-	Store   *Store
-	Config  Config
-	mux     *http.ServeMux
-	client  *http.Client
-	limiter *burstLimiter
+	postiz                                             *postizClient
+	Store                                              *Store
+	Config                                             Config
+	mux                                                *http.ServeMux
+	client                                             *http.Client
+	trustedProxies                                     []netip.Prefix
+	readLimiter, writeLimiter, authLimiter, ssrLimiter *burstLimiter
+}
+
+func (c *Config) Validate() error {
+	if e := validateCookieDomain(c); e != nil {
+		return e
+	}
+	secrets := []string{c.SessionSecret, c.WorkerToken, c.BotServiceToken}
+	if c.SSRToken != "" {
+		secrets = append(secrets, c.SSRToken)
+	}
+	seen := make(map[string]bool, len(secrets))
+	for _, secret := range secrets {
+		if len(secret) < 32 || seen[secret] {
+			return errors.New("service and session credentials must each contain at least 32 characters and be distinct")
+		}
+		seen[secret] = true
+	}
+	if c.Environment == "production" {
+		if c.DevAuth || c.AllowPrivateSources {
+			return errors.New("development authentication and private source targets are forbidden in production")
+		}
+		if !productionHTTPS(c.PublicURL, false) {
+			return errors.New("production requires a valid HTTPS public origin")
+		}
+		if !productionHTTPS(c.S3Endpoint, true) || strings.TrimSpace(c.S3Region) == "" ||
+			strings.TrimSpace(c.S3Bucket) == "" || strings.TrimSpace(c.S3AccessKey) == "" ||
+			strings.TrimSpace(c.S3SecretKey) == "" {
+			return errors.New("production requires a valid HTTPS S3 endpoint, region, bucket and credentials")
+		}
+	}
+	return nil
+}
+
+func productionHTTPS(raw string, allowPath bool) bool {
+	u, e := url.Parse(raw)
+	return e == nil && u.Scheme == "https" && u.Hostname() != "" && u.User == nil &&
+		u.RawQuery == "" && !u.ForceQuery && u.Fragment == "" && (allowPath || u.Path == "" || u.Path == "/")
 }
 
 func New(s *Store, c Config) (*Server, error) {
-	if e := validateCookieDomain(&c); e != nil {
+	if e := c.Validate(); e != nil {
 		return nil, e
 	}
-	if len(c.SessionSecret) < 32 || len(c.WorkerToken) < 32 || len(c.BotServiceToken) < 32 {
-		return nil, errors.New("session, worker and bot service secrets must each contain at least 32 characters")
+	proxies, err := parseTrustedProxies(c.TrustedProxies)
+	if err != nil {
+		return nil, err
 	}
-	if c.Environment == "production" && (c.DevAuth || c.AllowPrivateSources) {
-		return nil, errors.New("development authentication and private source targets are forbidden in production")
-	}
-	if c.Environment == "production" && (!strings.HasPrefix(c.PublicURL, "https://") || c.S3Endpoint == "") {
-		return nil, errors.New("production requires HTTPS public URL and S3 media storage")
-	}
-	v := &Server{Store: s, Config: c, mux: http.NewServeMux(), limiter: newBurstLimiter(240, time.Minute), client: &http.Client{Timeout: 20 * time.Second, CheckRedirect: func(r *http.Request, via []*http.Request) error {
-		if len(via) > 5 {
-			return errors.New("too many redirects")
-		}
-		return nil
-	}}}
-	var err error
+	v := &Server{Store: s, Config: c, mux: http.NewServeMux(), trustedProxies: proxies,
+		readLimiter: newBurstLimiter(240, time.Minute), writeLimiter: newBurstLimiter(120, time.Minute),
+		authLimiter: newBurstLimiter(30, time.Minute), ssrLimiter: newBurstLimiter(6000, time.Minute),
+		client: &http.Client{Timeout: 20 * time.Second, CheckRedirect: func(r *http.Request, via []*http.Request) error {
+			if len(via) > 5 {
+				return errors.New("too many redirects")
+			}
+			return nil
+		}}}
 	v.postiz, err = newPostizClient(c)
 	if err != nil {
 		return nil, err
@@ -109,20 +186,16 @@ func decode(r *http.Request) (Doc, error) {
 	return d, nil
 }
 func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	if s.Config.Environment == "production" && !strings.HasPrefix(r.URL.Path, base+"/internal/") && r.URL.Path != "/health" {
-		host, _, err := net.SplitHostPort(r.RemoteAddr)
-		if err != nil {
-			host = r.RemoteAddr
-		}
-		if !s.limiter.allow(host, time.Now()) {
+	w.Header().Set("X-Content-Type-Options", "nosniff")
+	w.Header().Set("Referrer-Policy", "same-origin")
+	w.Header().Set("Cache-Control", "no-store")
+	if s.Config.Environment == "production" && !strings.HasPrefix(r.URL.Path, base+"/internal/") && r.URL.Path != "/health" && r.Method != http.MethodOptions {
+		if !s.allowRequest(r, time.Now()) {
 			w.Header().Set("Retry-After", "60")
 			respond(w, 429, Doc{"error": "Too many requests; retry shortly"})
 			return
 		}
 	}
-	w.Header().Set("X-Content-Type-Options", "nosniff")
-	w.Header().Set("Referrer-Policy", "same-origin")
-	w.Header().Set("Cache-Control", "no-store")
 	origin := r.Header.Get("Origin")
 	if origin != "" {
 		allowed := false
@@ -140,7 +213,7 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		w.Header().Add("Vary", "Origin")
 	}
 	if r.Method == "OPTIONS" {
-		w.Header().Set("Access-Control-Allow-Methods", "GET,POST,PATCH,DELETE,OPTIONS")
+		w.Header().Set("Access-Control-Allow-Methods", "GET,POST,PUT,PATCH,DELETE,OPTIONS")
 		w.Header().Set("Access-Control-Allow-Headers", "Content-Type,X-CSRF-Token,Authorization")
 		w.WriteHeader(204)
 		return
@@ -166,6 +239,8 @@ func (s *Server) routes() {
 	s.handle("POST "+base+"/account/saved/{kind}/{id}", s.savedMutation)
 	s.handle("DELETE "+base+"/account/saved/{kind}/{id}", s.savedMutation)
 	s.handle("POST "+base+"/account/telegram-link", s.telegramLink)
+	s.followedStoryRoutes()
+	s.storyFollowUpRoutes()
 	s.publicRoutes()
 	s.editorialRoutes()
 	s.launchRoutes()

@@ -1,6 +1,9 @@
 package news
 
-import "testing"
+import (
+	"strings"
+	"testing"
+)
 
 func validLaunch() Doc {
 	return Doc{"slug": "creata-studio", "name": "Creata Studio", "tagline": localized("Build your next idea"), "description": localized("Tools for early-stage teams."), "team": localized("A team of creators"), "url": "https://example.org/product", "launchDate": "2026-11-14", "country": "KZ", "categoryId": "startups", "photo": ""}
@@ -18,6 +21,21 @@ func TestLaunchValidation(t *testing.T) {
 		if validateLaunch(bad) == nil {
 			t.Errorf("accepted invalid %s", key)
 		}
+	}
+}
+
+func TestLaunchAcceptsUnicodeWithinTextLimits(t *testing.T) {
+	d := validLaunch()
+	d["status"] = "draft"
+	d["name"] = strings.Repeat("Ә", 200)
+	d["country"] = strings.Repeat("Қ", 100)
+	d["description"] = localized(strings.Repeat("Ө", 20000))
+	if e := validateLaunch(d); e != nil {
+		t.Fatal(e)
+	}
+	d["name"] = strings.Repeat("Ә", 201)
+	if validateLaunch(d) == nil {
+		t.Fatal("accepted a name longer than 200 characters")
 	}
 }
 

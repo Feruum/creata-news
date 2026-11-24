@@ -3,9 +3,10 @@ import type {Delivery} from '@creata/contracts'
 import type {ServiceAPI} from './api'
 import {deliveryFailure,splitMessage} from './digest'
 
-export async function deliverOne(bot:Bot,api:ServiceAPI,workerId='creata-telegram'){
+export async function deliverOne(bot:Bot,api:ServiceAPI,workerId='creata-telegram',onlyChannel=''){
  const{delivery}=await api.request<{delivery:Delivery|null}>('/internal/deliveries/claim',{workerId})
  if(!delivery)return {status:'idle' as const}
+ if(onlyChannel&&delivery.chatId!==onlyChannel)throw new Error('Delivery is outside the configured Telegram channel')
  let sent=0,lastMessage=0
  try{
   const keyboard=new InlineKeyboard();for(const link of delivery.links||[])keyboard.url(link.label,link.url).row()

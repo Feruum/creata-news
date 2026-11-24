@@ -28,6 +28,29 @@ type apiTest struct {
 	worker, bot string
 }
 
+func TestTelegramChannelOnlyClaimsConfiguredChannel(t *testing.T) {
+	a := setupAPI(t)
+	a.app.Config.TelegramChannelOnly = true
+	ctx := context.Background()
+	if err := a.store.Write(ctx, func(tx *Tx) error {
+		if err := tx.Put(ctx, "delivery", Doc{"id": "channel", "chatId": a.app.Config.ChannelID, "status": "queued"}); err != nil {
+			return err
+		}
+		return tx.Put(ctx, "delivery", Doc{"id": "personal", "chatId": "20", "status": "queued"})
+	}); err != nil {
+		t.Fatal(err)
+	}
+	claim := func() Doc {
+		return object(a.request("POST", "/internal/deliveries/claim", Doc{"workerId": "pilot"}, 200, a.bot)["delivery"])
+	}
+	if got := str(claim()["id"]); got != "channel" {
+		t.Fatalf("claimed %q, expected the configured channel delivery", got)
+	}
+	if got := str(claim()["id"]); got != "" {
+		t.Fatalf("claimed %q outside the configured channel", got)
+	}
+}
+
 func setupAPI(t *testing.T) *apiTest {
 	t.Helper()
 	dsn := os.Getenv("CREATA_TEST_DATABASE_URL")

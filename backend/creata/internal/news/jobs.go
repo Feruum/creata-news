@@ -9,6 +9,7 @@ import (
 	"net/url"
 	"strings"
 	"time"
+	"unicode"
 )
 
 func newJob(kind string, payload Doc) Doc {
@@ -411,6 +412,7 @@ func (s *Server) applyJobResult(t *Tx, ctx context.Context, j, result Doc) error
 				story[k] = v
 			}
 		}
+		copyArticlePhotos(story, result)
 		if str(story["articleId"]) == "" && str(story["graphicId"]) == "" {
 			story["status"] = "classified"
 		}
@@ -426,6 +428,7 @@ func (s *Server) applyJobResult(t *Tx, ctx context.Context, j, result Doc) error
 				}
 			}
 			a := newArticle(Doc{"id": "hermes"}, Doc{"title": localized(str(story["title"])), "categoryId": story["categoryId"], "region": story["region"], "tags": story["tags"], "sources": story["sources"]})
+			copyArticlePhotos(a, story)
 			a["status"] = "writing"
 			if e = t.saveRevision(ctx, a, Doc{"id": "hermes"}, "Automatic editorial candidate"); e != nil {
 				return e
@@ -472,8 +475,16 @@ func (s *Server) applyJobResult(t *Tx, ctx context.Context, j, result Doc) error
 				a[f] = v
 			}
 		}
-		if brief := object(object(object(j["checkpoints"])["research"])["output"]); len(brief) > 0 {
-			a["researchBrief"] = brief
+		if _, exists := a["photos"]; !exists && str(j["kind"]) == "draft" && str(a["format"]) != "graphic" {
+			copyArticlePhotos(a, result)
+		}
+		brief := object(result["researchBrief"])
+		if saved := object(object(object(j["checkpoints"])["research"])["output"]); len(saved) > 0 {
+			brief = saved
+			a["researchBrief"] = saved
+		}
+		if len(brief) > 0 && str(a["format"]) != "graphic" {
+			addExaResearchSources(a, brief)
 		}
 		if e = validateEditor(t, ctx, a); e != nil {
 			return e
@@ -595,6 +606,7 @@ func (s *Server) settingsPublic(ctx context.Context) (Doc, error) {
 		return nil, e
 	}
 	d = clone(d)
+	d["morningDigestHour"] = morningDigestHour(d)
 	key, e := s.unseal(str(d["_apiKeyEncrypted"]))
 	if str(d["_apiKeyEncrypted"]) == "" {
 		key = ""
@@ -604,7 +616,11 @@ func (s *Server) settingsPublic(ctx context.Context) (Doc, error) {
 		return nil, e
 	}
 	delete(d, "_apiKeyEncrypted")
-	object(d["ai"])["keyConfigured"] = key != ""
+	ai := object(d["ai"])
+	ai["keyConfigured"] = key != ""
+	ai["exaKeyConfigured"] = s.exaKey(d) != ""
+	delete(ai, "exaApiKey")
+	delete(d, "_exaApiKeyEncrypted")
 	var spent float64
 	e = s.Store.Pool.QueryRow(ctx, "SELECT COALESCE(sum(CASE WHEN committed THEN cost ELSE reserved END),0) FROM creata_ai_reservations WHERE day=CURRENT_DATE").Scan(&spent)
 	object(d["ai"])["spentTodayUsd"] = spent
@@ -650,12 +666,20 @@ func (s *Server) settingsPatch(w http.ResponseWriter, r *http.Request) error {
 		if number(current["scoreThreshold"]) < 0 || number(current["scoreThreshold"]) > 100 || integer(current["digestHour"]) < 0 || integer(current["digestHour"]) > 23 {
 			return errStatus(400, "Invalid threshold or digest hour")
 		}
+		if value, present := d["morningDigestHour"]; present {
+			hour, valid := value.(float64)
+			if !valid || hour < 0 || hour > 23 || hour != float64(int(hour)) {
+				return errStatus(400, "Invalid morning digest hour")
+			}
+			current["morningDigestHour"] = int(hour)
+		}
 		if _, e = time.LoadLocation(str(current["timezone"])); e != nil {
 			return errStatus(400, "Unknown timezone")
 		}
 		ai := object(current["ai"])
+		inputAI := object(d["ai"])
 		for _, k := range []string{"endpoint", "model", "dailyBudgetUsd", "inputPricePerMillion", "outputPricePerMillion"} {
-			if v, ok := object(d["ai"])[k]; ok {
+			if v, ok := inputAI[k]; ok {
 				ai[k] = v
 			}
 		}
@@ -668,18 +692,35 @@ func (s *Server) settingsPatch(w http.ResponseWriter, r *http.Request) error {
 		if number(ai["dailyBudgetUsd"]) < 0 || number(ai["inputPricePerMillion"]) < 0 || number(ai["outputPricePerMillion"]) < 0 {
 			return errStatus(400, "AI prices and budget must be nonnegative")
 		}
-		if key, ok := object(d["ai"])["apiKey"]; ok {
+		if key, ok := inputAI["apiKey"]; ok {
 			sealed, e := s.seal(str(key))
 			if e != nil {
 				return e
 			}
 			current["_apiKeyEncrypted"] = sealed
 		}
+		exaValue, exaChanged := inputAI["exaApiKey"]
+		if exaChanged {
+			key, ok := exaValue.(string)
+			if !ok || len(key) > 1024 || strings.IndexFunc(key, unicode.IsControl) >= 0 {
+				return errStatus(400, "Invalid Exa API key")
+			}
+			key = strings.TrimSpace(key)
+			if key == "" {
+				delete(current, "_exaApiKeyEncrypted")
+			} else {
+				sealed, err := s.seal(key)
+				if err != nil {
+					return err
+				}
+				current["_exaApiKeyEncrypted"] = sealed
+			}
+		}
 		current["ai"] = ai
 		if e = t.Put(r.Context(), "settings", current); e != nil {
 			return e
 		}
-		return t.Audit(r.Context(), u, "settings.save", "settings", Doc{"aiCredentialsChanged": object(d["ai"])["apiKey"] != nil})
+		return t.Audit(r.Context(), u, "settings.save", "settings", Doc{"aiCredentialsChanged": inputAI["apiKey"] != nil, "exaCredentialsChanged": exaChanged})
 	})
 	if e != nil {
 		return e
@@ -691,6 +732,15 @@ func (s *Server) settingsPatch(w http.ResponseWriter, r *http.Request) error {
 	respond(w, 200, out)
 	return nil
 }
+
+func (s *Server) exaKey(settings Doc) string {
+	if encrypted := str(settings["_exaApiKeyEncrypted"]); encrypted != "" {
+		key, _ := s.unseal(encrypted)
+		return key
+	}
+	return ""
+}
+
 func (s *Server) aiConfig(w http.ResponseWriter, r *http.Request) error {
 	if e := s.service(r, "worker"); e != nil {
 		return e
@@ -708,6 +758,7 @@ func (s *Server) aiConfig(w http.ResponseWriter, r *http.Request) error {
 	}
 	ai := clone(object(raw["ai"]))
 	ai["apiKey"] = key
+	ai["exaApiKey"] = s.exaKey(raw)
 	ai["editorialInstructions"] = raw["editorialInstructions"]
 	cats, e := s.Store.List(r.Context(), "category")
 	if e != nil {
@@ -816,11 +867,18 @@ func (s *Server) Tick(ctx context.Context) error {
 				if e == nil {
 					e = publishable(a)
 				}
+				if e == nil {
+					e = t.validateStoryPermalink(ctx, a)
+					var conflict *apiError
+					if e != nil && (!errors.As(e, &conflict) || conflict.status != 409) {
+						return e
+					}
+				}
 				if e != nil {
 					from := str(a["status"])
 					delete(a, "scheduledAt")
-					if e = cancelScheduledPostiz(t, ctx, str(a["id"])); e != nil {
-						return e
+					if err := cancelScheduledPostiz(t, ctx, str(a["id"])); err != nil {
+						return err
 					}
 					a["reviewNotes"] = append(array(a["reviewNotes"]), e.Error())
 					a["status"] = "review"

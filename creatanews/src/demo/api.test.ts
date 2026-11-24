@@ -1,6 +1,9 @@
 import {describe,expect,test} from 'bun:test'
+import type {Article,FollowedStories} from '@creata/contracts'
 import {readDemoPublic} from './api'
 import {createDemoRequest} from './browser'
+import {createPipelineDemo,type DemoSeed} from '@creata/demo-pipeline'
+import source from './reader-data.json'
 function storage(){const data=new Map<string,string>();return{getItem:(key:string)=>data.get(key)??null,setItem:(key:string,value:string)=>{data.set(key,value)}}}
 describe('explicit public demo data',()=>{
  test('lists only published translated samples and applies filters',()=>{
@@ -23,6 +26,49 @@ describe('explicit public demo data',()=>{
  })
 })
 describe('visitor-local demo actions',()=>{
+ test('reader follows use published updates and persist across demo restarts',async()=>{
+  const browser=storage()
+  const seed=source as unknown as DemoSeed
+  const pipeline=createPipelineDemo(seed,browser)
+  const article=seed.articles[0]
+  const update={id:'demo-follow-update',occurredAt:'2026-11-22T10:00:00Z',title:article.title,body:article.lead,sourceUrl:'https://example.org/demo-update'}
+  const path=`/admin/articles/${article.id}`
+  const send=(method:string,body:unknown)=>({method,body:JSON.stringify(body)})
+  const request=createDemoRequest(browser)
+  const follows='/account/followed-stories'
+  await request('/account',{method:'PATCH',body:JSON.stringify({name:'Returning demo reader'})})
+  const previousState=JSON.parse(browser.getItem('creata:demo:v1')!)
+  delete previousState.followedStoryIds
+  browser.setItem('creata:demo:v1',JSON.stringify(previousState))
+  const draft=await pipeline.request<Article>(path,send('PATCH',{expectedRevision:article.revision,storyUpdates:[update]}))
+  await expect(request(`${follows}/${article.id}`,{method:'POST'})).rejects.toMatchObject({status:404})
+  await pipeline.request(`${path}/actions`,send('POST',{action:'approve',expectedRevision:draft.revision}))
+  await pipeline.request(`${path}/actions`,send('POST',{action:'publish',expectedRevision:draft.revision}))
+  expect(await request(`${follows}/${article.id}`,{method:'POST'})).toEqual({ok:true})
+  const restarted=createDemoRequest(browser)
+  const following=(request=restarted)=>request<FollowedStories>(follows)
+  expect((await following()).items.map(item=>item.id)).toEqual([article.id])
+  expect((await following()).unreadUpdateIds).toEqual({[article.id]:[]})
+  const oldFollow=JSON.parse(browser.getItem('creata:demo:v1')!)
+  delete oldFollow.seenStoryUpdateIds
+  browser.setItem('creata:demo:v1',JSON.stringify(oldFollow))
+  expect((await following()).unreadUpdateIds).toEqual({[article.id]:[update.id]})
+  const read=`${follows}/${article.id}/read`
+  await expect(restarted(read,{method:'POST',body:'{'})).rejects.toMatchObject({status:400})
+  expect(await restarted(read,send('POST',{updateIds:[update.id]}))).toEqual({ok:true})
+  expect((await following(createDemoRequest(browser))).unreadUpdateIds).toEqual({[article.id]:[]})
+  expect(await restarted('/auth/me')).toMatchObject({user:{name:'Returning demo reader'}})
+  expect(await createDemoRequest(storage())(follows)).toEqual({items:[],unreadUpdateIds:{}})
+  await restarted('/auth/logout',{method:'POST'})
+  await expect(restarted(follows)).rejects.toMatchObject({status:401})
+  await restarted('/auth/demo-login',{method:'POST'})
+  await pipeline.request(`${path}/actions`,send('POST',{action:'unpublish',expectedRevision:draft.revision}))
+  expect(await restarted(follows)).toEqual({items:[],unreadUpdateIds:{}})
+  expect(await restarted(`${follows}/${article.id}`,{method:'DELETE'})).toEqual({ok:true})
+  await pipeline.request(`${path}/actions`,send('POST',{action:'approve',expectedRevision:draft.revision}))
+  await pipeline.request(`${path}/actions`,send('POST',{action:'publish',expectedRevision:draft.revision}))
+  expect(await restarted(follows)).toEqual({items:[],unreadUpdateIds:{}})
+ })
  test('saves, reader preferences, votes and comments are isolated by browser',async()=>{
   const first=createDemoRequest(storage()),second=createDemoRequest(storage())
   const article=(readDemoPublic('/public/articles') as any).items[0]

@@ -8,7 +8,7 @@ const root = resolve(import.meta.dirname, '..')
 const path = resolve(root, '.env')
 if (!existsSync(path)) {
   let content = readFileSync(resolve(root, '.env.example'), 'utf8')
-  for (const key of ['CREATA_SESSION_SECRET', 'CREATA_WORKER_TOKEN', 'CREATA_BOT_SERVICE_TOKEN', 'TELEGRAM_WEBHOOK_SECRET']) {
+  for (const key of ['CREATA_SESSION_SECRET', 'CREATA_WORKER_TOKEN', 'CREATA_BOT_SERVICE_TOKEN', 'CREATA_SSR_TOKEN', 'TELEGRAM_WEBHOOK_SECRET']) {
     content = content.replace(new RegExp(`^${key}=(?=\\r?$)`, 'm'), key + '=' + randomBytes(32).toString('hex'))
   }
   writeFileSync(path, content, { flag: 'wx', mode: 0o600 })

@@ -63,3 +63,21 @@ test('mobile demo retains Creata layout, themes, localized menu and looping card
  await page.goto('/kk/latest');await expect(page.getByRole('heading',{level:1})).toHaveText('Соңғы жаңалықтар')
  await expect(page.locator('.bottom-nav')).toBeVisible();await expect(page.locator('a[href*="skiper-ui"]')).toHaveCount(0)
 })
+
+test('mobile profile navigation keeps Kazakh labels and arrows inside their links',async({page})=>{
+ await page.setViewportSize({width:320,height:780})
+ await page.goto('/kk/profile#digest')
+ const steps=page.locator('#digest nav a')
+ await expect(steps).toHaveCount(3)
+ await page.evaluate(()=>document.fonts.ready)
+
+ const overflowing=await steps.evaluateAll(links=>links.filter(link=>{
+  const linkRight=link.getBoundingClientRect().right
+  return Array.from(link.children).some(child=>child.getBoundingClientRect().right>linkRight)
+ }).map(link=>link.textContent))
+ expect(overflowing).toEqual([])
+
+ await steps.getByText('Таратылым',{exact:true}).click()
+ await expect(page).toHaveURL(/#profile-delivery$/)
+ await expect(page.locator('#profile-delivery')).toBeFocused()
+})

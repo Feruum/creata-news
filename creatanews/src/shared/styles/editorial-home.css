@@ -92,6 +92,7 @@ html:has(.home-shell) { scrollbar-color: var(--line) var(--paper); }
 @media (max-width: 699px) {
  .app-shell.home-shell, .home-footer-inner { width: calc(100% - 36px); }
  .home-shell .site-header { gap: 8px; min-height: 80px; margin-bottom: 22px; padding-block: 18px; }
+ .home-shell .site-header .brand { min-width: 0; flex-shrink: 1; }
  .home-shell .site-header .creata-wordmark { font-size: 13px; }
  .home-shell .site-header .header-controls { gap: 2px; }
  .home-search-link { width: 36px; height: 40px; }
@@ -103,7 +104,7 @@ html:has(.home-shell) { scrollbar-color: var(--line) var(--paper); }
  .home-shell .article-card h2 { font-size: 23px; }
  .home-shell .article-card .card-lead { font-size: 14px; }
  .home-shell .article-card .card-meta { margin-top: 18px; font-size: 11px; }
- .home-feature-band { min-height: 350px; margin-top: 52px; }
+ .home-feature-band { width: auto; min-height: 350px; margin: 52px -18px 0; }
  .home-feature-band > img { object-position: 76% center; }
  .home-feature-copy { padding: 70px 28px; }
  .home-feature-copy h2 { font-size: 32px; }

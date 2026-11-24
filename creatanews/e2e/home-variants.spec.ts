@@ -4,7 +4,7 @@ const homeURL=process.env.CREATA_HOME_TEST_URL||process.env.CREATA_WEB_TEST_URL
 test.use({baseURL:homeURL,contextOptions:{reducedMotion:'reduce'}})
 test.skip(!homeURL,'Requires the local Creata site or an explicit homepage preview')
 
-test('classic and V2 are separate working homepages with a reachable version link',async({page,request})=>{
+test('classic is the public home and V2 still works via its direct URL',async({page,request})=>{
  const errors:string[]=[];page.on('pageerror',error=>errors.push(error.message))
  await page.setViewportSize({width:1440,height:1000})
  await page.goto('/ru')
@@ -14,7 +14,8 @@ test('classic and V2 are separate working homepages with a reachable version lin
  const published=await request.get('/api/creata/v1/public/articles?locale=ru');await expect(published).toBeOK()
  const {items}=await published.json();expect(items.length).toBeGreaterThan(0)
  await expect(page.getByRole('heading',{level:1})).toHaveText(items[0].title.ru)
- await page.locator('.classic-home-utility').getByRole('link',{name:'Главная V2'}).click()
+ await expect(page.locator('.classic-home-utility a[href="/ru/v2"]')).toHaveCount(0)
+ await page.goto('/ru/v2')
  await expect(page).toHaveURL(/\/ru\/v2$/)
  await expect(page.getByTestId('editorial-home-screen')).toBeVisible()
  await expect(page.getByTestId('classic-home-screen')).toHaveCount(0)
@@ -36,9 +37,13 @@ test('both homepages fit mobile and V2 locale switching preserves its route',asy
   for(const suffix of ['','/v2']){
    await page.goto('/'+locale+suffix)
    await expect(page.getByRole('heading',{level:1})).toBeVisible()
-   for(const width of [320,390,768]){
+   for(const width of [320,360,390,768]){
     await page.setViewportSize({width,height:844})
-    await expect.poll(()=>page.evaluate(()=>document.documentElement.scrollWidth-innerWidth)).toBeLessThanOrEqual(1)
+    await expect.poll(()=>page.evaluate(()=>Math.max(document.body.scrollWidth,document.documentElement.scrollWidth)-innerWidth),{message:`${locale}${suffix} at ${width}px`}).toBeLessThanOrEqual(1)
+    const clippedLinks=await page.locator('main .section-heading > a').evaluateAll(links=>links
+     .filter(link=>link.getBoundingClientRect().width>0&&link.getBoundingClientRect().right>window.innerWidth+1)
+     .map(link=>link.textContent?.trim()))
+    expect(clippedLinks,`${locale}${suffix} section links at ${width}px`).toEqual([])
    }
   }
  }

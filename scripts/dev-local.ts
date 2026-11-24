@@ -7,6 +7,7 @@ import {ensureLocalDatabase} from './local-database'
 import {resolveHermesPython} from './local-hermes'
 const root=resolve(import.meta.dirname,'..'),ports=await allocatePorts(),host='127.0.0.1'
 const urls={api:`http://${host}:${ports.api}`,web:`http://localhost:${ports.web}`,editorial:`http://localhost:${ports.editorial}`,hermes:`http://localhost:${ports.hermes}`,bot:`http://${host}:${ports.bot}`}
+const telegramBotConfigured=!!process.env.TELEGRAM_BOT_TOKEN?.trim()
 const env={...process.env,CREATA_ADDRESS:`${host}:${ports.api}`,CREATA_API_URL:`http://localhost:${ports.api}`,CREATA_API_ORIGIN:urls.api,CREATA_PUBLIC_URL:urls.web,CREATA_EDITORIAL_URL:urls.editorial,CREATA_HERMES_ADMIN_URL:urls.hermes,CREATA_ORIGINS:[urls.web,urls.editorial,urls.hermes,...[ports.web,ports.editorial,ports.hermes].map(p=>`http://${host}:${p}`)].join(','),VITE_WEB_URL:urls.web,VITE_EDITORIAL_URL:urls.editorial,VITE_HERMES_ADMIN_URL:urls.hermes,HTTP_PORT:String(ports.bot),GOCACHE:resolve(root,'.runtime/go-cache'),GOMODCACHE:resolve(root,'.runtime/go-mod'),CREATA_CONTENT_IMPORT_DIR:resolve(root,'backend/creata/content'),CREATA_MEDIA_DIR:resolve(root,process.env.CREATA_MEDIA_DIR||'uploads'),CREATA_WORKER_STATE_DIR:resolve(root,process.env.CREATA_WORKER_STATE_DIR||'.runtime/hermes-state')}
 console.log('Creata local URLs:',urls)
 if(process.argv.includes('--check'))process.exit(0)
@@ -23,7 +24,7 @@ for(const sig of ['SIGINT','SIGTERM'] as const)process.on(sig,()=>stop())
 const binary=resolve(root,'.runtime',process.platform==='win32'?'creata-local-api.exe':'creata-local-api')
 const build=spawn('go',['build','-o',binary,'./cmd/server'],{cwd:resolve(root,'backend/creata'),env:serviceEnv,stdio:'inherit',windowsHide:true})
 await new Promise<void>((resolve,reject)=>{build.on('error',reject);build.on('exit',code=>code===0?resolve():reject(Error('API build failed')))})
-start(binary,[],root,env)
+start(binary,[],root,{...env,CREATA_TELEGRAM_BOT_CONFIGURED:telegramBotConfigured?'1':'0'})
 let ready=false;for(let attempt=0;attempt<120&&!stopping;attempt++){try{ready=(await fetch(urls.api+'/health')).ok}catch{}if(ready)break;await Bun.sleep(500)}
 if(!ready){stop(1);throw Error('API was not ready; inspect database/import diagnostics above')}
 start(process.execPath,['run','--no-orphans','dev','--hostname','127.0.0.1','--port',String(ports.web)],resolve(root,'creatanews'))

@@ -18,15 +18,21 @@ User-approved addition, 14 November 2026.
 
 ## Creata launches
 
-Founders submit a product with its name, pitch, website, screenshots, category, stage, team and optional public GitHub repository. They can edit a draft, submit it, respond to review, choose a launch date and see their launches. Staff moderates before public display. Editing approved content returns it to review.
+Available in the connected site and editorial app. A signed-in founder can open **Submit a launch** from the catalog, save a draft in **My launch submissions**, and send it for review. Editors review it under **Launches awaiting review** in the startup launches section. They can publish the submitted revision or return it with feedback. The founder can revise, resubmit, and open the public card from their profile once it is published.
+
+The first release supports an immediate publication decision, with the option to request changes before publication. The launch date is shown on the card.
+
+### Planned extensions
+
+Extend submissions with screenshots, stage and an optional public GitHub repository. Allow edits to approved founder submissions through a further editorial review.
 
 Flow: draft → review → changes requested → review → scheduled / published; rejected is separate. Publication requires an editor, chief editor or administrator. Hermes never publishes.
 
 Public product pages and the launch feed include community votes, a website button and an optional GitHub button. One account has one vote per product; the founder cannot vote for their own product. Repository stars remain separate from Creata votes. Visitors star with their own GitHub account. Star counts come from GitHub, with collection time and period snapshots retained internally; unavailable counts are never replaced by invented numbers. A change in stars is a change during the launch period, not a claim that Creata caused every star.
 
-Minimum initial slice: submission and review, founder/staff workspace, public feed/profile, votes and GitHub count. The weekly view considers launches in the selected period, not lifetime vote totals for all products. Account sessions and CSRF checks use the existing API. Nonpublic submissions are visible only to their owner and authorized moderators.
+The planned weekly view considers launches in the selected period and the votes they received during it. Account sessions and CSRF checks use the existing API. Nonpublic submissions are visible only to their owner and authorized moderators.
 
-Next slices: richer logo/demo uploads, verified team ownership, visit/click analytics and weekly awards, editorial launch announcements and digest inclusion. The agreed end state connects launches to the newsroom and Telegram; no direct founder broadcast is allowed. Comments and social profiles remain separate future work.
+Next slices include richer logo/demo uploads, verified team ownership, visit/click analytics and weekly awards, editorial launch announcements and digest inclusion. The agreed end state connects launches to the newsroom and Telegram through editorial publication.
 
 ## Validation
 

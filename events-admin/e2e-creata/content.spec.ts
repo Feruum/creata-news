@@ -1,6 +1,20 @@
 import {test,expect} from '@playwright/test'
 import {resolve} from 'node:path'
 
+test('site content editor fields stay inside the phone viewport',async({page})=>{
+ await page.setViewportSize({width:320,height:800})
+ await page.goto('/content')
+ await page.getByLabel('Роль',{exact:true}).selectOption('chief_editor')
+ await page.getByRole('button',{name:'Войти в локальной разработке',exact:true}).click()
+ for(const name of ['Экосистема Creata','О нас','Газета №01']){
+  await page.getByRole('button',{name,exact:true}).click()
+  const content=page.locator('#main-content')
+  await expect(content.getByRole('heading',{name:new RegExp(name)})).toBeVisible()
+  await expect(content.locator('fieldset input, fieldset textarea').first()).toBeVisible()
+  await expect.poll(()=>content.evaluate(node=>node.scrollWidth-node.clientWidth),{message:name}).toBeLessThanOrEqual(1)
+ }
+})
+
 test('site text is saved on backend, previewed privately and published without rebuilding',async({page,context})=>{
  test.setTimeout(120000)
  const api=process.env.CREATA_TEST_API_ORIGIN||'http://localhost:5555',web=process.env.CREATA_WEB_TEST_URL||'http://localhost:3002'

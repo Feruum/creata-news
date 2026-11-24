@@ -7,20 +7,20 @@ from .net import fetch
 from .extract import extract_html, parse_feed, normalize_url
 from .ai import NotConfigured
 
-def allowed(url):
+def allowed(url, *, strict_public=False, timeout=20, redirects=5):
     p=urlsplit(url)
     robots=p.scheme+'://'+p.netloc+'/robots.txt'
     try:
-        raw,_,_=fetch(robots,max_bytes=500000)
+        raw,_,_=fetch(robots,max_bytes=500000,strict_public=strict_public,timeout=timeout,redirects=redirects)
     except RuntimeError as err:
         if '404' in str(err):return True
         raise
     parser=RobotFileParser();parser.parse(raw.decode('utf-8',errors='replace').splitlines())
     return parser.can_fetch('CreataHermes',url)
 
-def page(url):
-    if not allowed(url):raise ValueError('Source disallows crawling in robots.txt')
-    raw,kind,final=fetch(url)
+def page(url, *, strict_public=False, timeout=20, redirects=5):
+    if not allowed(url,strict_public=strict_public,timeout=timeout,redirects=redirects):raise ValueError('Source disallows crawling in robots.txt')
+    raw,kind,final=fetch(url,strict_public=strict_public,timeout=timeout,redirects=redirects)
     if 'html' not in kind and kind and not kind.startswith('text/'):raise ValueError('Source is not an HTML page')
     return extract_html(raw.decode('utf-8',errors='replace'),final)
 

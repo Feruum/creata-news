@@ -3,7 +3,7 @@ import { ArrowRight } from 'lucide-react'
 import { publicArticles,buildQuery } from '@/lib/content'
 import { copy,localePath,localize } from '@/lib/i18n'
 import type { Article,Category,Locale } from '@/lib/models'
-import { articleTopics,findTopic,topics,topicLabel,topicDescription,regionLabel } from '@/lib/topics'
+import { articleTopics,findTopic,topics,topicLabel,topicDescription,regionLabel,matchesArticleRegion } from '@/lib/topics'
 import { ArticleCard } from './cards'
 import { StateMessage } from './state-message'
 import { CollectionScreen } from '@/features/news/components/collection-screen'
@@ -18,7 +18,7 @@ export function LatestView({locale,section,category,region,items,categories,erro
   const t=copy[locale],text=labels[locale]
   const articles=publicArticles(items,locale).sort((a,b)=>(b.publishedAt||'').localeCompare(a.publishedAt||''))
   const selected=findTopic(section)
-  const filtered=articles.filter(article=>(!region||article.region===region)&&(!category||article.categoryId===category)&&(!section||section==='recent'||!!selected&&articleTopics(article,categories).some(topic=>topic.id===selected.id)))
+  const filtered=articles.filter(article=>(!region||matchesArticleRegion(article.region,region))&&(!category||article.categoryId===category)&&(!section||section==='recent'||!!selected&&articleTopics(article,categories).some(topic=>topic.id===selected.id)))
   if(section||category||region){
     const categoryName=localize(categories.find(item=>item.id===category)?.name,locale)
     const title=section==='recent'?undefined:selected?topicLabel(selected,locale):categoryName||(region?regionLabel(region,locale):t.noResults)

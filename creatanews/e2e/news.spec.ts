@@ -10,7 +10,7 @@ test('published stories render server-side with real links and accessible menu',
   const header=page.getByRole('banner')
   const quickLinks=header.getByRole('navigation',{name:'Быстрые ссылки'})
   await expect(quickLinks).toBeVisible()
-  await expect(quickLinks.getByRole('link')).toHaveText(['О Creata','Последние новости','Утро Creata','Главная V2'])
+  await expect(quickLinks.getByRole('link')).toHaveText(['О Creata','Последние новости'])
   await expect(page.locator('.bottom-nav')).not.toBeVisible()
   await expect(page.locator('.masthead,.primary-nav,.topline')).toHaveCount(0)
   await page.getByRole('button',{name:'Открыть меню'}).click();await expect(page.locator('dialog')).toBeVisible()
@@ -21,7 +21,11 @@ test('published stories render server-side with real links and accessible menu',
   await leadLink.click();await expect(page).toHaveURL(`/ru/articles/${items[0].slug}`)
   await expect(page.getByRole('heading',{level:1})).toHaveText(items[0].title.ru)
   await expect(page.locator('meta[property="og:title"]')).toHaveAttribute('content',items[0].title.ru)
-  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href',new RegExp(`/ru/articles/${items[0].slug}$`))
+  const articlePath=new URL(`/ru/articles/${items[0].slug}`,page.url()).pathname
+  await expect.poll(async()=>{
+    const href=await page.locator('link[rel="canonical"]').getAttribute('href')
+    return href ? new URL(href,page.url()).pathname : null
+  }).toBe(articlePath)
 })
 test('language routes preserve article and Kazakh page language',async({page,request})=>{
   const hydrationErrors:string[]=[];page.on('pageerror',error=>{if(/hydration/i.test(error.message))hydrationErrors.push(error.message)})

@@ -7,6 +7,10 @@ Article fields: id,slug,title,lead,body,summary,actions (all localized text; bod
 User={id,name,email?,locale,stage,topics:string[],frequency(daily|weekly),paused:boolean,roles:string[],verticals:string[],telegramLinked:boolean}. Roles reader,author,editor,chief_editor,admin. Author edits own; editor edits/reviews/publishes assigned verticals; chief all editorial + eco publication; admin users/settings/sources; admin needs chief role for eco. No client-asserted roles. Dev bootstrap only with explicit CREATA_DEV_AUTH=1 and loopback origin; never production.
 
 ## Public and account
+
+The public article list accepts `limit` (1–100) and the returned `nextCursor` to page through the same filters. Set `view=summary` for cards, which carry localized `readingMinutes` and omit the article body. Set `translated=1` to require a title in the requested locale and `includeTotal=0` on paginated requests that only need a continuation cursor. The default full snapshot remains available. `GET /public/regions` returns the regions used by navigation. `GET /public/opportunities?ids=id1,id2` selects the listed active, approved opportunities.
+
+Article list, article detail, and region responses support `ETag` and conditional `If-None-Match` requests. Publishing, correcting, withdrawing, and editing an author invalidate these validators as part of the database update. Draft edits keep the current published validator. Public SSR uses a bounded memory cache and validates with Go before reuse.
 GET /public/articles?locale&layer&category&region&q&authorId
 GET /public/articles/{slug}; GET /public/categories; GET /public/authors; GET /public/authors/{id}; GET /public/opportunities; GET /public/opportunities/{id}
 POST /public/events {type:view|save|opportunity_click,targetId,eventId?}

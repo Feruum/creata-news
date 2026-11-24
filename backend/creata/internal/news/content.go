@@ -4,11 +4,12 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"golang.org/x/net/html"
 	"net/http"
 	"net/url"
 	"strings"
 	"time"
+
+	"golang.org/x/net/html"
 )
 
 func sitePageSlug(slug string) bool {
@@ -248,18 +249,28 @@ func (s *Server) saveSitePage(w http.ResponseWriter, r *http.Request) error {
 	if e != nil {
 		return e
 	}
+	ctx, slug := r.Context(), r.PathValue("slug")
+	expectedRevision := integer(in["expectedRevision"])
+	current, e := s.Store.Get(ctx, "site_page", slug)
+	if e != nil {
+		return e
+	}
+	if expectedRevision != integer(current["revision"]) {
+		return errStatus(409, "Page changed; reload before saving")
+	}
+	c := object(in["content"])
+	if e = validateSiteContent(str(current["id"]), c); e != nil {
+		return e
+	}
+
 	var out Doc
-	e = s.Store.Write(r.Context(), func(t *Tx) error {
-		d, e := t.Get(r.Context(), "site_page", r.PathValue("slug"))
+	e = s.Store.Write(ctx, func(t *Tx) error {
+		d, e := t.Get(ctx, "site_page", slug)
 		if e != nil {
 			return e
 		}
-		if integer(in["expectedRevision"]) != integer(d["revision"]) {
+		if expectedRevision != integer(d["revision"]) {
 			return errStatus(409, "Page changed; reload before saving")
-		}
-		c := object(in["content"])
-		if e = validateSiteContent(str(d["id"]), c); e != nil {
-			return e
 		}
 		d["content"] = c
 		d["revision"] = integer(d["revision"]) + 1
@@ -267,16 +278,16 @@ func (s *Server) saveSitePage(w http.ResponseWriter, r *http.Request) error {
 		d["updatedAt"] = now()
 		d["actorId"] = u["id"]
 		out = d
-		if e = t.Put(r.Context(), "site_page", d); e != nil {
+		if e = t.Put(ctx, "site_page", d); e != nil {
 			return e
 		}
 		rev := clone(d)
 		rev["slug"] = d["id"]
 		rev["id"] = fmt.Sprintf("%s:%d", d["id"], integer(d["revision"]))
-		if e = t.Put(r.Context(), "site_page_revision", rev); e != nil {
+		if e = t.Put(ctx, "site_page_revision", rev); e != nil {
 			return e
 		}
-		return t.Audit(r.Context(), u, "page.save", str(d["id"]), Doc{"revision": d["revision"]})
+		return t.Audit(ctx, u, "page.save", str(d["id"]), Doc{"revision": d["revision"]})
 	})
 	if e != nil {
 		return e
@@ -296,43 +307,56 @@ func (s *Server) publishSitePage(w http.ResponseWriter, r *http.Request) error {
 	if e != nil {
 		return e
 	}
-	var out Doc
-	e = s.Store.Write(r.Context(), func(t *Tx) error {
-		d, e := t.Get(r.Context(), "site_page", r.PathValue("slug"))
+	ctx, slug := r.Context(), r.PathValue("slug")
+	expectedRevision := integer(in["expectedRevision"])
+	action := "publish"
+	if strings.HasSuffix(r.URL.Path, "/unpublish") {
+		action = "unpublish"
+	} else {
+		current, e := s.Store.Get(ctx, "site_page", slug)
 		if e != nil {
 			return e
 		}
-		if integer(in["expectedRevision"]) != integer(d["revision"]) {
+		if expectedRevision != integer(current["revision"]) {
 			return errStatus(409, "Page changed; reload before publishing")
 		}
-		action := "publish"
-		if strings.HasSuffix(r.URL.Path, "/unpublish") {
-			action = "unpublish"
-			if e = t.Delete(r.Context(), "site_page_publication", str(d["id"])); e != nil {
+		if e = validateSiteContent(str(current["id"]), object(current["content"])); e != nil {
+			return e
+		}
+	}
+
+	var out Doc
+	e = s.Store.Write(ctx, func(t *Tx) error {
+		d, e := t.Get(ctx, "site_page", slug)
+		if e != nil {
+			return e
+		}
+		if expectedRevision != integer(d["revision"]) {
+			return errStatus(409, "Page changed; reload before publishing")
+		}
+		if action == "unpublish" {
+			if e = t.Delete(ctx, "site_page_publication", str(d["id"])); e != nil {
 				return e
 			}
 			if str(d["id"]) == "newspaper-01" {
-				if e = t.Delete(r.Context(), "newspaper_publication", "original-01"); e != nil {
+				if e = t.Delete(ctx, "newspaper_publication", "original-01"); e != nil {
 					return e
 				}
 			}
 			d["status"] = "draft"
 			delete(d, "publishedRevision")
 		} else {
-			if e = validateSiteContent(str(d["id"]), object(d["content"])); e != nil {
-				return e
-			}
-			if e = putPagePublication(r.Context(), t, d); e != nil {
+			if e = putPagePublication(ctx, t, d); e != nil {
 				return e
 			}
 			d["status"] = "published"
 			d["publishedRevision"] = d["revision"]
 		}
 		out = d
-		if e = t.Put(r.Context(), "site_page", d); e != nil {
+		if e = t.Put(ctx, "site_page", d); e != nil {
 			return e
 		}
-		return t.Audit(r.Context(), u, "page."+action, str(d["id"]), Doc{"revision": d["revision"]})
+		return t.Audit(ctx, u, "page."+action, str(d["id"]), Doc{"revision": d["revision"]})
 	})
 	if e != nil {
 		return e
@@ -356,8 +380,15 @@ func (s *Server) ImportContent(ctx context.Context, bundle Doc, assetDir string)
 			return e
 		}
 	}
+	pages := array(bundle["pages"])
+	validationErrors := make([]error, len(pages))
+	for i, v := range pages {
+		page := object(v)
+		validationErrors[i] = validateSiteContent(str(page["slug"]), object(page["content"]))
+	}
+
 	return s.Store.Write(ctx, func(t *Tx) error {
-		for _, v := range array(bundle["pages"]) {
+		for i, v := range pages {
 			page := object(v)
 			slug := str(page["slug"])
 			if existing, e := t.Get(ctx, "site_page", slug); e == nil {
@@ -368,11 +399,11 @@ func (s *Server) ImportContent(ctx context.Context, bundle Doc, assetDir string)
 				}
 				continue
 			}
-			c := object(page["content"])
-			if e := validateSiteContent(slug, c); e != nil {
+			// Only new pages need valid content. An existing page wins over the import bundle.
+			if e := validationErrors[i]; e != nil {
 				return fmt.Errorf("%s: %w", slug, e)
 			}
-			d := Doc{"id": slug, "slug": slug, "content": c, "revision": 1, "status": "published", "publishedRevision": 1, "createdAt": now(), "updatedAt": now(), "actorId": "migration"}
+			d := Doc{"id": slug, "slug": slug, "content": object(page["content"]), "revision": 1, "status": "published", "publishedRevision": 1, "createdAt": now(), "updatedAt": now(), "actorId": "migration"}
 			if e := t.Put(ctx, "site_page", d); e != nil {
 				return e
 			}

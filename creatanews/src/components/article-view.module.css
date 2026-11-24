@@ -1,0 +1,236 @@
+.contents {
+  min-inline-size: 0;
+  max-block-size: 55vh;
+  overflow: auto;
+  padding-inline: 10px 5px;
+  border-inline-start: 1px solid var(--line);
+}
+
+.contents > p {
+  margin: 0 0 4px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.contents ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.contents a {
+  display: block;
+  padding: 5px 7px;
+  border-inline-start: 2px solid transparent;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+.contents a:hover,
+.contents a:focus-visible {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.contents a[aria-current='location'] {
+  border-inline-start-color: var(--accent);
+  background: var(--soft);
+  color: var(--ink);
+}
+
+.sourceDetails {
+  display: grid;
+  min-inline-size: 0;
+  gap: 3px;
+  overflow-wrap: anywhere;
+}
+
+.sourceDetails strong {
+  font-weight: 600;
+}
+
+.sourceDetails time {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.sourceIcon {
+  flex-shrink: 0;
+  align-self: center;
+}
+
+.proseHeading {
+  margin-block: 1.35em 0.5em;
+  font-size: clamp(20px, 2.2vw, 27px);
+  line-height: 1.25;
+}
+
+.inlinePhoto {
+  margin: 24px 0;
+}
+
+.photo :global(.media-frame) > img {
+  object-fit: contain;
+}
+
+.photo figcaption {
+  margin-block-start: 8px;
+  color: var(--muted);
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+
+.photo figcaption a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+@media (max-width: 850px) {
+  .contents {
+    flex-basis: 100%;
+    max-block-size: none;
+    padding-inline: 0;
+    padding-block: 10px;
+    border-inline-start: 0;
+    border-block: 1px solid var(--line);
+  }
+
+  .contents ul {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 16px;
+  }
+}
+
+.timeline,
+.guide {
+  margin-block: 32px;
+  overflow-wrap: anywhere;
+}
+
+.timelineHeader {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+  margin-block-end: 16px;
+}
+
+.timelineHeader h2 {
+  margin-inline-end: auto;
+}
+
+.followControls,
+.storyLinks {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 16px;
+}
+
+.timelineList,
+.followedList {
+  display: grid;
+  gap: 12px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.timelineItem,
+.followedList li {
+  padding: clamp(14px, 2.8vw, 24px);
+  border: 1px solid var(--line);
+  background: var(--panel);
+  min-inline-size: 0;
+  scroll-margin-block-start: 24px;
+}
+
+.timelineItem:first-child {
+  border-inline-start: 3px solid var(--accent);
+  background: var(--soft);
+}
+
+.updateMeta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 14px;
+  margin-block-end: 8px;
+}
+
+.updateMeta time,
+.followedList time {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.timelineItem h3,
+.followedList h2 {
+  margin-block-end: 8px;
+  font-size: clamp(18px, 2.2vw, 24px);
+}
+
+.timelineItem p,
+.guide dd {
+  white-space: pre-line;
+}
+
+.storyLinks {
+  margin-block-start: 12px;
+}
+
+.storyLinks a,
+.followControls > a {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.guide {
+  padding: clamp(14px, 2.8vw, 24px);
+  background: var(--panel);
+  border: 1px solid var(--line);
+}
+
+.guide dl {
+  display: grid;
+  gap: 4px 16px;
+  margin-block: 14px 0;
+}
+
+.guide dt {
+  font-weight: 700;
+}
+
+.guide dd {
+  margin-inline-start: 0;
+}
+
+.guide dd + dt {
+  margin-block-start: 8px;
+}
+
+.followedList {
+  max-inline-size: 720px;
+  margin-block: 20px 50px;
+  overflow-wrap: anywhere;
+}
+
+.followedList h2 {
+  margin-block-start: 7px;
+}
+
+.unreadLabel {
+  padding: 2px 8px;
+  border-radius: var(--radius);
+  background: var(--soft);
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 0.85rem;
+}

@@ -98,6 +98,14 @@ func (s *Server) launchVote(w http.ResponseWriter, r *http.Request) error {
 		}
 		voteID := hash(str(u["id"]) + ":" + launchID)
 		if voted {
+			var own bool
+			e = tx.QueryRow(r.Context(), "SELECT EXISTS (SELECT 1 FROM creata_records WHERE kind=$1 AND id=$2 AND data->>'ownerId'=$3)", launchSubmission, launchID, str(u["id"])).Scan(&own)
+			if e != nil {
+				return e
+			}
+			if own {
+				return errStatus(403, "Founders cannot vote for their own launch")
+			}
 			e = tx.Put(r.Context(), "launch_vote", Doc{"id": voteID, "launchId": launchID, "userId": u["id"]})
 		} else {
 			e = tx.Delete(r.Context(), "launch_vote", voteID)

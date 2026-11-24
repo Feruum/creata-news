@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'bun:test'
-import { ApiError, type Article, type Digest, type Job, type Source, type Story } from '../../contracts/src/index'
+import { ApiError, type Article, type Digest, type FollowedStories, type Job, type Source, type Story } from '../../contracts/src/index'
 import { createPipelineDemo, DEMO_PIPELINE_KEY } from './index'
 
 const text = (ru: string) => ({ru, kk: `ҚАЗ: ${ru}`, en: `EN: ${ru}`})
@@ -7,8 +7,273 @@ const fixture: Article = { id:'published', slug:'published-story', title:text('�
 const seed = { articles:[fixture], categories:[{id:'ai',slug:'ai',name:text('AI')}], opportunities:[{id:'op',title:text('AI fellowship'),description:text('For builders'),organization:'Demo lab',type:'grant',url:'https://example.org/grant',country:'KZ',deadline:'2027-12-31',status:'approved' as const,categoryId:'ai'}] }
 const input=(method:string,body?:unknown):RequestInit=>({method,...(body===undefined?{}:{body:JSON.stringify(body)})})
 function setup(storage=new Map<string,string>()) { let time=Date.parse('2026-11-15T12:00:00Z');const demo=createPipelineDemo(seed,storage,()=>time);return {demo,storage,advance:(ms=20000)=>{time+=ms}} }
+const guide={audience:text('Предприниматели'),steps:text('Проверьте условия приема'),sourceUrl:'https://example.org/guide'}
+const storyUpdate={id:'call-opens',occurredAt:'2026-11-20T16:00:00Z',title:text('Открыт прием заявок'),body:text('Заявки принимают до конца месяца'),sourceUrl:'https://example.org/announcement'}
 
 describe('browser-local pipeline',()=>{
+test('a story can link to a published article whose slug contains punctuation',async()=>{
+ const articleSlug='ручная-проверка-·-акселератор-«орбита»-bbc572df'
+ const demo=createPipelineDemo({...seed,articles:[fixture,{...fixture,id:'related',slug:articleSlug}]},new Map())
+ const draft=await demo.request<Article>('/admin/articles/published',input('PATCH',{
+  expectedRevision:1,storyUpdates:[{...storyUpdate,articleSlug}],
+ }))
+ expect(draft.storyUpdates?.[0]?.articleSlug).toBe(articleSlug)
+ for(const invalid of ['.','..','article/other','article\\other','article#heading','article?query','article\0']) {
+  await expect(demo.request('/admin/articles/published',input('PATCH',{
+   expectedRevision:draft.revision,storyUpdates:[{...storyUpdate,articleSlug:invalid}],
+  }))).rejects.toMatchObject({status:400})
+ }
+})
+test('story fields remain private while editing and can be cleared in a later publication',async()=>{
+ const storySeed={...seed,articles:[{...fixture,actionGuide:guide,storyUpdates:[storyUpdate]}]}
+ const storage=new Map<string,string>()
+ const demo=createPipelineDemo(storySeed,storage)
+ const correction={...storyUpdate,body:text('Продлили прием заявок')}
+ const draft=await demo.request<Article>('/admin/articles/published',input('PATCH',{expectedRevision:1,actionGuide:null,storyUpdates:[correction]}))
+ expect(draft.actionGuide).toBeUndefined()
+ expect(draft.storyUpdates).toEqual([correction])
+ const revisions=await demo.request<{items:Article[]}>('/admin/articles/published/revisions')
+ expect(revisions.items[0]?.storyUpdates).toEqual([correction])
+ expect(demo.getArticle('published-story')?.actionGuide).toEqual(guide)
+ expect(demo.getArticle('published-story')?.storyUpdates).toEqual([storyUpdate])
+ await demo.request('/admin/articles/published/actions',input('POST',{action:'approve',expectedRevision:2}))
+ await demo.request('/admin/articles/published/actions',input('POST',{action:'publish',expectedRevision:2}))
+ expect(demo.getArticle('published-story')?.storyUpdates).toEqual([correction])
+ const cleared=await demo.request<Article>('/admin/articles/published',input('PATCH',{expectedRevision:2,storyUpdates:[]}))
+ expect(cleared.storyUpdates).toEqual([])
+ await demo.request('/admin/articles/published/actions',input('POST',{action:'approve',expectedRevision:3}))
+ await demo.request('/admin/articles/published/actions',input('POST',{action:'publish',expectedRevision:3}))
+ const restarted=createPipelineDemo(storySeed,storage)
+ expect(restarted.getArticle('published-story')?.actionGuide).toBeUndefined()
+ expect(restarted.getArticle('published-story')?.storyUpdates).toBeUndefined()
+ const saved=await restarted.request<Article>('/admin/articles/published')
+ expect(saved.actionGuide).toBeUndefined()
+ expect(saved).toHaveProperty('storySlug','published-story')
+ await expect(restarted.request('/admin/articles/published',input('PATCH',{expectedRevision:3,slug:'renamed-story'}))).rejects.toMatchObject({status:409})
+})
+test('first story publication keeps the live article permalink and exposes its lock only to editors',async()=>{
+ const {demo}=setup()
+ const path='/admin/articles/published'
+ const updates=[storyUpdate]
+ await expect(demo.request(path,input('PATCH',{expectedRevision:1,slug:'draft-slug',storyUpdates:updates}))).rejects.toMatchObject({status:409})
+ const ordinaryDraft=await demo.request<Article>(path,input('PATCH',{expectedRevision:1,slug:'draft-slug'}))
+ expect(ordinaryDraft.slug).toBe('draft-slug')
+ expect(ordinaryDraft).not.toHaveProperty('storySlug')
+ await expect(demo.request(path,input('PATCH',{expectedRevision:2,storyUpdates:updates}))).rejects.toMatchObject({status:409})
+ const storyDraft=await demo.request<Article>(path,input('PATCH',{expectedRevision:2,slug:'published-story',storyUpdates:updates}))
+ expect(storyDraft).not.toHaveProperty('storySlug')
+ await demo.request(`${path}/actions`,input('POST',{action:'approve',expectedRevision:3}))
+ const published=await demo.request(`${path}/actions`,input('POST',{action:'publish',expectedRevision:3}))
+ expect(published).toHaveProperty('storySlug','published-story')
+ expect(await demo.request(path)).toHaveProperty('storySlug','published-story')
+ expect(await demo.request('/public/articles/published-story')).not.toHaveProperty('storySlug')
+ expect(demo.getSnapshot().publications.published).not.toHaveProperty('storySlug')
+ await expect(demo.request('/public/articles/draft-slug')).rejects.toMatchObject({status:404})
+})
+test('approval and publication reject a persisted story draft with a changed permalink',async()=>{
+ const {demo,storage,advance}=setup()
+ const path='/admin/articles/published'
+ await demo.request(path,input('PATCH',{expectedRevision:1,slug:'draft-slug'}))
+ const stored=JSON.parse(storage.get(DEMO_PIPELINE_KEY)!)
+ const draft=stored.articles.find((item:Article)=>item.id==='published')
+ draft.storyUpdates=[storyUpdate]
+ const save=()=>storage.set(DEMO_PIPELINE_KEY,JSON.stringify(stored))
+ save()
+ await expect(demo.request(`${path}/actions`,input('POST',{action:'approve',expectedRevision:2}))).rejects.toMatchObject({status:409,code:'story_slug_locked'})
+ draft.status='approved'
+ draft.approvedRevision=2
+ save()
+ for(const action of ['publish','schedule']){
+  await expect(demo.request(`${path}/actions`,input('POST',{action,expectedRevision:2,scheduledAt:'2026-11-15T12:01:00Z'}))).rejects.toMatchObject({status:409,code:'story_slug_locked'})
+ }
+ draft.scheduledAt='2026-11-15T12:01:00Z'
+ save()
+ advance(61000)
+ expect(demo.getArticle('published-story')?.storyUpdates).toBeUndefined()
+ expect(demo.getArticle('draft-slug')).toBeUndefined()
+ const reviewed=await demo.request<Article>(path)
+ expect(reviewed.status).toBe('review')
+ expect(reviewed.scheduledAt).toBeUndefined()
+})
+test('scheduled timeline publication sorts fractional timestamps and excludes private notes',async()=>{
+ const {demo,advance}=setup()
+ const older={...storyUpdate,id:'earlier',occurredAt:'2026-11-15T11:00:00.123456Z'}
+ const newer={...storyUpdate,id:'later',occurredAt:'2026-11-15T16:00:00.123789+05:00'}
+ const tie={...newer,id:'same-time',occurredAt:'2026-11-15T11:00:00.123789Z'}
+ const updates=[older,newer,tie]
+ const path='/admin/articles/published'
+ const draft=await demo.request<Article>(path,input('PATCH',{expectedRevision:1,storyUpdates:updates,reviewNotes:['Private review note']}))
+ expect(draft.storyUpdates?.map(update=>update.id)).toEqual(['earlier','later','same-time'])
+ await demo.request(`${path}/actions`,input('POST',{action:'approve',expectedRevision:draft.revision}))
+ await demo.request(`${path}/actions`,input('POST',{action:'schedule',expectedRevision:draft.revision,scheduledAt:'2026-11-15T12:01:00Z'}))
+ expect(demo.getArticle('published-story')?.storyUpdates).toBeUndefined()
+ advance(61000)
+ const article=demo.getArticle('published-story')
+ expect(article?.storyUpdates?.map(update=>update.id)).toEqual(['later','same-time','earlier'])
+ expect(article?.reviewNotes).toEqual([])
+ expect(article).not.toHaveProperty('storySlug')
+ expect(await demo.request(path)).toHaveProperty('storySlug','published-story')
+ const withdrawn=await demo.request(`${path}/actions`,input('POST',{action:'unpublish',expectedRevision:draft.revision}))
+ expect(withdrawn).toHaveProperty('storySlug','published-story')
+ await expect(demo.request(path,input('PATCH',{expectedRevision:draft.revision,slug:'other-story'}))).rejects.toMatchObject({status:409})
+})
+test('draft creation preserves story fields and requires complete sourced text before approval',async()=>{
+ const {demo}=setup()
+ const draft=await demo.request<Article>('/admin/articles',input('POST',{
+  title:text('Draft with updates'),actionGuide:{...guide,sourceUrl:''},storyUpdates:[storyUpdate],
+ }))
+ expect(draft.actionGuide?.sourceUrl).toBe('')
+ expect(draft.storyUpdates).toEqual([storyUpdate])
+ expect(demo.getArticle(draft.id)).toBeUndefined()
+ await expect(demo.request(`/admin/articles/${draft.id}/actions`,input('POST',{action:'approve',expectedRevision:1}))).rejects.toMatchObject({status:400})
+ await expect(demo.request(`/admin/articles/${draft.id}`,input('PATCH',{expectedRevision:1,storyUpdates:[{...storyUpdate,occurredAt:'2026-11-20'}]}))).rejects.toMatchObject({status:400})
+})
+test('followed stories are ordered by latest published update and are removable after withdrawal',async()=>{
+ const storySeed={...seed,articles:[
+  fixture,
+  {...fixture,id:'first',slug:'first-story',storyUpdates:[{...storyUpdate,occurredAt:'2026-11-20T19:00:00+05:00'}]},
+  {...fixture,id:'second',slug:'second-story',storyUpdates:[storyUpdate]},
+  {...fixture,id:'unpublished',slug:'unpublished-story',status:'review' as const,storyUpdates:[storyUpdate]},
+ ]}
+ const storage=new Map<string,string>()
+ const demo=createPipelineDemo(storySeed,storage)
+ await demo.request('/account/saved/article/published',input('POST'))
+ expect(await demo.request('/account/followed-stories')).toEqual({items:[],unreadUpdateIds:{}})
+ await expect(demo.request('/account/followed-stories/published',input('POST'))).rejects.toMatchObject({status:404})
+ await expect(demo.request('/account/followed-stories/unpublished',input('POST'))).rejects.toMatchObject({status:404})
+ expect(await demo.request('/account/followed-stories/first',input('POST'))).toEqual({ok:true})
+ await demo.request('/account/followed-stories/first',input('POST'))
+ await demo.request('/account/followed-stories/second',input('POST'))
+ await demo.request('/admin/articles/first',input('PATCH',{expectedRevision:1,storyUpdates:[{...storyUpdate,occurredAt:'2026-11-21T00:00:00Z'}]}))
+ const restarted=createPipelineDemo(storySeed,storage)
+ expect((await restarted.request<{items:Article[]}>('/account/followed-stories')).items.map(item=>item.id)).toEqual(['second','first'])
+ const persisted=JSON.parse(storage.get(DEMO_PIPELINE_KEY)!)
+ delete persisted.seenStoryUpdateIds
+ storage.set(DEMO_PIPELINE_KEY,JSON.stringify(persisted))
+ expect(await restarted.request('/account/followed-stories')).toMatchObject({
+  unreadUpdateIds:{first:['call-opens'],second:['call-opens']},
+ })
+ const originalUser=persisted.session.user
+ persisted.session.user=persisted.users.find((user:{id:string})=>user.id==='demo-reader')
+ storage.set(DEMO_PIPELINE_KEY,JSON.stringify(persisted))
+ expect(await restarted.request('/account/followed-stories')).toEqual({items:[],unreadUpdateIds:{}})
+ persisted.session.user=originalUser
+ storage.set(DEMO_PIPELINE_KEY,JSON.stringify(persisted))
+ await restarted.request('/admin/articles/second/actions',input('POST',{action:'unpublish',expectedRevision:1}))
+ expect((await restarted.request<{items:Article[]}>('/account/followed-stories')).items.map(item=>item.id)).toEqual(['first'])
+ expect(await restarted.request('/account/followed-stories/second',input('DELETE'))).toEqual({ok:true})
+ await restarted.request('/admin/articles/second/actions',input('POST',{action:'approve',expectedRevision:1}))
+ await restarted.request('/admin/articles/second/actions',input('POST',{action:'publish',expectedRevision:1}))
+ expect((await restarted.request<{items:Article[]}>('/account/followed-stories')).items.map(item=>item.id)).toEqual(['first'])
+ await restarted.request('/auth/logout',input('POST'))
+ await expect(restarted.request('/account/followed-stories')).rejects.toMatchObject({status:401})
+})
+test('read receipts track only submitted published update IDs across revising, following again and restarting',async()=>{
+ const storySeed={...seed,articles:[{...fixture,storyUpdates:[storyUpdate]}]}
+ const storage=new Map<string,string>()
+ const demo=createPipelineDemo(storySeed,storage)
+ const follows='/account/followed-stories',follow=`${follows}/published`,read=`${follow}/read`
+ const unread=async(engine=demo)=>(await engine.request<FollowedStories>(follows)).unreadUpdateIds
+ await expect(demo.request(read,input('POST',{updateIds:[storyUpdate.id]}))).rejects.toMatchObject({status:404})
+ await demo.request(follow,input('POST'))
+ expect(await unread()).toEqual({published:[]})
+
+ const actions='/admin/articles/published/actions'
+ const newer={...storyUpdate,id:'deadline-extended',occurredAt:'2026-11-25T12:00:00Z'}
+ const latest={...storyUpdate,id:'deadline-closed',occurredAt:'2026-11-26T12:00:00Z'}
+ const draft=await demo.request<Article>('/admin/articles/published',input('PATCH',{
+  expectedRevision:1,storyUpdates:[{...storyUpdate,body:text('Corrected source text')},newer,latest],
+ }))
+ expect(await demo.request(read,input('POST',{updateIds:[latest.id]}))).toEqual({ok:true})
+ await demo.request(actions,input('POST',{action:'approve',expectedRevision:draft.revision}))
+ await demo.request(actions,input('POST',{action:'publish',expectedRevision:draft.revision}))
+ await demo.request(follow,input('POST'))
+ expect(await unread()).toEqual({published:['deadline-closed','deadline-extended']})
+ await expect(demo.request(read,input('POST',{updateIds:['invalid ID']}))).rejects.toMatchObject({status:400})
+ await expect(demo.request(read,input('POST',{updateIds:[latest.id],all:true}))).rejects.toMatchObject({status:400})
+ expect(await demo.request(read,input('POST',{updateIds:[newer.id,newer.id,'unknown-update']}))).toEqual({ok:true})
+ const restarted=createPipelineDemo(storySeed,storage)
+ expect(await unread(restarted)).toEqual({published:['deadline-closed']})
+ expect(await restarted.request(read,input('POST',{updateIds:[latest.id]}))).toEqual({ok:true})
+ expect(await unread(restarted)).toEqual({published:[]})
+ await restarted.request(follow,input('DELETE'))
+ expect(await unread(restarted)).toEqual({})
+})
+test('reminders survive revisions and withdrawal until an editor completes them',async()=>{
+ const {demo,storage}=setup()
+ const article='/admin/articles/published',reminder=`${article}/follow-up`,queue='/admin/story-follow-ups'
+ const reminderData={dueDate:'2026-11-19',assigneeId:'demo-author'}
+ const draft=await demo.request<Article>(article,input('PATCH',{expectedRevision:1,storyUpdates:[storyUpdate]}))
+ expect(await demo.request(reminder)).toEqual({item:null,eligible:true})
+ expect(await demo.request(reminder,input('PUT',reminderData))).toEqual({item:{
+  articleId:'published',title:fixture.title,assigneeId:'demo-author',assigneeName:'Редактор демоверсии',
+  dueDate:'2026-11-19',updatedAt:'2026-11-15T12:00:00.000Z',
+ }})
+ expect(await demo.request(article)).toEqual(draft)
+ expect(demo.getArticle('published-story')).not.toHaveProperty('followUp')
+ await demo.request(`${article}/actions`,input('POST',{action:'approve',expectedRevision:draft.revision}))
+ await demo.request(`${article}/actions`,input('POST',{action:'publish',expectedRevision:draft.revision}))
+ const revised=await demo.request<Article>(article,input('PATCH',{expectedRevision:draft.revision,storyUpdates:[],title:text('New draft title')}))
+ expect(await demo.request(reminder,input('PUT',{...reminderData,dueDate:'2026-11-21'}))).toMatchObject({item:{dueDate:'2026-11-21',title:revised.title}})
+ await demo.request(`${article}/actions`,input('POST',{action:'unpublish',expectedRevision:revised.revision}))
+ expect(await demo.request(reminder)).toMatchObject({item:{dueDate:'2026-11-21'},eligible:false})
+
+ const earlier=await demo.request<Article>('/admin/articles',input('POST',{title:text('Draft story'),storyUpdates:[storyUpdate]}))
+ await demo.request(`/admin/articles/${earlier.id}/follow-up`,input('PUT',{...reminderData,dueDate:'2026-11-17'}))
+ const restarted=createPipelineDemo(seed,storage)
+ const list=await restarted.request<{items:Array<{articleId:string}>;total:number}>(queue)
+ expect(list.total).toBe(2)
+ expect(list.items.map(item=>item.articleId)).toEqual([earlier.id,'published'])
+ expect(await restarted.request(reminder,input('DELETE'))).toEqual({ok:true})
+ expect(await restarted.request(reminder,input('DELETE'))).toEqual({ok:true})
+ expect(await restarted.request(reminder)).toEqual({item:null,eligible:false})
+ const audit=await restarted.request<{items:Array<{action:string;targetId:string}>}>('/admin/audit')
+ expect(audit.items.filter(item=>item.targetId==='published'&&item.action.startsWith('story_follow_up.')).map(item=>item.action)).toEqual([
+  'story_follow_up.complete','story_follow_up.set','story_follow_up.set',
+ ])
+})
+test('reminders require publication permissions and a valid date on a story',async()=>{
+ const {demo}=setup()
+ const queue='/admin/story-follow-ups',published='/admin/articles/published/follow-up'
+ const reminderData={dueDate:'2026-11-19',assigneeId:'demo-author'}
+ await expect(demo.request(published,input('PUT',reminderData))).rejects.toMatchObject({status:400})
+ const world=await demo.request<Article>('/admin/articles',input('POST',{title:text('World story'),storyUpdates:[storyUpdate]}))
+ const economy=await demo.request<Article>('/admin/articles',input('POST',{title:text('Eco story'),layer:'eco',storyUpdates:[storyUpdate]}))
+ const worldPath=`/admin/articles/${world.id}/follow-up`,economyPath=`/admin/articles/${economy.id}/follow-up`
+ await expect(demo.request(worldPath,input('PUT',{...reminderData,expectedRevision:1}))).rejects.toMatchObject({status:400})
+ for(const dueDate of ['2026-02-29','2026-11-31','0000-11-23','2026-11-19T09:00:00Z']){
+  await expect(demo.request(worldPath,input('PUT',{...reminderData,dueDate}))).rejects.toMatchObject({status:400})
+ }
+ for(const assigneeId of ['demo-reader','demo-editor','missing-user']){
+  await expect(demo.request(worldPath,input('PUT',{...reminderData,assigneeId}))).rejects.toMatchObject({status:400})
+ }
+ await demo.request('/admin/users/demo-editor',input('PATCH',{verticals:['ai']}))
+ await demo.request(economyPath,input('PUT',reminderData))
+ await demo.request('/auth/dev-login',input('POST',{role:'editor'}))
+ expect(await demo.request(worldPath,input('PUT',{...reminderData,assigneeId:'demo-editor',dueDate:'2028-02-29'}))).toMatchObject({item:{assigneeId:'demo-editor'}})
+ expect(await demo.request(queue)).toMatchObject({total:1,items:[{articleId:world.id}]})
+ await expect(demo.request(economyPath)).rejects.toMatchObject({status:403})
+ await expect(demo.request(economyPath,input('DELETE'))).rejects.toMatchObject({status:403})
+ await demo.request('/auth/dev-login',input('POST',{role:'author'}))
+ await expect(demo.request(queue)).rejects.toMatchObject({status:403})
+ await expect(demo.request(worldPath,input('PUT',reminderData))).rejects.toMatchObject({status:403})
+})
+test('schedule audit entries are restricted to administrators and chief editors',async()=>{
+ const {demo}=setup()
+ const article=await demo.request<Article>('/admin/articles',input('POST',{title:text('Story'),storyUpdates:[storyUpdate]}))
+ const dueDate='2026-11-19',assigneeId='demo-author'
+ await demo.request(`/admin/articles/${article.id}/follow-up`,input('PUT',{dueDate,assigneeId}))
+ const audit='/admin/audit'
+ for(const role of ['author','editor']){
+  await demo.request('/auth/dev-login',input('POST',{role}))
+  await expect(demo.request(audit)).rejects.toMatchObject({status:403})
+ }
+ const auditEntry={targetId:article.id,action:'story_follow_up.set',detail:{dueDate,assigneeId}}
+ await demo.request('/auth/dev-login',input('POST',{role:'admin'}))
+ expect(await demo.request(audit)).toMatchObject({items:expect.arrayContaining([expect.objectContaining(auditEntry)])})
+ await demo.request('/admin/users/demo-author',input('PATCH',{roles:['chief_editor']}))
+ expect(await demo.request(audit)).toMatchObject({items:expect.arrayContaining([expect.objectContaining(auditEntry)])})
+})
 test('published snapshots stay immutable until the edited concrete revision is approved and published',async()=>{
  const {demo}=setup();let a=await demo.request<Article>('/admin/articles/published',{...input('PATCH',{expectedRevision:1,title:text('Изменено')})});expect(a.revision).toBe(2);expect(a.approvedRevision).toBeUndefined();expect(demo.getPublishedArticles().find(a=>a.id==='published')?.title.ru).toBe(fixture.title.ru)
  await expect(demo.request('/admin/articles/published/actions',input('POST',{action:'publish',expectedRevision:2}))).rejects.toMatchObject({status:409})

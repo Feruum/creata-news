@@ -4,6 +4,8 @@ import (
 	"context"
 	"encoding/json"
 	"net/http"
+	"net/url"
+	"slices"
 	"sort"
 	"strings"
 	"time"
@@ -14,8 +16,19 @@ func (s *Server) digestRoutes() {
 		if _, e := s.require(r, true); e != nil {
 			return e
 		}
-		return s.listResponse(w, r, "digest")
+		items, err := s.Store.List(r.Context(), "digest")
+		if err != nil {
+			return err
+		}
+		for _, item := range items {
+			if str(item["kind"]) == "channel" && has([]string{"draft", "approved"}, str(item["status"])) {
+				item["text"] = s.digestText(item)
+			}
+		}
+		respond(w, 200, Doc{"items": items, "total": len(items), "channelDeliveryStatus": s.channelDeliveryStatus()})
+		return nil
 	})
+	s.handle("GET "+base+"/admin/digests/morning", s.morningDigestStatus)
 	s.handle("POST "+base+"/admin/digests/preview", s.digestPreview)
 	s.handle("POST "+base+"/admin/digests/{id}/{action}", s.digestAction)
 	s.handle("POST "+base+"/internal/bot/users/upsert", s.botUpsert)
@@ -34,10 +47,21 @@ func (s *Server) digestRoutes() {
 	s.handle("POST "+base+"/internal/deliveries/claim", s.claimDelivery)
 	s.handle("POST "+base+"/internal/deliveries/{id}/{action}", s.finishDelivery)
 }
-func (s *Server) compose(t *Tx, ctx context.Context, u Doc, kind string) (Doc, error) {
+func (s *Server) compose(t *Tx, ctx context.Context, u Doc, kind string, selection digestSelection) (Doc, error) {
 	all, e := t.List(ctx, "publication")
 	if e != nil {
 		return nil, e
+	}
+	if kind == "channel" {
+		cutoff := selection.morningCutoff
+		since := cutoff.AddDate(0, 0, -1)
+		all = slices.DeleteFunc(all, func(a Doc) bool {
+			if !isCentralAsianRegion(a["region"]) {
+				return true
+			}
+			published := parseTime(a["publishedAt"])
+			return !cutoff.IsZero() && (published.Before(since) || !published.Before(cutoff))
+		})
 	}
 	sort.SliceStable(all, func(i, j int) bool { return parseTime(all[i]["publishedAt"]).After(parseTime(all[j]["publishedAt"])) })
 	lang := locale(str(u["locale"]))
@@ -104,7 +128,10 @@ func (s *Server) compose(t *Tx, ctx context.Context, u Doc, kind string) (Doc, e
 		if len(selected) >= 3 {
 			break
 		}
-		if str(o["status"]) != "approved" || !parseTime(o["deadline"]).After(time.Now()) {
+		if str(o["status"]) != "approved" || !parseTime(o["deadline"]).After(selection.now) {
+			continue
+		}
+		if kind == "channel" && !isCentralAsianRegion(o["country"]) {
 			continue
 		}
 		if len(array(u["topics"])) > 0 && str(o["categoryId"]) != "" && !has(u["topics"], str(o["categoryId"])) {
@@ -112,9 +139,12 @@ func (s *Server) compose(t *Tx, ctx context.Context, u Doc, kind string) (Doc, e
 		}
 		selected = append(selected, o)
 	}
-	d := Doc{"id": id(), "locale": lang, "kind": kind, "status": "draft", "articles": articles, "opportunities": selected, "createdAt": now(), "userId": u["id"]}
+	d := Doc{"id": id(), "locale": lang, "kind": kind, "status": "draft", "articles": articles, "opportunities": selected, "createdAt": selection.now.UTC().Format(time.RFC3339Nano), "userId": u["id"]}
 	if outside != nil {
 		d["outsideInterest"] = outside
+	}
+	if !selection.morningCutoff.IsZero() {
+		d["morningDate"] = selection.morningCutoff.Format(time.DateOnly)
 	}
 	d["text"] = s.digestText(d)
 	return d, nil
@@ -122,6 +152,9 @@ func (s *Server) compose(t *Tx, ctx context.Context, u Doc, kind string) (Doc, e
 func (s *Server) digestText(d Doc) string {
 	lang := locale(str(d["locale"]))
 	heading := map[string]string{"ru": "CR≡ATA News · Дайджест", "kk": "CR≡ATA News · Дайджест", "en": "CR≡ATA News · Digest"}[lang]
+	if str(d["morningDate"]) != "" {
+		heading = "CR≡ATA News · Утро Creata"
+	}
 	var b strings.Builder
 	b.WriteString(heading + "\n\n")
 	for _, raw := range array(d["articles"]) {
@@ -142,7 +175,18 @@ func (s *Server) digestText(d Doc) string {
 	return b.String()
 }
 func (s *Server) articleLink(a Doc, lang string) string {
-	return strings.TrimRight(s.Config.PublicURL, "/") + "/" + lang + "/articles/" + str(a["slug"])
+	return strings.TrimRight(s.Config.PublicURL, "/") + "/" + lang + "/articles/" + url.PathEscape(str(a["slug"]))
+}
+
+func (s *Server) channelDeliveryStatus() string {
+	switch {
+	case strings.TrimSpace(s.Config.ChannelID) == "":
+		return "channel_missing"
+	case s.Config.TelegramBotUnconfigured:
+		return "bot_missing"
+	default:
+		return "available"
+	}
 }
 func (s *Server) digestPreview(w http.ResponseWriter, r *http.Request) error {
 	u, e := s.require(r, true)
@@ -158,7 +202,7 @@ func (s *Server) digestPreview(w http.ResponseWriter, r *http.Request) error {
 	}
 	var out Doc
 	e = s.Store.Write(r.Context(), func(t *Tx) error {
-		out, e = s.compose(t, r.Context(), Doc{"id": "channel", "locale": locale(str(d["locale"])), "topics": []any{}}, "channel")
+		out, e = s.compose(t, r.Context(), Doc{"id": "channel", "locale": locale(str(d["locale"]))}, "channel", digestSelection{now: time.Now()})
 		if e != nil {
 			return e
 		}
@@ -194,6 +238,7 @@ func (s *Server) digestAction(w http.ResponseWriter, r *http.Request) error {
 			}
 			d["status"] = "approved"
 			d["approvedBy"] = u["id"]
+			d["text"] = s.digestText(d)
 		case "send":
 			if str(d["status"]) == "queued" || str(d["status"]) == "sent" {
 				return nil
@@ -201,9 +246,13 @@ func (s *Server) digestAction(w http.ResponseWriter, r *http.Request) error {
 			if str(d["status"]) != "approved" {
 				return errStatus(409, "Digest must be approved before sending")
 			}
-			if s.Config.ChannelID == "" {
+			switch s.channelDeliveryStatus() {
+			case "channel_missing":
 				return errStatus(503, "Telegram channel is not configured")
+			case "bot_missing":
+				return errStatus(503, "Telegram bot is not configured")
 			}
+			d["text"] = s.digestText(d)
 			if e = s.enqueueDelivery(t, r.Context(), d, s.Config.ChannelID, "channel"); e != nil {
 				return e
 			}
@@ -383,6 +432,9 @@ func (s *Server) botDigest(w http.ResponseWriter, r *http.Request) error {
 	if e := s.service(r, "bot"); e != nil {
 		return e
 	}
+	if s.Config.TelegramChannelOnly {
+		return errStatus(409, "Personal digests are disabled in channel-only mode")
+	}
 	d, e := decode(r)
 	if e != nil {
 		return e
@@ -393,7 +445,7 @@ func (s *Server) botDigest(w http.ResponseWriter, r *http.Request) error {
 		if e != nil {
 			return errStatus(404, "Start the bot first")
 		}
-		out, e = s.compose(t, r.Context(), u, "personal")
+		out, e = s.compose(t, r.Context(), u, "personal", digestSelection{now: time.Now()})
 		if e != nil {
 			return e
 		}
@@ -452,6 +504,9 @@ func (s *Server) claimDelivery(w http.ResponseWriter, r *http.Request) error {
 			return e
 		}
 		for _, v := range all {
+			if s.Config.TelegramChannelOnly && (s.Config.ChannelID == "" || str(v["chatId"]) != s.Config.ChannelID) {
+				continue
+			}
 			if str(v["status"]) == "sending" && !parseTime(v["leaseUntil"]).After(time.Now()) {
 				v["status"] = "unknown"
 				v["error"] = "Delivery worker stopped; outcome requires manual review"
@@ -559,7 +614,10 @@ func (s *Server) scheduleDigests(t *Tx, ctx context.Context) error {
 		return e
 	}
 	current := time.Now().In(tz)
-	if current.Hour() < integer(settings["digestHour"]) {
+	if e = s.scheduleMorningDigest(t, ctx, current, settings); e != nil {
+		return e
+	}
+	if s.Config.TelegramChannelOnly || current.Hour() < integer(settings["digestHour"]) {
 		return nil
 	}
 	users, e := t.List(ctx, "user")
@@ -578,7 +636,7 @@ func (s *Server) scheduleDigests(t *Tx, ctx context.Context) error {
 		if _, e = t.Get(ctx, "digest_period", editionKey); e == nil {
 			continue
 		}
-		d, e := s.compose(t, ctx, u, "personal")
+		d, e := s.compose(t, ctx, u, "personal", digestSelection{now: current})
 		if e != nil {
 			return e
 		}

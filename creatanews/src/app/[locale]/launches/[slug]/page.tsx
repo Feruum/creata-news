@@ -12,7 +12,7 @@ import { StateMessage } from '@/components/state-message'
 import { MediaImage } from '@/components/media-image'
 import { StoryCarousel } from '@/components/skiper'
 import { getLaunch,getLaunches } from '@/features/launches/data'
-import { launchCopy } from '@/features/launches/copy'
+import { launchCopy, launchText } from '@/features/launches/copy'
 import { LaunchCard } from '@/features/launches/launch-card'
 import { LaunchVoteButton,LaunchVotesProvider } from '@/features/launches/votes'
 import { LaunchDiscussion } from '@/features/launches/discussion'
@@ -24,7 +24,8 @@ export async function generateMetadata({params}:Props):Promise<Metadata> {
   if(!isLocale(locale))return {}
   try{
     const launch=await getLaunch(slug)
-    return {title:launch.name,description:localize(launch.tagline,locale),alternates:{canonical:localePath(locale,`/launches/${slug}`),languages:Object.fromEntries(['ru','kk','en'].map(lang=>[lang,`/${lang}/launches/${slug}`]))},openGraph:{title:launch.name,description:localize(launch.tagline,locale),...(launch.photo?{images:[launch.photo]}:{})}}
+    const description = launchText(launch.tagline, locale).text
+    return {title:launch.name,description,alternates:{canonical:localePath(locale,`/launches/${slug}`),languages:Object.fromEntries(['ru','kk','en'].map(lang=>[lang,`/${lang}/launches/${slug}`]))},openGraph:{title:launch.name,description,...(launch.photo?{images:[launch.photo]}:{})}}
   }catch{return {title:launchCopy[locale].title,robots:{index:false,follow:false}}}
 }
 export default async function Page({params}:Props) {

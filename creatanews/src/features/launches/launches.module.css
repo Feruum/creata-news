@@ -1,5 +1,12 @@
-.catalogHeading{padding-top:38px;margin-bottom:28px}
+.catalogHeading{padding-top:38px;margin-bottom:28px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
 .catalogHeading h1{font-family:inherit;font-size:32px;font-weight:600;letter-spacing:-.035em}
+.submissions{display:grid;gap:18px;margin-top:32px;scroll-margin-top:24px}
+.submissionHeading{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.submissionHeading h2,.submissionHeading h3{margin:0;overflow-wrap:anywhere}
+.submissionHeading span{color:var(--muted)}
+.submission{display:grid;gap:12px;padding:18px;border:1px solid var(--line);background:var(--panel)}
+.submission p{margin:4px 0 0;overflow-wrap:anywhere}
+.submission>a{justify-self:start}
 .filters{display:flex;flex-wrap:wrap;gap:12px;margin:0 0 24px}
 .filters input,.filters select{border:1px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink);padding:10px;font:inherit;min-width:0}
 .filters label{display:flex;flex-direction:column;gap:7px;font-size:12px;flex:1 1 140px}

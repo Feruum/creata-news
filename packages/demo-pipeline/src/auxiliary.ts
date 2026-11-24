@@ -1,5 +1,6 @@
 import type { Author, Launch, MediaAsset, NewspaperIssue, NewspaperPublication, Opportunity, SitePage, User } from '@creata/contracts'
 import { clone, expected, fail, find, list, localized, pick, requireRole, validUrl, type Body, type Context } from './model'
+import { followedStoryRequest } from './story-content'
 
 const roles=['reader','author','editor','chief_editor','admin']
 export function auth(c:Context,method:string,p:string[],body:Body):unknown|undefined {
@@ -14,6 +15,18 @@ export function auth(c:Context,method:string,p:string[],body:Body):unknown|undef
   if(!s.session.user)fail(401,'Войдите в демоверсию');const user=s.session.user
   if(method==='PATCH'&&p.length===1){Object.assign(user,pick(body,['name','locale','stage','topics','frequency','paused']));return user}
   if(p[1]==='saved'){if(method==='GET')return {articles:s.articles.filter(a=>s.saved.articles.includes(a.id)).map(a=>s.publications[a.id]).filter(Boolean),opportunities:s.opportunities.filter(o=>s.saved.opportunities.includes(o.id))};if(['POST','DELETE'].includes(method)&&['articles','opportunities','article','opportunity'].includes(p[2])){const kind=p[2].startsWith('article')?'articles':'opportunities';if(method==='POST'&&!s.saved[kind].includes(p[3]))s.saved[kind].push(p[3]);if(method==='DELETE')s.saved[kind]=s.saved[kind].filter(id=>id!==p[3]);return {ok:true}}}
+  if(p[1]==='followed-stories'){
+   const following={
+    followedStoryIds:Object.hasOwn(s.followedStories,user.id)?s.followedStories[user.id]:[],
+    seenStoryUpdateIds:Object.hasOwn(s.seenStoryUpdateIds,user.id)?s.seenStoryUpdateIds[user.id]:{},
+   }
+   const result=followedStoryRequest(Object.values(s.publications),following,method,p.slice(2),body)
+   if(method!=='GET'){
+    s.followedStories={...s.followedStories,[user.id]:following.followedStoryIds}
+    s.seenStoryUpdateIds={...s.seenStoryUpdateIds,[user.id]:following.seenStoryUpdateIds}
+   }
+   return result
+  }
   if(p[1]==='telegram-link')fail(501,'Связка Telegram недоступна в локальной демоверсии','demo_external_unavailable')
  }
 }
@@ -39,7 +52,10 @@ export function auxiliary(c:Context,method:string,p:string[],body:Body,q:URLSear
  if(p[0]==='public'&&p[1]==='newspapers'&&method==='GET'){const items=Object.values(s.newspaperPublications);return p[2]?items.find(n=>n.slug===p[2]||n.id===p[2])??fail(404,'Выпуск не опубликован'):list(items)}
  if(p[0]!=='admin')return
  if(path==='admin/settings'){if(method==='GET')return s.settings;if(method==='PATCH'){requireRole(s,['chief_editor','admin']);const fields=pick(body,['editorialInstructions','scoreThreshold','digestHour','timezone']);if(fields.scoreThreshold!==undefined&&(!Number.isFinite(fields.scoreThreshold)||fields.scoreThreshold<0||fields.scoreThreshold>100))fail(400,'Порог должен быть от 0 до 100');Object.assign(s.settings,fields);if(body.ai){const limits=pick(body.ai,['dailyBudgetUsd','inputPricePerMillion','outputPricePerMillion']);if(Object.values(limits).some(x=>!Number.isFinite(x)||x<0))fail(400,'Демо-бюджет должен быть положительным');Object.assign(s.settings.ai,limits,{endpoint:'https://demo.invalid/local-simulation',model:'creata-demo-multilingual',keyConfigured:false})}c.audit('demo_settings_updated','settings');return s.settings}}
- if(path==='admin/audit'&&method==='GET')return list(s.audit)
+ if(path==='admin/audit'&&method==='GET'){
+  requireRole(s,['admin','chief_editor'])
+  return list(s.audit)
+ }
  if(path==='admin/staff'&&method==='GET')return list(s.users.filter(u=>u.roles.some(r=>r!=='reader')).map(({id,name,roles,verticals})=>({id,name,roles,verticals})))
  if(p[1]==='users'){if(method==='GET'&&p.length===2)return list(s.users);if(method==='PATCH'&&p.length===3){requireRole(s,['admin','chief_editor']);const user=find(s.users,p[2]);if(body.roles&&(!Array.isArray(body.roles)||body.roles.some((r:string)=>!roles.includes(r))))fail(400,'Неизвестная роль');Object.assign(user,pick(body,['roles','verticals']));if(s.session.user?.id===user.id)s.session.user=clone(user);c.audit('demo_user_updated',user.id);return user}}
  if(path==='admin/analytics'&&method==='GET'){

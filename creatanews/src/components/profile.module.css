@@ -1,0 +1,257 @@
+.page {
+  width: min(100%, 1080px);
+  margin: clamp(16px, 3.5vw, 48px) auto clamp(32px, 6vw, 76px);
+  scroll-margin-top: 84px;
+}
+
+.hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  isolation: isolate;
+  min-height: clamp(224px, 28vw, 316px);
+  overflow: hidden;
+  border-radius: 20px;
+  color: #fff;
+  background: #25214c;
+}
+
+.hero .heroImage {
+  z-index: -2;
+  object-fit: cover;
+  object-position: 70% 46%;
+}
+
+.hero::after {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: linear-gradient(90deg, #242047 0%, #2b2354f7 28%, #26213daf 53%, #21193113 82%);
+  content: '';
+}
+
+.heroContent {
+  max-width: 560px;
+  padding: clamp(22px, 5vw, 56px);
+}
+
+.sunrise {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin-bottom: 18px;
+  border: 1px solid #fce9bb55;
+  border-radius: 13px;
+  background: #fce9bb19;
+  color: #ffdfa2;
+}
+
+.heroContent h1 {
+  margin: 0 0 12px;
+  font-size: clamp(2.3rem, 5.5vw, 4.3rem);
+  font-weight: 760;
+  letter-spacing: -.058em;
+  line-height: 1.02;
+  text-wrap: balance;
+}
+
+.heroContent p {
+  max-width: 34ch;
+  color: #eeeaf8;
+  font-size: clamp(.9rem, 1.6vw, 1.05rem);
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+.steps { margin: 16px 0 22px; }
+
+.steps ol {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.steps a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 9px;
+  height: 100%;
+  min-height: 48px;
+  padding: 8px 14px;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  background: var(--panel);
+  font-size: .87rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.steps a:is(:hover, :focus-visible) { border-color: var(--accent); color: var(--accent); }
+.steps svg { flex: none; color: var(--accent); }
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(230px, 290px);
+  align-items: start;
+  gap: 18px;
+}
+
+.settings, .side { min-width: 0; }
+
+.form, .account, .telegram, .login {
+  border: 1px solid var(--line);
+  border-radius: 17px;
+  background: var(--panel);
+}
+
+.form {
+  --form-padding: clamp(17px, 3vw, 30px);
+  padding: 0 var(--form-padding);
+  accent-color: var(--accent);
+}
+
+.group {
+  padding-block: clamp(21px, 3vw, 32px);
+  scroll-margin-top: 90px;
+}
+
+.group + .group, .save { border-top: 1px solid var(--line); }
+
+.group h2, .login h2 {
+  margin: 0 0 16px;
+  font-size: clamp(1.3rem, 2.4vw, 1.65rem);
+  font-weight: 760;
+  letter-spacing: -.04em;
+  line-height: 1.15;
+  text-wrap: balance;
+}
+
+.fieldset { min-inline-size: 0; margin: 0; padding: 0; border: 0; }
+.fieldset + .fieldset { margin-top: 21px; }
+
+.fieldset legend, .field > label {
+  margin-bottom: 9px;
+  padding: 0;
+  color: var(--muted);
+  font-size: .85rem;
+  font-weight: 700;
+}
+
+.choices { display: flex; flex-wrap: wrap; gap: 7px; }
+
+.choice {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  min-height: 44px;
+  padding: 7px 11px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  font-size: .85rem;
+  font-weight: 620;
+  line-height: 1.3;
+  cursor: pointer;
+}
+
+.choice:hover { border-color: var(--accent); }
+.choice:has(input:checked) { border-color: var(--accent); background: var(--soft); color: var(--ink); }
+.choice:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: 2px; }
+.choice input { flex: none; width: 16px; height: 16px; margin: 0; }
+
+.fieldGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: end; gap: 12px; }
+.field { display: grid; min-width: 0; }
+
+.field :is(input, select) {
+  width: 100%;
+  min-width: 0;
+  min-height: 48px;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+  font-size: 1rem;
+}
+
+.pause { min-height: 48px; }
+.save { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; padding-block: 18px; }
+.page :global(.button) { min-height: 48px; max-width: 100%; border-radius: 9px; white-space: normal; }
+
+.side { display: grid; gap: 12px; }
+.account, .telegram { padding: 19px; }
+.accountIdentity { display: flex; align-items: center; gap: 11px; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
+.accountIdentity > div { min-width: 0; }
+
+.sideIcon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 39px;
+  height: 39px;
+  border-radius: 10px;
+  background: var(--soft);
+  color: var(--accent);
+}
+
+.accountIdentity h2, .telegram h2 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 780;
+  line-height: 1.25;
+  letter-spacing: -.02em;
+  overflow-wrap: anywhere;
+}
+
+.accountIdentity p, .telegram p, .login p { color: var(--muted); font-size: .87rem; line-height: 1.55; }
+.accountIdentity p { font-size: .73rem; }
+
+.account > :is(a, button) {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  min-height: 44px;
+  text-align: start;
+  font-size: .85rem;
+  font-weight: 670;
+}
+
+.account > button { padding: 0; border: 0; background: transparent; color: var(--muted); }
+.account > a:hover, .account > button:hover { color: var(--accent); }
+.account svg { flex: none; }
+.account > a > svg:last-child { margin-left: auto; color: var(--muted); }
+.telegram .sideIcon { margin-bottom: 10px; }
+.telegram p { margin-top: 6px; }
+.telegram :global(.button) { margin-top: 10px; }
+
+.login { max-width: 560px; margin-top: 20px; padding: clamp(18px, 4vw, 32px); }
+.login h2 { margin-bottom: 9px; }
+.loginActions { display: flex; gap: 9px; flex-wrap: wrap; margin-top: 15px; }
+.loginActions + p { margin-top: 10px; }
+
+@media (max-width: 760px) {
+  .hero .heroImage { object-position: 72% 50%; }
+  .hero::after { background: linear-gradient(90deg, #25214cf8 0%, #25214ce0 52%, #28214352 100%); }
+  .heroContent p { max-width: 26ch; }
+  .layout { grid-template-columns: 1fr; }
+  .steps { margin: 12px 0 14px; }
+}
+
+@media (max-width: 460px) {
+  .hero { border-radius: 14px; }
+  .steps ol { display: flex; flex-wrap: wrap; }
+  .steps li { flex: 1 1 auto; max-inline-size: 100%; }
+  .steps a { gap: 3px; padding-inline: 8px; font-size: .75rem; }
+  .steps a span { min-inline-size: 0; overflow-wrap: anywhere; }
+  .steps svg { width: 11px; }
+  .fieldGrid { grid-template-columns: 1fr; }
+  .choice { min-height: 46px; }
+  .save > button { width: 100%; justify-content: center; }
+}

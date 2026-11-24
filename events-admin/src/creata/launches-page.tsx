@@ -1,4 +1,4 @@
-import {applicationUrls} from './demo'
+import {adminDemo,applicationUrls} from './demo'
 import { useState } from 'react'
 import { useMutation,useQuery,useQueryClient } from '@tanstack/react-query'
 import { Plus,Search } from 'lucide-react'
@@ -8,6 +8,7 @@ import { useAdmin,useCategories } from './hooks'
 import { emptyText,localized } from './domain'
 import { formatDate } from './i18n'
 import { Badge,Button,Empty,ErrorPanel,ExternalLink,Field,Loading,LocaleTabs,Modal,PageHead } from './ui'
+import { LaunchReviewQueue } from './launch-review-queue'
 
 function LaunchForm({item,onClose}:{item?:Launch;onClose:()=>void}) {
   const {api,t,locale,toast}=useAdmin(),client=useQueryClient(),categories=useCategories()
@@ -48,6 +49,7 @@ export function LaunchesPage() {
   const items=(data.data?.items||[]).filter(item=>(!status||item.status===status)&&`${item.name} ${localized(item.tagline,locale)}`.toLowerCase().includes(q.toLowerCase()))
   return <>
     <PageHead title={t('launches')} action={canManage&&<Button onClick={()=>setEditing(null)}><Plus size={15}/>{t('newLaunch')}</Button>}/>
+    {canManage&&!adminDemo&&<LaunchReviewQueue/>}
     <div className='toolbar'><label className='search-field'><Search size={15}/><input aria-label={t('search')} value={q} placeholder={t('search')} onChange={e=>setQ(e.target.value)}/></label><select aria-label={t('status')} value={status} onChange={e=>setStatus(e.target.value)}><option value=''>{t('allStatuses')}</option><option value='draft'>{t('launchDraft')}</option><option value='published'>{t('published')}</option><option value='archived'>{t('launchArchived')}</option></select></div>
     {data.isPending?<Loading/>:data.error?<ErrorPanel error={data.error} retry={()=>void data.refetch()}/>:!items.length?<Empty/>:<div className='table-panel'><Table><TableHeader><TableRow><TableHead>{t('name')}</TableHead><TableHead>{t('country')}</TableHead><TableHead>{t('launchDate')}</TableHead><TableHead>{t('status')}</TableHead><TableHead>{t('open')}</TableHead></TableRow></TableHeader><TableBody>{items.map(item=><TableRow key={item.id}><TableCell>{canManage?<button className='text-button row-title' onClick={()=>setEditing(item)}>{item.name}</button>:item.name}<small>{localized(item.tagline,locale)}</small></TableCell><TableCell>{item.country||'—'}</TableCell><TableCell>{formatDate(`${item.launchDate}T12:00:00Z`,locale)}</TableCell><TableCell>{item.status==='published'?<Badge status='published'/>:<span className={`badge ${item.status}`}>{t(item.status==='draft'?'launchDraft':'launchArchived')}</span>}</TableCell><TableCell>{item.status==='published'&&<ExternalLink href={`${applicationUrls.web}/${locale}/launches/${item.slug}`}>{t('open')}</ExternalLink>}</TableCell></TableRow>)}</TableBody></Table></div>}
     {canManage&&editing!==undefined&&<LaunchForm item={editing||undefined} onClose={()=>setEditing(undefined)}/>}

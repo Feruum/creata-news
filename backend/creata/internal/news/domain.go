@@ -113,10 +113,17 @@ func revise(a Doc) {
 	delete(a, "scheduledAt")
 	a["updatedAt"] = now()
 }
-func canonicalURL(raw string) (string, error) {
+func parsePublicURL(raw string) (*url.URL, error) {
 	u, e := url.Parse(strings.TrimSpace(raw))
 	if e != nil || u.Hostname() == "" || (u.Scheme != "https" && u.Scheme != "http") || u.User != nil {
-		return "", errors.New("invalid public URL")
+		return nil, errors.New("invalid public URL")
+	}
+	return u, nil
+}
+func canonicalURL(raw string) (string, error) {
+	u, e := parsePublicURL(raw)
+	if e != nil {
+		return "", e
 	}
 	u.Fragment = ""
 	u.Host = strings.ToLower(u.Host)
@@ -130,6 +137,9 @@ func canonicalURL(raw string) (string, error) {
 	return u.String(), nil
 }
 func publishable(a Doc) error {
+	if e := validateArticleExtras(a, true); e != nil {
+		return e
+	}
 	if e := validateGraphicPublication(a); e != nil {
 		return e
 	}
@@ -175,10 +185,11 @@ func slugify(s string) string {
 func clone(d Doc) Doc { b, _ := json.Marshal(d); var c Doc; _ = json.Unmarshal(b, &c); return c }
 func publicArticle(d Doc) Doc {
 	p := clone(d)
-	for _, k := range []string{"leaseToken", "publicationNote", "actorId", "note", "researchBrief", "activeAIJobId", "expectedAIJobId"} {
+	for _, k := range []string{"leaseToken", "publicationNote", "actorId", "note", "researchBrief", "activeAIJobId", "expectedAIJobId", "storySlug"} {
 		delete(p, k)
 	}
 	p["reviewNotes"] = []any{}
+	projectArticleExtras(p)
 	return p
 }
 func parseTime(v any) time.Time                  { t, _ := time.Parse(time.RFC3339Nano, str(v)); return t }

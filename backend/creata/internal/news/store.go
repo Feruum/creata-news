@@ -26,7 +26,10 @@ func Open(ctx context.Context, url string) (*Store, error) {
 		return nil, e
 	}
 	s := &Store{p}
-	if _, e = p.Exec(ctx, schema); e != nil {
+	if e = s.Write(ctx, func(tx *Tx) error {
+		_, err := tx.Exec(ctx, schema+publicCatalogSchema)
+		return err
+	}); e != nil {
 		p.Close()
 		return nil, e
 	}

@@ -1,23 +1,25 @@
 import {ApiError,type Article,type Launch,type LaunchComment,type Opportunity,type User} from '@creata/contracts'
 import source from './reader-data.json'
-import {createPipelineDemo,type DemoSeed} from '@creata/demo-pipeline'
+import {createPipelineDemo,followedStoryRequest,type DemoSeed,type FollowedStoryState} from '@creata/demo-pipeline'
 const seed=source as unknown as {articles:Article[];opportunities:Opportunity[];launches:Launch[];categories:{id:string}[]}
 type Store=Pick<Storage,'getItem'|'setItem'>
 type Comment=LaunchComment&{clientId:string}
-type State={user:User;loggedOut:boolean;articles:string[];opportunities:string[];votes:string[];comments:Comment[]}
+type State=FollowedStoryState&{user:User;loggedOut:boolean;articles:string[];opportunities:string[];votes:string[];comments:Comment[]}
 const key='creata:demo:v1',memory=new Map<string,string>()
 const fallback:Store={getItem:key=>memory.get(key)??null,setItem:(key,value)=>{memory.set(key,value)}}
 function browserStore():Store{try{const storage=window.localStorage;storage.getItem(key);return storage}catch{return fallback}}
-function initial():State{return{user:{id:'demo-reader',name:'Creata demo reader',locale:'ru',stage:'exploring',topics:['ai','creative'],frequency:'daily',paused:false,roles:['reader'],verticals:[],telegramLinked:false},loggedOut:false,articles:[],opportunities:[],votes:[],comments:[]}}
+function initial():State{return{user:{id:'demo-reader',name:'Creata demo reader',locale:'ru',stage:'exploring',topics:['ai','creative'],frequency:'daily',paused:false,roles:['reader'],verticals:[],telegramLinked:false},loggedOut:false,articles:[],opportunities:[],followedStoryIds:[],seenStoryUpdateIds:{},votes:[],comments:[]}}
 function unavailable(status=404,message='Demo resource not found'):never{throw new ApiError(status,message,'demo_only')}
 export function createDemoRequest(storage:Store=browserStore()){
  const pipeline=createPipelineDemo(source as unknown as DemoSeed,storage)
  return async function request<T=unknown>(path:string,init:RequestInit={}):Promise<T>{
   const snapshot=pipeline.getSnapshot(),data={...seed,articles:pipeline.getPublishedArticles(),opportunities:snapshot.opportunities,launches:snapshot.launches}
-  let state=initial();try{const saved=JSON.parse(storage.getItem(key)||'null');if(saved?.user&&Array.isArray(saved.articles)&&Array.isArray(saved.opportunities)&&Array.isArray(saved.votes)&&Array.isArray(saved.comments))state=saved}catch{}
+  let state=initial();try{const saved=JSON.parse(storage.getItem(key)||'null');if(saved?.user&&Array.isArray(saved.articles)&&Array.isArray(saved.opportunities)&&Array.isArray(saved.votes)&&Array.isArray(saved.comments))state={...state,...saved,followedStoryIds:Array.isArray(saved.followedStoryIds)?saved.followedStoryIds:[]}}catch{}
   state.user={...state.user,roles:['reader'],verticals:[],telegramLinked:false}
   const url=new URL(path,'https://creata.demo'),parts=url.pathname.split('/').filter(Boolean),method=(init.method||'GET').toUpperCase()
-  const body=typeof init.body==='string'?JSON.parse(init.body):{},save=()=>storage.setItem(key,JSON.stringify(state))
+  let body
+  try{body=typeof init.body==='string'?JSON.parse(init.body):{}}catch{return unavailable(400,'Invalid JSON request')}
+  const save=()=>storage.setItem(key,JSON.stringify(state))
   let result:unknown
   if(url.pathname==='/auth/me')result={user:state.loggedOut?null:state.user,providers:{google:false,telegram:false},devAuth:false}
   else if(url.pathname==='/auth/logout'&&method==='POST'){state.loggedOut=true;save();result={ok:true}}
@@ -44,6 +46,9 @@ export function createDemoRequest(storage:Store=browserStore()){
     const type=parts[2],id=decodeURIComponent(parts[3]);if(type!=='article'&&type!=='opportunity')return unavailable()
     const field=type==='article'?'articles':'opportunities';if(!data[field].some(item=>item.id===id))return unavailable()
     state[field]=method==='POST'?[...new Set([...state[field],id])]:state[field].filter(item=>item!==id);save();result={ok:true}
+   }else if(parts[1]==='followed-stories'){
+    result=followedStoryRequest(data.articles,state,method,parts.slice(2).map(decodeURIComponent),body)
+    if(method!=='GET')save()
    }else if(url.pathname==='/account/launch-votes')result={items:state.votes}
    else if(parts[1]==='launches'){
     const launch=data.launches.find(item=>item.id===parts[2]);if(!launch)return unavailable()

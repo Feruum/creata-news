@@ -2,20 +2,31 @@
 export interface schemas {
   "Locale": "ru" | "kk" | "en"
   "LocalizedText": { "ru": string; "kk": string; "en": string; }
+  "ActionGuide": { "audience": schemas["LocalizedText"]; "steps": schemas["LocalizedText"]; "sourceUrl": string; }
+  "StoryUpdate": { "id": string; "occurredAt": string; "title": schemas["LocalizedText"]; "body": schemas["LocalizedText"]; "sourceUrl": string; "articleSlug"?: string; }
+  "FollowedStories": { "items": Array<schemas["Article"]>; "unreadUpdateIds": { [key: string]: Array<string>; }; }
+  "StoryReadInput": { "updateIds": Array<string>; }
+  "StoryFollowUpInput": { "dueDate": string; "assigneeId": string; }
+  "StoryFollowUp": { "articleId": string; "title": schemas["LocalizedText"]; "assigneeId": string; "assigneeName": string; "dueDate": string; "updatedAt": string; }
   "SourceRef": { "url": string; "title": string; "publishedAt"?: string; }
   "Media": { "url": string; "caption": string; "credit": string; "rights": string; }
+  "ArticlePhoto": { "url": string; "caption": string; "credit": string; "rights": string; "sourceUrl": string; "licenseUrl": string; }
+  "ArticlePhotos": Array<schemas["ArticlePhoto"]>
   "Author": { "id": string; "name": string; "bio": schemas["LocalizedText"]; "avatarUrl"?: string; "role"?: string; }
   "Category": { "id": string; "slug": string; "name": schemas["LocalizedText"]; }
-  "Article": { "id": string; "slug": string; "categoryId": string; "region": string; "authorId": string; "createdAt": string; "updatedAt": string; "publishedAt"?: string; "scheduledAt"?: string; "title": schemas["LocalizedText"]; "lead": schemas["LocalizedText"]; "body": schemas["LocalizedText"]; "summary": schemas["LocalizedText"]; "actions": schemas["LocalizedText"]; "layer": "world" | "eco"; "tags": Array<string>; "sources": Array<schemas["SourceRef"]>; "reviewNotes": Array<string>; "author"?: schemas["Author"]; "media"?: schemas["Media"]; "status": "new" | "writing" | "review" | "rework" | "approved" | "published" | "rejected"; "revision": number; "approvedRevision"?: number; "publishedRevision"?: number; "corrections"?: Array<{ "revision": number; "publishedAt": string; "note": string; }>; "editorId"?: string; "format"?: "article" | "graphic"; "graphic"?: schemas["GraphicData"]; "opportunityIds"?: Array<string>; "researchBrief"?: schemas["ResearchBrief"]; }
-  "Revision": { "id"?: string; "slug"?: string; "categoryId"?: string; "region"?: string; "authorId"?: string; "createdAt": string; "updatedAt"?: string; "publishedAt"?: string; "scheduledAt"?: string; "title": schemas["LocalizedText"]; "lead": schemas["LocalizedText"]; "body": schemas["LocalizedText"]; "summary"?: schemas["LocalizedText"]; "actions"?: schemas["LocalizedText"]; "layer"?: "world" | "eco"; "tags"?: Array<string>; "sources"?: Array<schemas["SourceRef"]>; "reviewNotes"?: Array<string>; "author"?: schemas["Author"]; "media"?: schemas["Media"]; "status"?: "new" | "writing" | "review" | "rework" | "approved" | "published" | "rejected"; "revision": number; "approvedRevision"?: number; "publishedRevision"?: number; "actorId"?: string; "note"?: string; }
+  "Article": schemas["ArticleFields"] & { "body": schemas["LocalizedText"]; }
+  "ArticleSummary": schemas["ArticleFields"] & { "readingMinutes": { "ru": number; "kk": number; "en": number; }; }
+  "ArticleFields": { "id": string; "slug": string; "categoryId": string; "region": string; "authorId": string; "createdAt": string; "updatedAt": string; "publishedAt"?: string; "scheduledAt"?: string; "title": schemas["LocalizedText"]; "lead": schemas["LocalizedText"]; "summary": schemas["LocalizedText"]; "actions": schemas["LocalizedText"]; "actionGuide"?: schemas["ActionGuide"]; "storyUpdates"?: Array<schemas["StoryUpdate"]>; "layer": "world" | "eco"; "tags": Array<string>; "sources": Array<schemas["SourceRef"]>; "reviewNotes": Array<string>; "author"?: schemas["Author"]; "media"?: schemas["Media"]; "photos"?: schemas["ArticlePhotos"]; "status": "new" | "writing" | "review" | "rework" | "approved" | "published" | "rejected"; "revision": number; "approvedRevision"?: number; "publishedRevision"?: number; "corrections"?: Array<{ "revision": number; "publishedAt": string; "note": string; }>; "editorId"?: string; "format"?: "article" | "graphic"; "graphic"?: schemas["GraphicData"]; "opportunityIds"?: Array<string>; "researchBrief"?: schemas["ResearchBrief"]; }
+  "Revision": { "id"?: string; "slug"?: string; "categoryId"?: string; "region"?: string; "authorId"?: string; "createdAt": string; "updatedAt"?: string; "publishedAt"?: string; "scheduledAt"?: string; "title": schemas["LocalizedText"]; "lead": schemas["LocalizedText"]; "body": schemas["LocalizedText"]; "summary"?: schemas["LocalizedText"]; "actions"?: schemas["LocalizedText"]; "actionGuide"?: schemas["ActionGuide"]; "storyUpdates"?: Array<schemas["StoryUpdate"]>; "layer"?: "world" | "eco"; "tags"?: Array<string>; "sources"?: Array<schemas["SourceRef"]>; "reviewNotes"?: Array<string>; "author"?: schemas["Author"]; "media"?: schemas["Media"]; "status"?: "new" | "writing" | "review" | "rework" | "approved" | "published" | "rejected"; "revision": number; "approvedRevision"?: number; "publishedRevision"?: number; "actorId"?: string; "note"?: string; }
   "Opportunity": { "id": string; "title": schemas["LocalizedText"]; "description": schemas["LocalizedText"]; "organization": string; "type": string; "url": string; "country": string; "deadline": string; "status": "pending" | "approved" | "rejected"; "categoryId"?: string; "photo"?: string; "forWhom"?: schemas["LocalizedText"]; "photoRights"?: { "credit": string; "rights": string; }; "languages"?: Array<schemas["Locale"]>; "needsRightsReview"?: boolean; }
   "User": { "id": string; "name": string; "email"?: string; "locale": "ru" | "kk" | "en"; "stage": "exploring" | "trying" | "building"; "topics": Array<string>; "frequency": "daily" | "weekly"; "paused": boolean; "roles": Array<string>; "verticals": Array<string>; "telegramLinked": boolean; }
   "Source": { "id": string; "name": string; "type": "rss" | "website" | "telegram"; "url": string; "locale": "ru" | "kk" | "en"; "topics": Array<string>; "intervalMinutes": number; "active": boolean; "lastRunAt"?: string; "lastError"?: string; "nextRunAt"?: string; }
-  "Story": { "id": string; "title": string; "text": string; "url": string; "sourceId": string; "sourceType": string; "locale": "ru" | "kk" | "en"; "categoryId"?: string; "region"?: string; "tags": Array<string>; "score": number; "reason"?: string; "status": string; "sources": Array<schemas["SourceRef"]>; "createdAt": string; "evidence"?: Array<{ "url": string; "title": string; "text": string; "publishedAt"?: string; "author"?: string; "sourceId"?: string; }>; "graphicId"?: string; "facts"?: Array<schemas["ClassificationFact"]>; "entities"?: Array<schemas["NamedEntity"]>; }
+  "Story": { "id": string; "title": string; "text": string; "url": string; "sourceId": string; "sourceType": string; "locale": "ru" | "kk" | "en"; "categoryId"?: string; "region"?: string; "tags": Array<string>; "score": number; "reason"?: string; "status": string; "sources": Array<schemas["SourceRef"]>; "createdAt": string; "evidence"?: Array<{ "url": string; "title": string; "text": string; "publishedAt"?: string; "author"?: string; "sourceId"?: string; }>; "graphicId"?: string; "photos"?: schemas["ArticlePhotos"]; "facts"?: Array<schemas["ClassificationFact"]>; "entities"?: Array<schemas["NamedEntity"]>; }
   "Job": { "id": string; "kind": "check" | "collect" | "classify" | "draft" | "rework"; "status": "queued" | "running" | "succeeded" | "failed" | "cancelled" | "not_configured"; "payload": { [key: string]: unknown; }; "result"?: { [key: string]: unknown; }; "error"?: string; "attempts": number; "createdAt": string; "updatedAt": string; "leaseToken"?: string; "leaseUntil"?: string; "checkpoints"?: { [key: string]: schemas["JobCheckpoint"]; }; "progress"?: { "phase": string; "status": string; "updatedAt": string; }; }
-  "AISettings": { "endpoint": string; "model": string; "keyConfigured": boolean; "dailyBudgetUsd": number; "spentTodayUsd": number; "inputPricePerMillion": number; "outputPricePerMillion": number; }
-  "Settings": { "editorialInstructions": string; "scoreThreshold": number; "ai": schemas["AISettings"]; "digestHour": number; "timezone": string; }
-  "Digest": { "id": string; "locale": "ru" | "kk" | "en"; "kind": string; "status": string; "articles": Array<schemas["Article"]>; "opportunities": Array<schemas["Opportunity"]>; "outsideInterest"?: schemas["Article"]; "createdAt": string; "text"?: string; }
+  "AISettings": { "endpoint": string; "model": string; "keyConfigured": boolean; "exaKeyConfigured"?: boolean; "dailyBudgetUsd": number; "spentTodayUsd": number; "inputPricePerMillion": number; "outputPricePerMillion": number; }
+  "Settings": { "editorialInstructions": string; "scoreThreshold": number; "ai": schemas["AISettings"]; "digestHour": number; "morningDigestHour"?: number; "timezone": string; }
+  "Digest": { "id": string; "locale": "ru" | "kk" | "en"; "kind": string; "status": string; "articles": Array<schemas["Article"]>; "opportunities": Array<schemas["Opportunity"]>; "outsideInterest"?: schemas["Article"]; "createdAt": string; "morningDate"?: string; "text"?: string; }
+  "MorningDigestStatus": { "edition"?: { "id": string; "date": string; "status": string; "articleCount": number; "opportunityCount": number; }; "lastCollectionAt"?: string; }
   "Delivery": { "id": string; "chatId": string; "text": string; "links": Array<{ "label": string; "url": string; }>; "leaseToken": string; }
   "AuthState": { "user": schemas["User"] | null; "csrfToken"?: string; "providers": { "google": boolean; "telegram": boolean; }; "devAuth"?: boolean; }
   "Error": { "error": string; "code"?: string; }
@@ -36,7 +47,7 @@ export interface schemas {
   "OriginalIssueContent": { "slug": string; "number": string; "date": string; "title": string; "description": string; "locale": schemas["Locale"]; "pages": number; "cover": schemas["Media"]; "pdf": string; "html": string; }
   "SitePage": { "id": string; "slug": "about" | "ecosystem" | "newspaper-01"; "content": schemas["AboutContent"] | schemas["EcosystemContent"] | schemas["OriginalIssueContent"]; "revision": number; "status": "draft" | "published"; "publishedRevision"?: number; "createdAt"?: string; "updatedAt"?: string; }
   "MediaAsset": { "url": string; "caption"?: string; "credit": string; "rights": string; "id": string; "key"?: string; "mime"?: string; "bytes"?: number; "revision": number; "createdAt"?: string; "legacyPath"?: string; "needsRightsReview"?: boolean; "referenced"?: boolean; "references"?: Array<{ "kind": string; "id": string; }>; "width"?: number; "height"?: number; "verifiedMp4"?: boolean; }
-  "ResearchBrief": { "facts": Array<{ "claim": string; "sourceUrls": Array<string>; "numbers"?: Array<{ "value": string; "sourceUrl": string; "quote": string; }>; "dates"?: Array<{ "value": string; "sourceUrl": string; "quote": string; }>; }>; "conflicts": Array<string>; "singleSourceClaims": Array<string>; "retrievedEvidence": Array<{ "url": string; "title"?: string; "text": string; "publishedAt"?: string; "author"?: string; }>; "unavailableSources": Array<string>; }
+  "ResearchBrief": { "facts": Array<{ "claim": string; "sourceUrls": Array<string>; "numbers"?: Array<{ "value": string; "sourceUrl": string; "quote": string; }>; "dates"?: Array<{ "value": string; "sourceUrl": string; "quote": string; }>; }>; "conflicts": Array<string>; "singleSourceClaims": Array<string>; "retrievedEvidence": Array<{ "url": string; "title"?: string; "text": string; "publishedAt"?: string; "author"?: string; "discoveredBy"?: "exa"; }>; "unavailableSources": Array<string>; }
   "JobCheckpoint": { "status": "running" | "succeeded" | "failed"; "output"?: { [key: string]: unknown; }; "error"?: string; "completedAt"?: string; "usage"?: Array<{ "reservationId": string; "costUsd": number; "inputTokens": number; "outputTokens": number; }>; "updatedAt"?: string; }
   "StorySimilarity": { "leftId": string; "rightId": string; "score": number; "reasons": Array<string>; "leftTitle"?: string; "rightTitle"?: string; "leftUpdatedAt"?: string; "rightUpdatedAt"?: string; }
   "StoryEvidence": { "story": schemas["Story"]; "rawItems": Array<{ [key: string]: unknown; }>; "linkedArticleIds": Array<string>; "version": string; }
@@ -49,10 +60,16 @@ export interface schemas {
   "PostizChannels": { "configured": boolean; "mode": "draft" | "now"; "items": Array<schemas["PostizChannel"]>; }
   "PostizDelivery": { "id": string; "channelId": string; "channelName": string; "provider": string; "locale": schemas["Locale"]; "revision": number; "status": "scheduled" | "queued" | "sending" | "accepted" | "draft" | "published" | "failed" | "uncertain" | "cancelled" | "missing_media"; "mode": "draft" | "now"; "content": string; "articleUrl": string; "attempts": number; "postId"?: string; "releaseUrl"?: string; "error"?: string; "updatedAt": string; }
   "PostizPreview": { "content": string; "articleUrl": string; }
+  "LaunchSubmission": { "name": string; "tagline": schemas["LocalizedText"]; "description": schemas["LocalizedText"]; "team": schemas["LocalizedText"]; "url": string; "launchDate": string; "country": string; "categoryId": string; "photo": string; "id": string; "status": "draft" | "in_review" | "changes_requested" | "published" | "unpublished"; "revision": number; "createdAt": string; "updatedAt": string; "reviewNote"?: string; "launchSlug"?: string; }
+  "LaunchSubmissionCreate": { "name"?: string; "tagline"?: schemas["LocalizedText"]; "description"?: schemas["LocalizedText"]; "team"?: schemas["LocalizedText"]; "url"?: string; "launchDate"?: string; "country"?: string; "categoryId"?: string; "photo"?: string; }
+  "LaunchSubmissionUpdate": { "name"?: string; "tagline"?: schemas["LocalizedText"]; "description"?: schemas["LocalizedText"]; "team"?: schemas["LocalizedText"]; "url"?: string; "launchDate"?: string; "country"?: string; "categoryId"?: string; "photo"?: string; "expectedRevision": number; }
+  "LaunchSubmissionSubmit": { "expectedRevision": number; }
+  "LaunchSubmissionReview": { "expectedRevision": number; "action": "publish" | "request_changes"; "note"?: string; }
 }
 export interface endpoints {
-  "GET /api/creata/v1/public/articles": { request: unknown; response: { "items": Array<schemas["Article"]>; "total"?: number; } }
+  "GET /api/creata/v1/public/articles": { request: unknown; response: { "items": Array<schemas["Article"] | schemas["ArticleSummary"]>; "total"?: number; "nextCursor"?: string; } }
   "GET /api/creata/v1/public/articles/{slug}": { request: unknown; response: schemas["Article"] }
+  "GET /api/creata/v1/public/regions": { request: unknown; response: { "items": Array<string>; } }
   "GET /api/creata/v1/public/categories": { request: unknown; response: { "items": Array<schemas["Category"]>; "total"?: number; } }
   "GET /api/creata/v1/public/authors": { request: unknown; response: { "items": Array<schemas["Author"]>; "total"?: number; } }
   "GET /api/creata/v1/public/authors/{id}": { request: unknown; response: schemas["Author"] }
@@ -69,10 +86,18 @@ export interface endpoints {
   "POST /api/creata/v1/account/telegram-link": { request: unknown; response: { "url": string; "expiresAt": string; } }
   "POST /api/creata/v1/account/saved/{kind}/{id}": { request: unknown; response: schemas["OK"] }
   "DELETE /api/creata/v1/account/saved/{kind}/{id}": { request: unknown; response: schemas["OK"] }
+  "GET /api/creata/v1/account/followed-stories": { request: unknown; response: schemas["FollowedStories"] }
+  "POST /api/creata/v1/account/followed-stories/{id}": { request: unknown; response: { "ok": boolean; } }
+  "DELETE /api/creata/v1/account/followed-stories/{id}": { request: unknown; response: { "ok": boolean; } }
+  "POST /api/creata/v1/account/followed-stories/{id}/read": { request: schemas["StoryReadInput"]; response: { "ok": boolean; } }
+  "GET /api/creata/v1/admin/story-follow-ups": { request: unknown; response: { "items": Array<schemas["StoryFollowUp"]>; "total": number; } }
   "GET /api/creata/v1/admin/articles": { request: unknown; response: { "items": Array<schemas["Article"]>; "total"?: number; } }
-  "POST /api/creata/v1/admin/articles": { request: { [key: string]: unknown; }; response: schemas["Article"] }
-  "PATCH /api/creata/v1/admin/articles/{id}": { request: { [key: string]: unknown; }; response: schemas["Article"] }
+  "POST /api/creata/v1/admin/articles": { request: { "actionGuide"?: schemas["ActionGuide"] | null; "storyUpdates"?: Array<schemas["StoryUpdate"]>; "photos"?: schemas["ArticlePhotos"]; [key: string]: unknown; }; response: schemas["Article"] }
+  "PATCH /api/creata/v1/admin/articles/{id}": { request: { "expectedRevision": number; "actionGuide"?: schemas["ActionGuide"] | null; "storyUpdates"?: Array<schemas["StoryUpdate"]>; "photos"?: schemas["ArticlePhotos"]; [key: string]: unknown; }; response: schemas["Article"] }
   "GET /api/creata/v1/admin/articles/{id}": { request: unknown; response: schemas["Article"] }
+  "GET /api/creata/v1/admin/articles/{id}/follow-up": { request: unknown; response: { "item": schemas["StoryFollowUp"] | null; "eligible": boolean; } }
+  "PUT /api/creata/v1/admin/articles/{id}/follow-up": { request: schemas["StoryFollowUpInput"]; response: { "item": schemas["StoryFollowUp"]; } }
+  "DELETE /api/creata/v1/admin/articles/{id}/follow-up": { request: unknown; response: { "ok": boolean; } }
   "GET /api/creata/v1/admin/opportunities": { request: unknown; response: { "items": Array<schemas["Opportunity"]>; "total"?: number; } }
   "POST /api/creata/v1/admin/opportunities": { request: { "photo"?: string; "forWhom"?: schemas["LocalizedText"]; [key: string]: unknown; }; response: schemas["Opportunity"] }
   "PATCH /api/creata/v1/admin/opportunities/{id}": { request: { "photo"?: string; "forWhom"?: schemas["LocalizedText"]; [key: string]: unknown; }; response: schemas["Opportunity"] }
@@ -89,7 +114,7 @@ export interface endpoints {
   "GET /api/creata/v1/admin/jobs": { request: unknown; response: { "items": Array<schemas["Job"]>; } }
   "GET /api/creata/v1/admin/runs": { request: unknown; response: { "items": Array<schemas["Job"]>; } }
   "GET /api/creata/v1/admin/users": { request: unknown; response: { "items": Array<schemas["User"]>; } }
-  "GET /api/creata/v1/admin/digests": { request: unknown; response: { "items": Array<schemas["Digest"]>; } }
+  "GET /api/creata/v1/admin/digests": { request: unknown; response: { "items": Array<schemas["Digest"]>; "channelDeliveryStatus"?: "available" | "channel_missing" | "bot_missing"; } }
   "GET /api/creata/v1/admin/audit": { request: unknown; response: { "items": Array<{ [key: string]: unknown; }>; } }
   "GET /api/creata/v1/admin/analytics": { request: unknown; response: { "published": number; "stories": number; "subscribers": number; "views": number; "saves": number; "opportunityClicks": number; "statuses": { [key: string]: number; }; "daily": Array<{ [key: string]: unknown; }>; "aiCostUsd": number; } }
   "PATCH /api/creata/v1/admin/users/{id}": { request: { "roles"?: Array<string>; "verticals"?: Array<string>; }; response: schemas["User"] }
@@ -99,6 +124,7 @@ export interface endpoints {
   "POST /api/creata/v1/admin/sources/{id}/run": { request: unknown; response: unknown }
   "POST /api/creata/v1/admin/jobs/{id}/retry": { request: unknown; response: schemas["Job"] }
   "POST /api/creata/v1/admin/jobs/{id}/cancel": { request: unknown; response: schemas["Job"] }
+  "GET /api/creata/v1/admin/digests/morning": { request: unknown; response: schemas["MorningDigestStatus"] }
   "POST /api/creata/v1/admin/digests/preview": { request: { "locale": "ru" | "kk" | "en"; "kind"?: string; }; response: schemas["Digest"] }
   "POST /api/creata/v1/admin/digests/{id}/approve": { request: unknown; response: schemas["Digest"] }
   "POST /api/creata/v1/admin/digests/{id}/send": { request: unknown; response: schemas["Digest"] }
@@ -168,4 +194,10 @@ export interface endpoints {
   "GET /api/creata/v1/admin/postiz/channels": { request: unknown; response: schemas["PostizChannels"] }
   "GET /api/creata/v1/admin/articles/{id}/postiz": { request: unknown; response: { "items": Array<schemas["PostizDelivery"]>; } }
   "GET /api/creata/v1/admin/articles/{id}/postiz/preview": { request: unknown; response: schemas["PostizPreview"] }
+  "GET /api/creata/v1/account/launch-submissions": { request: unknown; response: { "items": Array<schemas["LaunchSubmission"]>; "total": number; } }
+  "POST /api/creata/v1/account/launch-submissions": { request: schemas["LaunchSubmissionCreate"]; response: schemas["LaunchSubmission"] }
+  "PATCH /api/creata/v1/account/launch-submissions/{id}": { request: schemas["LaunchSubmissionUpdate"]; response: schemas["LaunchSubmission"] }
+  "POST /api/creata/v1/account/launch-submissions/{id}/submit": { request: schemas["LaunchSubmissionSubmit"]; response: schemas["LaunchSubmission"] }
+  "GET /api/creata/v1/admin/launch-submissions": { request: unknown; response: { "items": Array<schemas["LaunchSubmission"]>; "total": number; } }
+  "POST /api/creata/v1/admin/launch-submissions/{id}/review": { request: schemas["LaunchSubmissionReview"]; response: schemas["LaunchSubmission"] }
 }

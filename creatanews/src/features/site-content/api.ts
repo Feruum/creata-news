@@ -5,10 +5,10 @@ import { apiOrigin, PublicApiError,serverApi } from '@/lib/api'
 import {demoMode} from '@/demo/config'
 
 export const getSitePage = cache(async (slug: string, preview = false): Promise<SitePage> => {
- if(demoMode){if(preview)throw new PublicApiError(404,'Preview unavailable in demo');return serverApi<SitePage>(`/public/pages/${encodeURIComponent(slug)}`)}
- const requestHeaders: Record<string,string> = {}
- if(preview) requestHeaders.Cookie=(await headers()).get('cookie')||''
- const res=await fetch(`${apiOrigin()}/api/creata/v1/${preview?'admin':'public'}/pages/${encodeURIComponent(slug)}`,{cache:'no-store',headers:requestHeaders,signal:AbortSignal.timeout(10000)})
+ if (!preview) return serverApi<SitePage>(`/public/pages/${encodeURIComponent(slug)}`)
+ if (demoMode) throw new PublicApiError(404,'Preview unavailable in demo')
+ const requestHeaders = { cookie: (await headers()).get('cookie') || '' }
+ const res=await fetch(`${apiOrigin()}/api/creata/v1/admin/pages/${encodeURIComponent(slug)}`,{cache:'no-store',headers:requestHeaders,signal:AbortSignal.timeout(10000)})
  if(!res.ok)throw new PublicApiError(res.status,`Page API returned ${res.status}`)
  return res.json()
 })

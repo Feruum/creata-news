@@ -2,9 +2,12 @@
 const routes:Array<[string,RegExp]>=[
  ['GET',/^auth\/me$/],['POST',/^auth\/(logout|dev-login)$/],['GET',/^auth\/(google|telegram)\/(start|callback)$/],
  ['PATCH',/^account$/],['GET',/^account\/saved$/],['POST|DELETE',/^account\/saved\/(articles?|opportunit(?:y|ies))\/[^/]+$/],['POST',/^account\/telegram-link$/],
+ ['GET',/^account\/followed-stories$/],['POST|DELETE',/^account\/followed-stories\/[^/]+$/],
+ ['POST',/^account\/followed-stories\/[^/]+\/read$/],
  ['GET',/^public\/(categories|articles|popular|authors|opportunities|launches|newspapers)$/],['GET',/^public\/(articles|launches|newspapers|pages)\/[^/]+$/],
  ['GET|POST',/^admin\/(articles|sources|authors|opportunities|launches|newspapers)$/],
  ['GET|PATCH',/^admin\/articles\/[^/]+$/],['GET',/^admin\/articles\/[^/]+\/(revisions|research)$/],['POST',/^admin\/articles\/[^/]+\/(actions|graphic-draft)$/],
+ ['GET|PUT|DELETE',/^admin\/articles\/[^/]+\/follow-up$/],['GET',/^admin\/story-follow-ups$/],
  ['PATCH|DELETE',/^admin\/(sources|authors|opportunities|launches)\/[^/]+$/],['POST',/^admin\/sources\/[^/]+\/(run|check|test)$/],
  ['GET',/^admin\/(bank|jobs|runs|digests|deliveries|audit|analytics|users|staff|pages|media)$/],
  ['GET|PATCH',/^admin\/settings$/],['PATCH',/^admin\/users\/[^/]+$/],

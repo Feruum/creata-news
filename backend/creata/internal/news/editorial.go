@@ -98,13 +98,23 @@ func newArticle(u, d Doc) Doc {
 	return a
 }
 func applyArticle(a, d Doc) {
-	for _, k := range []string{"title", "lead", "body", "summary", "actions", "layer", "categoryId", "region", "tags", "authorId", "editorId", "sources", "reviewNotes", "media", "slug", "format", "graphic", "opportunityIds"} {
+	for _, k := range []string{"title", "lead", "body", "summary", "actions", "layer", "categoryId", "region", "tags", "authorId", "editorId", "sources", "reviewNotes", "media", "photos", "slug", "format", "graphic", "opportunityIds", "storyUpdates"} {
 		if v, ok := d[k]; ok {
 			a[k] = v
 		}
 	}
+	if guide, exists := d["actionGuide"]; exists {
+		if guide == nil {
+			delete(a, "actionGuide")
+		} else {
+			a["actionGuide"] = guide
+		}
+	}
 }
 func validateArticle(a Doc) error {
+	if err := validateArticleExtras(a, false); err != nil {
+		return errStatus(400, err.Error())
+	}
 	if format := str(a["format"]); format != "" && format != "article" && format != "graphic" {
 		return errStatus(400, "Invalid material format")
 	}
@@ -253,6 +263,9 @@ func (s *Server) patchArticle(w http.ResponseWriter, r *http.Request) error {
 		if e = validateArticle(a); e != nil {
 			return e
 		}
+		if e = t.validateStoryPermalink(r.Context(), a); e != nil {
+			return e
+		}
 		if e = validateEditor(t, r.Context(), a); e != nil {
 			return e
 		}
@@ -365,6 +378,9 @@ func (s *Server) articleAction(w http.ResponseWriter, r *http.Request) error {
 			if !canPublish(u, a) {
 				return errStatus(403, "Publication approval denied")
 			}
+			if e = t.validateStoryPermalink(r.Context(), a); e != nil {
+				return e
+			}
 			if e = publishable(a); e != nil {
 				return errStatus(400, e.Error())
 			}
@@ -381,6 +397,9 @@ func (s *Server) articleAction(w http.ResponseWriter, r *http.Request) error {
 				return errStatus(400, e.Error())
 			}
 			if action == "schedule" {
+				if e = t.validateStoryPermalink(r.Context(), a); e != nil {
+					return e
+				}
 				due := parseTime(d["scheduledAt"])
 				if !due.After(time.Now()) {
 					return errStatus(400, "Choose a future publication time")
@@ -471,6 +490,15 @@ func publish(t *Tx, ctx context.Context, a Doc, note string) error {
 	if e := validateEditor(t, ctx, a); e != nil {
 		return e
 	}
+	if e := validateArticleExtras(a, true); e != nil {
+		return errStatus(400, e.Error())
+	}
+	if e := t.validateStoryPermalink(ctx, a); e != nil {
+		return e
+	}
+	if len(array(a["storyUpdates"])) > 0 {
+		a["storySlug"] = a["slug"]
+	}
 	from := str(a["status"])
 	delete(a, "activeAIJobId")
 	a["status"] = "published"
@@ -540,6 +568,7 @@ func (s *Server) bankDraft(w http.ResponseWriter, r *http.Request) error {
 			return nil
 		}
 		a = newArticle(u, Doc{"title": localized(str(story["title"])), "categoryId": story["categoryId"], "sources": story["sources"], "region": story["region"], "tags": story["tags"]})
+		copyArticlePhotos(a, story)
 		if str(a["categoryId"]) == "" {
 			a["categoryId"] = "ai"
 		}

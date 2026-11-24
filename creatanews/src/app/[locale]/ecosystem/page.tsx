@@ -4,7 +4,7 @@ import {DemoEcosystem} from '@/demo/site-pages'
 import Link from 'next/link'
 import type {Metadata} from 'next'
 import {ArrowDown,ArrowUpRight} from 'lucide-react'
-import {getArticles,getCategories} from '@/lib/api'
+import {getArticleCards,getCategories} from '@/lib/api'
 import {copy,isLocale,localePath} from '@/lib/i18n'
 import {publicArticles} from '@/lib/content'
 import {ArticleCard} from '@/components/cards'
@@ -21,7 +21,7 @@ export default async function Page({params,searchParams}:Props){
  if(demoMode)return <DemoEcosystem locale={locale} preview={preview}/>
  let content:EcosystemContent;try{content=(await getSitePage('ecosystem',preview)).content as EcosystemContent}catch{return <StateMessage locale={locale} error/>}
  const t=content.copy[locale]
- const[result,categories]=await Promise.all([getArticles(locale,{layer:'eco'}),getCategories()])
+ const[result,categories]=await Promise.all([getArticleCards(locale,{layer:'eco'}),getCategories()])
  const articles=publicArticles(result.data,locale)
  return <EcosystemView locale={locale} content={content} articles={articles} categories={categories.data} preview={preview}/>
 }

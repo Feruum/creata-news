@@ -3,6 +3,7 @@ package news
 import (
 	"context"
 	"testing"
+	"time"
 )
 
 func aboutContentFixture(title string) Doc {
@@ -78,6 +79,40 @@ func TestSiteContentRejectsUnsafeAndIncompletePublication(t *testing.T) {
 	p := a.request("GET", "/public/newspapers/01", nil, 200, "")
 	if integer(p["revision"]) != 1 {
 		t.Fatal("original publication revision is missing")
+	}
+}
+
+func TestOriginalIssueValidationDoesNotWaitForWriteLock(t *testing.T) {
+	a := setupAPI(t)
+	a.login("admin")
+	ctx := context.Background()
+	const slug = "newspaper-01"
+	const path = "/admin/pages/" + slug
+	content := Doc{
+		"slug": "01", "number": "01", "date": "2026-10", "locale": "ru", "title": "Original", "pages": 1,
+		"cover": Doc{"url": "/cover.jpg"},
+		"html":  "<article><form><button>Search</button></form></article>",
+	}
+	if e := a.store.Write(ctx, func(tx *Tx) error {
+		return tx.Put(ctx, "site_page", Doc{"id": slug, "slug": slug, "content": content, "revision": 1, "status": "draft"})
+	}); e != nil {
+		t.Fatal(e)
+	}
+	lock, e := a.store.Pool.Begin(ctx)
+	if e != nil {
+		t.Fatal(e)
+	}
+	defer lock.Rollback(ctx)
+	if _, e = lock.Exec(ctx, "SELECT pg_advisory_xact_lock(70801126)"); e != nil {
+		t.Fatal(e)
+	}
+	a.client.Timeout = 3 * time.Second
+	const want = "Active HTML is forbidden in an archived issue"
+	if got := a.request("PATCH", path, Doc{"expectedRevision": 1, "content": content}, 400, "")["error"]; got != want {
+		t.Fatalf("save error = %q, want %q", got, want)
+	}
+	if got := a.request("POST", path+"/publish", Doc{"expectedRevision": 1}, 400, "")["error"]; got != want {
+		t.Fatalf("publish error = %q, want %q", got, want)
 	}
 }
 

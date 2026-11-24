@@ -24,11 +24,19 @@
                     "items": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Article"
+                        "anyOf": [
+                          { "$ref": "#/components/schemas/Article" },
+                          { "$ref": "#/components/schemas/ArticleSummary" }
+                        ]
                       }
                     },
                     "total": {
-                      "type": "integer"
+                      "type": "integer",
+                      "description": "Number of articles across all pages. Omitted on paginated requests with includeTotal=0."
+                    },
+                    "nextCursor": {
+                      "type": "string",
+                      "description": "Continuation for the same filters, present when another page is available."
                     }
                   },
                   "required": [
@@ -70,6 +78,69 @@
               ]
             },
             "description": "Filter editorial graphics independently from ordinary articles."
+          },
+          {
+            "name": "layer",
+            "in": "query",
+            "schema": { "type": "string", "enum": ["world", "eco"] }
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "schema": { "type": "string" },
+            "description": "Article category ID."
+          },
+          {
+            "name": "authorId",
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "locale",
+            "in": "query",
+            "schema": { "$ref": "#/components/schemas/Locale" },
+            "description": "Locale for search and translation filtering. Defaults to Russian."
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "schema": { "type": "string" },
+            "description": "Case-insensitive substring of the localized title and body, with Russian fallback."
+          },
+          {
+            "name": "translated",
+            "in": "query",
+            "schema": { "type": "string", "enum": ["1"] },
+            "description": "Include only articles with a nonblank title in the requested locale."
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": { "type": "integer", "minimum": 1, "maximum": 100 },
+            "description": "Enable pagination with at most this many articles per page."
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "schema": { "type": "string" },
+            "description": "Opaque continuation returned by the previous page. Requires limit."
+          },
+          {
+            "name": "includeTotal",
+            "in": "query",
+            "schema": { "type": "string", "enum": ["0"] },
+            "description": "Skip counting all matches when requesting a page."
+          },
+          {
+            "name": "view",
+            "in": "query",
+            "schema": { "type": "string", "enum": ["summary"] },
+            "description": "Return ArticleSummary, omitting body and adding localized estimated reading times."
           }
         ]
       }
@@ -118,6 +189,30 @@
             }
           }
         ]
+      }
+    },
+    "/api/creata/v1/public/regions": {
+      "get": {
+        "operationId": "get__public_regions",
+        "responses": {
+          "200": {
+            "description": "Up to 12 distinct regions in recent publication order",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": { "type": "string" }
+                    }
+                  },
+                  "required": ["items"]
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/api/creata/v1/public/categories": {
@@ -269,6 +364,14 @@
     "/api/creata/v1/public/opportunities": {
       "get": {
         "operationId": "get__public_opportunities",
+        "parameters": [
+          {
+            "name": "ids",
+            "in": "query",
+            "schema": { "type": "string" },
+            "description": "Comma-separated approved and upcoming opportunity IDs, up to 100."
+          }
+        ],
         "responses": {
           "200": {
             "description": "Success",
@@ -934,6 +1037,259 @@
         ]
       }
     },
+    "/api/creata/v1/account/followed-stories": {
+      "get": {
+        "operationId": "listFollowedStories",
+        "description": "List this account's followed published stories, newest timeline update first, with unread update IDs for each story.",
+        "security": [
+          {
+            "sessionCookie": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FollowedStories"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sign in required"
+          }
+        }
+      }
+    },
+    "/api/creata/v1/account/followed-stories/{id}": {
+      "post": {
+        "operationId": "followStory",
+        "description": "Follow a published article with at least one timeline update. Currently published updates start as read. Repeated requests preserve the existing read state.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "sessionCookie": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "ok"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sign in required"
+          },
+          "403": {
+            "description": "Invalid CSRF token"
+          },
+          "404": {
+            "description": "Published story not found"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "unfollowStory",
+        "description": "Remove this account's follow, including when the story has been withdrawn.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "sessionCookie": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "ok"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sign in required"
+          },
+          "403": {
+            "description": "Invalid CSRF token"
+          }
+        }
+      }
+    },
+    "/api/creata/v1/account/followed-stories/{id}/read": {
+      "post": {
+        "operationId": "markFollowedStoryRead",
+        "description": "Mark the submitted timeline update IDs that are currently published for this account's followed story as read.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "sessionCookie": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StoryReadInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "ok"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sign in required"
+          },
+          "400": {
+            "description": "Invalid update IDs"
+          },
+          "403": {
+            "description": "Invalid CSRF token"
+          },
+          "404": {
+            "description": "Followed published story not found"
+          }
+        }
+      }
+    },
+    "/api/creata/v1/admin/story-follow-ups": {
+      "get": {
+        "operationId": "listStoryFollowUps",
+        "description": "List upcoming and overdue story follow-ups in the editor’s publishing scope by ascending due date.",
+        "security": [
+          {
+            "sessionCookie": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/StoryFollowUp"
+                      }
+                    },
+                    "total": {
+                      "type": "integer",
+                      "minimum": 0
+                    }
+                  },
+                  "required": [
+                    "items",
+                    "total"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sign in required"
+          },
+          "403": {
+            "description": "Publishing access required"
+          }
+        }
+      }
+    },
     "/api/creata/v1/admin/articles": {
       "get": {
         "operationId": "get__admin_articles",
@@ -1041,6 +1397,30 @@
             "application/json": {
               "schema": {
                 "type": "object",
+                "properties": {
+                  "actionGuide": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/ActionGuide"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "description": "Set to null to clear the action guide."
+                  },
+                  "storyUpdates": {
+                    "type": "array",
+                    "maxItems": 40,
+                    "items": {
+                      "$ref": "#/components/schemas/StoryUpdate"
+                    },
+                    "description": "Replace the draft timeline. An empty array clears the timeline."
+                  },
+                  "photos": {
+                    "$ref": "#/components/schemas/ArticlePhotos"
+                  }
+                },
                 "additionalProperties": true
               }
             }
@@ -1093,6 +1473,36 @@
             "application/json": {
               "schema": {
                 "type": "object",
+                "properties": {
+                  "expectedRevision": {
+                    "type": "integer"
+                  },
+                  "actionGuide": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/ActionGuide"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "description": "Set to null to clear the action guide."
+                  },
+                  "storyUpdates": {
+                    "type": "array",
+                    "maxItems": 40,
+                    "items": {
+                      "$ref": "#/components/schemas/StoryUpdate"
+                    },
+                    "description": "Replace the draft timeline. An empty array clears the timeline."
+                  },
+                  "photos": {
+                    "$ref": "#/components/schemas/ArticlePhotos"
+                  }
+                },
+                "required": [
+                  "expectedRevision"
+                ],
                 "additionalProperties": true
               }
             }
@@ -1162,6 +1572,192 @@
             "sessionCookie": []
           }
         ]
+      }
+    },
+    "/api/creata/v1/admin/articles/{id}/follow-up": {
+      "get": {
+        "operationId": "getStoryFollowUp",
+        "description": "Get the story’s current follow-up and whether the draft or published timeline allows scheduling.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "sessionCookie": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "item": {
+                      "oneOf": [
+                        {
+                          "$ref": "#/components/schemas/StoryFollowUp"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "eligible": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "item",
+                    "eligible"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sign in required"
+          },
+          "403": {
+            "description": "Publishing access required for this article"
+          },
+          "404": {
+            "description": "Article not found"
+          }
+        }
+      },
+      "put": {
+        "operationId": "setStoryFollowUp",
+        "description": "Set or reschedule a follow-up for an eligible story in the editor’s publishing scope.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "sessionCookie": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StoryFollowUpInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "item": {
+                      "$ref": "#/components/schemas/StoryFollowUp"
+                    }
+                  },
+                  "required": [
+                    "item"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sign in required"
+          },
+          "400": {
+            "description": "Invalid calendar date, ineligible assignee, or no story timeline"
+          },
+          "403": {
+            "description": "Publishing access or CSRF token denied"
+          },
+          "404": {
+            "description": "Article not found"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "completeStoryFollowUp",
+        "description": "Complete a scheduled story follow-up, including after publication withdrawal.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "sessionCookie": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "ok"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sign in required"
+          },
+          "403": {
+            "description": "Publishing access or CSRF token denied"
+          },
+          "404": {
+            "description": "Article not found"
+          }
+        }
       }
     },
     "/api/creata/v1/admin/opportunities": {
@@ -2112,6 +2708,10 @@
                       "items": {
                         "$ref": "#/components/schemas/Digest"
                       }
+                    },
+                    "channelDeliveryStatus": {
+                      "type": "string",
+                      "enum": ["available", "channel_missing", "bot_missing"]
                     }
                   },
                   "required": [
@@ -2653,6 +3253,34 @@
             }
           }
         ],
+        "security": [
+          {
+            "sessionCookie": []
+          }
+        ]
+      }
+    },
+    "/api/creata/v1/admin/digests/morning": {
+      "get": {
+        "operationId": "get__admin_digests_morning",
+        "responses": {
+          "200": {
+            "description": "Latest scheduled channel digest and successful Hermes collection",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MorningDigestStatus"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sign in required"
+          },
+          "403": {
+            "description": "Permission denied"
+          }
+        },
         "security": [
           {
             "sessionCookie": []
@@ -6159,6 +6787,302 @@
           }
         ]
       }
+    },
+    "/api/creata/v1/account/launch-submissions": {
+      "get": {
+        "operationId": "listFounderLaunchSubmissions",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/LaunchSubmission"
+                      }
+                    },
+                    "total": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "items",
+                    "total"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sign in required"
+          },
+          "403": {
+            "description": "Permission or CSRF denied"
+          }
+        },
+        "security": [
+          {
+            "sessionCookie": []
+          }
+        ]
+      },
+      "post": {
+        "operationId": "createLaunchSubmission",
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LaunchSubmission"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sign in required"
+          },
+          "403": {
+            "description": "Permission or CSRF denied"
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        },
+        "security": [
+          {
+            "sessionCookie": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LaunchSubmissionCreate"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/creata/v1/account/launch-submissions/{id}": {
+      "patch": {
+        "operationId": "updateLaunchSubmission",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LaunchSubmission"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sign in required"
+          },
+          "403": {
+            "description": "Permission or CSRF denied"
+          },
+          "404": {
+            "description": "Submission not found"
+          },
+          "409": {
+            "description": "Revision or status conflict"
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        },
+        "security": [
+          {
+            "sessionCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LaunchSubmissionUpdate"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/creata/v1/account/launch-submissions/{id}/submit": {
+      "post": {
+        "operationId": "submitLaunchForReview",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LaunchSubmission"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sign in required"
+          },
+          "403": {
+            "description": "Permission or CSRF denied"
+          },
+          "404": {
+            "description": "Submission not found"
+          },
+          "409": {
+            "description": "Revision or status conflict"
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        },
+        "security": [
+          {
+            "sessionCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LaunchSubmissionSubmit"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/creata/v1/admin/launch-submissions": {
+      "get": {
+        "operationId": "listLaunchReviewQueue",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/LaunchSubmission"
+                      }
+                    },
+                    "total": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "items",
+                    "total"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sign in required"
+          },
+          "403": {
+            "description": "Permission or CSRF denied"
+          }
+        },
+        "security": [
+          {
+            "sessionCookie": []
+          }
+        ]
+      }
+    },
+    "/api/creata/v1/admin/launch-submissions/{id}/review": {
+      "post": {
+        "operationId": "reviewLaunchSubmission",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LaunchSubmission"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Sign in required"
+          },
+          "403": {
+            "description": "Permission or CSRF denied"
+          },
+          "404": {
+            "description": "Submission not found"
+          },
+          "409": {
+            "description": "Revision or status conflict"
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        },
+        "security": [
+          {
+            "sessionCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LaunchSubmissionReview"
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -6188,6 +7112,169 @@
           "ru",
           "kk",
           "en"
+        ]
+      },
+      "ActionGuide": {
+        "type": "object",
+        "properties": {
+          "audience": {
+            "$ref": "#/components/schemas/LocalizedText",
+            "description": "Up to 300 characters per language."
+          },
+          "steps": {
+            "$ref": "#/components/schemas/LocalizedText",
+            "description": "Up to 4000 characters per language."
+          },
+          "sourceUrl": {
+            "type": "string",
+            "maxLength": 2048,
+            "description": "An absolute HTTP or HTTPS source URL without credentials. Drafts may leave it blank."
+          }
+        },
+        "required": [
+          "audience",
+          "steps",
+          "sourceUrl"
+        ],
+        "additionalProperties": false
+      },
+      "StoryUpdate": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]{0,79}$",
+            "description": "Stable and unique within the article."
+          },
+          "occurredAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "title": {
+            "$ref": "#/components/schemas/LocalizedText",
+            "description": "Up to 300 characters per language."
+          },
+          "body": {
+            "$ref": "#/components/schemas/LocalizedText",
+            "description": "Up to 4000 characters per language."
+          },
+          "sourceUrl": {
+            "type": "string",
+            "maxLength": 2048,
+            "description": "An absolute HTTP or HTTPS source URL without credentials. Drafts may leave it blank."
+          },
+          "articleSlug": {
+            "type": "string",
+            "maxLength": 120,
+            "description": "Optional slug of a related Creata article."
+          }
+        },
+        "required": [
+          "id",
+          "occurredAt",
+          "title",
+          "body",
+          "sourceUrl"
+        ],
+        "additionalProperties": false
+      },
+      "FollowedStories": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Article"
+            }
+          },
+          "unreadUpdateIds": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]{0,79}$"
+              },
+              "maxItems": 40
+            },
+            "description": "Unread published timeline update IDs keyed by article ID."
+          }
+        },
+        "required": [
+          "items",
+          "unreadUpdateIds"
+        ]
+      },
+      "StoryReadInput": {
+        "type": "object",
+        "properties": {
+          "updateIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]{0,79}$"
+            },
+            "maxItems": 40
+          }
+        },
+        "required": [
+          "updateIds"
+        ],
+        "additionalProperties": false
+      },
+      "StoryFollowUpInput": {
+        "type": "object",
+        "properties": {
+          "dueDate": {
+            "type": "string",
+            "format": "date",
+            "pattern": "^(?!0000)[0-9]{4}-[0-9]{2}-[0-9]{2}$",
+            "description": "A calendar date in YYYY-MM-DD format."
+          },
+          "assigneeId": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "dueDate",
+          "assigneeId"
+        ],
+        "additionalProperties": false
+      },
+      "StoryFollowUp": {
+        "type": "object",
+        "properties": {
+          "articleId": {
+            "type": "string"
+          },
+          "title": {
+            "$ref": "#/components/schemas/LocalizedText"
+          },
+          "assigneeId": {
+            "type": "string"
+          },
+          "assigneeName": {
+            "type": "string"
+          },
+          "dueDate": {
+            "type": "string",
+            "format": "date",
+            "pattern": "^(?!0000)[0-9]{4}-[0-9]{2}-[0-9]{2}$",
+            "description": "A calendar date in YYYY-MM-DD format."
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "articleId",
+          "title",
+          "assigneeId",
+          "assigneeName",
+          "dueDate",
+          "updatedAt"
         ]
       },
       "SourceRef": {
@@ -6230,6 +7317,51 @@
           "credit",
           "rights"
         ]
+      },
+      "ArticlePhoto": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "caption": {
+            "type": "string",
+            "maxLength": 500
+          },
+          "credit": {
+            "type": "string",
+            "maxLength": 500
+          },
+          "rights": {
+            "type": "string"
+          },
+          "sourceUrl": {
+            "type": "string",
+            "format": "uri"
+          },
+          "licenseUrl": {
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "required": [
+          "url",
+          "caption",
+          "credit",
+          "rights",
+          "sourceUrl",
+          "licenseUrl"
+        ],
+        "additionalProperties": false
+      },
+      "ArticlePhotos": {
+        "type": "array",
+        "maxItems": 3,
+        "items": {
+          "$ref": "#/components/schemas/ArticlePhoto"
+        },
+        "description": "Ordered Wikimedia Commons illustrations with attribution. An empty array clears the selection."
       },
       "Author": {
         "type": "object",
@@ -6276,6 +7408,38 @@
         ]
       },
       "Article": {
+        "allOf": [
+          { "$ref": "#/components/schemas/ArticleFields" },
+          {
+            "type": "object",
+            "properties": {
+              "body": { "$ref": "#/components/schemas/LocalizedText" }
+            },
+            "required": ["body"]
+          }
+        ]
+      },
+      "ArticleSummary": {
+        "allOf": [
+          { "$ref": "#/components/schemas/ArticleFields" },
+          {
+            "type": "object",
+            "properties": {
+              "readingMinutes": {
+                "type": "object",
+                "properties": {
+                  "ru": { "type": "integer", "minimum": 1 },
+                  "kk": { "type": "integer", "minimum": 1 },
+                  "en": { "type": "integer", "minimum": 1 }
+                },
+                "required": ["ru", "kk", "en"]
+              }
+            },
+            "required": ["readingMinutes"]
+          }
+        ]
+      },
+      "ArticleFields": {
         "type": "object",
         "properties": {
           "id": {
@@ -6311,14 +7475,21 @@
           "lead": {
             "$ref": "#/components/schemas/LocalizedText"
           },
-          "body": {
-            "$ref": "#/components/schemas/LocalizedText"
-          },
           "summary": {
             "$ref": "#/components/schemas/LocalizedText"
           },
           "actions": {
             "$ref": "#/components/schemas/LocalizedText"
+          },
+          "actionGuide": {
+            "$ref": "#/components/schemas/ActionGuide"
+          },
+          "storyUpdates": {
+            "type": "array",
+            "maxItems": 40,
+            "items": {
+              "$ref": "#/components/schemas/StoryUpdate"
+            }
           },
           "layer": {
             "type": "string",
@@ -6350,6 +7521,9 @@
           },
           "media": {
             "$ref": "#/components/schemas/Media"
+          },
+          "photos": {
+            "$ref": "#/components/schemas/ArticlePhotos"
           },
           "status": {
             "type": "string",
@@ -6427,7 +7601,6 @@
           "updatedAt",
           "title",
           "lead",
-          "body",
           "summary",
           "actions",
           "layer",
@@ -6482,6 +7655,16 @@
           },
           "actions": {
             "$ref": "#/components/schemas/LocalizedText"
+          },
+          "actionGuide": {
+            "$ref": "#/components/schemas/ActionGuide"
+          },
+          "storyUpdates": {
+            "type": "array",
+            "maxItems": 40,
+            "items": {
+              "$ref": "#/components/schemas/StoryUpdate"
+            }
           },
           "layer": {
             "type": "string",
@@ -6859,6 +8042,9 @@
           "graphicId": {
             "type": "string"
           },
+          "photos": {
+            "$ref": "#/components/schemas/ArticlePhotos"
+          },
           "facts": {
             "type": "array",
             "items": {
@@ -6988,6 +8174,10 @@
           "keyConfigured": {
             "type": "boolean"
           },
+          "exaKeyConfigured": {
+            "type": "boolean",
+            "description": "Whether an Exa Search API key is configured. The key is write-only."
+          },
           "dailyBudgetUsd": {
             "type": "number"
           },
@@ -7025,6 +8215,11 @@
           },
           "digestHour": {
             "type": "integer"
+          },
+          "morningDigestHour": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 23
           },
           "timezone": {
             "type": "string"
@@ -7076,6 +8271,10 @@
           "createdAt": {
             "type": "string"
           },
+          "morningDate": {
+            "type": "string",
+            "format": "date"
+          },
           "text": {
             "type": "string"
           }
@@ -7089,6 +8288,26 @@
           "opportunities",
           "createdAt"
         ]
+      },
+      "MorningDigestStatus": {
+        "type": "object",
+        "properties": {
+          "edition": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "date": { "type": "string", "format": "date" },
+              "status": { "type": "string" },
+              "articleCount": { "type": "integer" },
+              "opportunityCount": { "type": "integer" }
+            },
+            "required": ["id", "date", "status", "articleCount", "opportunityCount"]
+          },
+          "lastCollectionAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
       },
       "Delivery": {
         "type": "object",
@@ -9088,6 +10307,10 @@
                 },
                 "author": {
                   "type": "string"
+                },
+                "discoveredBy": {
+                  "type": "string",
+                  "enum": ["exa"]
                 }
               },
               "required": [
@@ -9595,6 +10818,194 @@
         "required": [
           "content",
           "articleUrl"
+        ]
+      },
+      "LaunchSubmission": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 200
+          },
+          "tagline": {
+            "$ref": "#/components/schemas/LocalizedText"
+          },
+          "description": {
+            "$ref": "#/components/schemas/LocalizedText"
+          },
+          "team": {
+            "$ref": "#/components/schemas/LocalizedText"
+          },
+          "url": {
+            "type": "string"
+          },
+          "launchDate": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "categoryId": {
+            "type": "string"
+          },
+          "photo": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "draft",
+              "in_review",
+              "changes_requested",
+              "published",
+              "unpublished"
+            ]
+          },
+          "revision": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          },
+          "reviewNote": {
+            "type": "string"
+          },
+          "launchSlug": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "tagline",
+          "description",
+          "team",
+          "url",
+          "launchDate",
+          "country",
+          "categoryId",
+          "photo",
+          "id",
+          "status",
+          "revision",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "LaunchSubmissionCreate": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 200
+          },
+          "tagline": {
+            "$ref": "#/components/schemas/LocalizedText"
+          },
+          "description": {
+            "$ref": "#/components/schemas/LocalizedText"
+          },
+          "team": {
+            "$ref": "#/components/schemas/LocalizedText"
+          },
+          "url": {
+            "type": "string"
+          },
+          "launchDate": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "categoryId": {
+            "type": "string"
+          },
+          "photo": {
+            "type": "string"
+          }
+        }
+      },
+      "LaunchSubmissionUpdate": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 200
+          },
+          "tagline": {
+            "$ref": "#/components/schemas/LocalizedText"
+          },
+          "description": {
+            "$ref": "#/components/schemas/LocalizedText"
+          },
+          "team": {
+            "$ref": "#/components/schemas/LocalizedText"
+          },
+          "url": {
+            "type": "string"
+          },
+          "launchDate": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "categoryId": {
+            "type": "string"
+          },
+          "photo": {
+            "type": "string"
+          },
+          "expectedRevision": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "required": [
+          "expectedRevision"
+        ]
+      },
+      "LaunchSubmissionSubmit": {
+        "type": "object",
+        "properties": {
+          "expectedRevision": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "required": [
+          "expectedRevision"
+        ]
+      },
+      "LaunchSubmissionReview": {
+        "type": "object",
+        "properties": {
+          "expectedRevision": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "action": {
+            "type": "string",
+            "enum": [
+              "publish",
+              "request_changes"
+            ]
+          },
+          "note": {
+            "type": "string",
+            "maxLength": 2000,
+            "description": "Required when requesting changes."
+          }
+        },
+        "required": [
+          "expectedRevision",
+          "action"
         ]
       }
     },

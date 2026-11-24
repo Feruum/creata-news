@@ -9,7 +9,13 @@ CREATE TABLE IF NOT EXISTS creata_records (
 CREATE INDEX IF NOT EXISTS creata_records_kind_created ON creata_records(kind,created_at DESC);
 CREATE INDEX IF NOT EXISTS creata_records_data ON creata_records USING gin(data);
 CREATE INDEX IF NOT EXISTS creata_launch_engagement ON creata_records((data->>'launchId')) WHERE kind IN ('launch_vote','launch_comment');
+CREATE INDEX IF NOT EXISTS creata_story_follow_user ON creata_records((data->>'userId')) WHERE kind='story_follow';
 CREATE UNIQUE INDEX IF NOT EXISTS creata_article_slug ON creata_records((data->>'slug')) WHERE kind='article';
+CREATE INDEX IF NOT EXISTS creata_publication_slug ON creata_records((data->>'slug'),created_at DESC,id) WHERE kind='publication';
+CREATE INDEX IF NOT EXISTS creata_publication_archive ON creata_records(created_at DESC,id) WHERE kind='publication';
+CREATE INDEX IF NOT EXISTS creata_publication_category_archive ON creata_records((data->>'categoryId'),created_at DESC,id) WHERE kind='publication';
+CREATE INDEX IF NOT EXISTS creata_publication_corrections ON creata_records((data->>'articleId'),created_at DESC,id)
+ WHERE kind='publication_version' AND jsonb_typeof(data->'note')='string' AND data->>'note'<>'';
 CREATE UNIQUE INDEX IF NOT EXISTS creata_newspaper_slug ON creata_records((data->>'slug')) WHERE kind='newspaper_issue';
 CREATE UNIQUE INDEX IF NOT EXISTS creata_provider_subject ON creata_records((data->>'provider'),(data->>'subject')) WHERE kind='identity';
 CREATE UNIQUE INDEX IF NOT EXISTS creata_telegram_user ON creata_records((data->>'telegramId')) WHERE kind='user' AND data->>'telegramId' IS NOT NULL;

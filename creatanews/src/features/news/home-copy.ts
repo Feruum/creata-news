@@ -1,6 +1,5 @@
 export const homeLabels={
  ru:{
-  version2:'Главная V2',
   hero:'Будущее начинается там, где ты',
   intro:'Большим идеям не нужен правильный адрес. Как технологии, любопытство и локальные сообщества меняют Евразию — и где в этой истории ваше место.',
   latest:'Новые материалы',all:'Все материалы',technology:'Технологии',science:'Наука',creative:'Креатив',people:'Люди',month:'Материалы месяца',
@@ -10,7 +9,6 @@ export const homeLabels={
   footer:'Главные идеи.\nВдохновение для ваших дел.',opportunitiesTitle:'Возможности рядом',popular:'Популярное',empty:'В этой рубрике пока нет материалов.',
  },
  kk:{
-  version2:'Басты бет V2',
   hero:'Болашақ сен тұрған жерден басталады',
   intro:'Үлкен идеяларға арнайы мекенжай керек емес. Технология, қызығушылық пен жергілікті қауымдастықтар Еуразияны қалай өзгертеді — және бұл оқиғадағы сіздің орныңыз.',
   latest:'Жаңа материалдар',all:'Барлық материалдар',technology:'Технологиялар',science:'Ғылым',creative:'Креатив',people:'Адамдар',month:'Ай материалдары',
@@ -20,7 +18,6 @@ export const homeLabels={
   footer:'Басты идеялар.\nІстеріңізге шабыт.',opportunitiesTitle:'Жақын мүмкіндіктер',popular:'Танымал',empty:'Бұл айдарда әзірге материалдар жоқ.',
  },
  en:{
-  version2:'Homepage V2',
   hero:'The future starts right where you are',
   intro:'Big ideas don’t need the right address. How technology, curiosity and local communities are changing Eurasia — and where you fit into the story.',
   latest:'New stories',all:'All stories',technology:'Technology',science:'Science',creative:'Creative',people:'People',month:'Stories of the month',

@@ -84,6 +84,48 @@ func validateResearchBrief(brief Doc) error {
 	return nil
 }
 
+func addExaResearchSources(article, brief Doc) {
+	cited := map[string]bool{}
+	for _, fact := range array(brief["facts"]) {
+		for _, source := range array(object(fact)["sourceUrls"]) {
+			cited[str(source)] = true
+		}
+	}
+	sources := array(article["sources"])
+	seen := map[string]bool{}
+	for _, source := range sources {
+		if url, err := canonicalURL(str(object(source)["url"])); err == nil {
+			seen[url] = true
+		}
+	}
+	added := 0
+	for _, value := range array(brief["retrievedEvidence"]) {
+		if added == 2 || len(sources) >= 50 {
+			break
+		}
+		evidence := object(value)
+		rawURL := str(evidence["url"])
+		if str(evidence["discoveredBy"]) != "exa" || !cited[rawURL] || !validArticleSourceURL(rawURL) {
+			continue
+		}
+		url, err := canonicalURL(rawURL)
+		title := strings.TrimSpace(str(evidence["title"]))
+		if err != nil || seen[url] || title == "" {
+			continue
+		}
+		source := Doc{"url": url, "title": title}
+		if date := str(evidence["publishedAt"]); date != "" {
+			source["publishedAt"] = date
+		}
+		sources = append(sources, source)
+		seen[url] = true
+		added++
+	}
+	if added > 0 {
+		article["sources"] = sources
+	}
+}
+
 func checkpoint(j, d Doc) error {
 	phase, status := str(d["phase"]), str(d["status"])
 	if !has([]string{"research", "draft", "review", "classification"}, phase) || !has([]string{"running", "succeeded", "failed"}, status) || (phase == "classification") != (str(j["kind"]) == "classify") {

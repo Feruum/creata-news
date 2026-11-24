@@ -5,6 +5,7 @@ import { resolve } from 'node:path'
 test('newsroom creates a photographed issue, previews, publishes a snapshot and removes it from the archive', async ({ page, context }) => {
   test.setTimeout(120_000)
   const web = process.env.CREATA_NEWSPAPER_WEB_URL || 'http://localhost:3002'
+  const photo = readFileSync(resolve(import.meta.dirname, '../../backend/creata/content/assets/newspaper/issues/01/media/hero.webp'))
   const slug = `browser-${Date.now()}`, title = `Газета · проверка ${slug}`
   const login = await page.request.post('/api/creata/v1/auth/dev-login', { data: { role: 'chief_editor' } })
   expect(login.ok()).toBeTruthy()
@@ -31,14 +32,14 @@ test('newsroom creates a photographed issue, previews, publishes a snapshot and 
   await page.getByLabel('Автор изображения').fill('Creata News')
   await page.getByLabel('Права на использование').fill('Собственная съёмка')
   await page.getByLabel('Подпись', { exact: true }).fill('Обложка нового выпуска')
-  await page.getByLabel('Загрузить изображение', { exact: true }).setInputFiles({ name: 'cover.webp', mimeType: 'image/webp', buffer: readFileSync(resolve(import.meta.dirname, '../../creatanews/public/newspaper/issues/01/media/hero.webp')) })
+  await page.getByLabel('Загрузить изображение', { exact: true }).setInputFiles({ name: 'cover.webp', mimeType: 'image/webp', buffer: photo })
   await expect(page.locator('.newspaper-photo-preview')).toBeVisible()
   await page.getByRole('button', { name: 'Фото статьи 2', exact: true }).click()
   const photoDialog = page.getByRole('dialog')
   await photoDialog.getByLabel('Автор изображения').fill('Creata photo team')
   await photoDialog.getByLabel('Права на использование').fill('Собственная съёмка')
   await photoDialog.getByLabel('Подпись', { exact: true }).fill('Отдельное фото статьи')
-  await photoDialog.getByLabel('Загрузить изображение', { exact: true }).setInputFiles({ name: 'article.webp', mimeType: 'image/webp', buffer: readFileSync(resolve(import.meta.dirname, '../../creatanews/public/newspaper/issues/01/media/hero.webp')) })
+  await photoDialog.getByLabel('Загрузить изображение', { exact: true }).setInputFiles({ name: 'article.webp', mimeType: 'image/webp', buffer: photo })
   await expect(photoDialog.locator('.newspaper-photo-preview')).toHaveAttribute('src', /\/media\/images\//)
   await photoDialog.getByRole('button', { name: 'Закрыть', exact: true }).click()
   await page.getByRole('button', { name: 'Сохранить', exact: true }).click()

@@ -2,13 +2,13 @@ import Link from 'next/link'
 import { ArrowUpRight } from 'lucide-react'
 import type { Article, Category, Locale } from '@/lib/models'
 import { copy, formatDate, localePath, localize } from '@/lib/i18n'
-import { readingMinutes } from '@/lib/content'
+import { articleReadingMinutes } from '@/lib/content'
 import { MediaImage } from './media-image'
 export function ArticleCard({article,locale,categories=[],variant='standard',priority=false,imageSrc}: {article:Article;locale:Locale;categories?:Category[];variant?:'standard'|'lead'|'compact'|'horizontal'|'editorial';priority?:boolean;imageSrc?:string}) {
   const t=copy[locale],category=categories.find(item=>item.id===article.categoryId), href=localePath(locale,`/articles/${article.slug}`),Heading=variant==='lead'?'h1':'h2'
   return <article className={`article-card article-card-${variant}`} data-home-reveal={variant==='editorial'?'card':undefined}>
     {variant!=='compact'&&<Link href={href} className='card-image-link' tabIndex={-1} aria-hidden='true'><MediaImage src={imageSrc??article.media?.url} priority={priority}/></Link>}
-    <div className='card-copy'><div className='card-kicker'><span className='card-category'>{article.layer==='eco'?t.ecosystem:category?localize(category.name,locale):t.world}</span>{variant==='editorial'?<span>{readingMinutes(localize(article.body,locale))} {t.minRead}</span>:article.region&&<span>{article.region}</span>}</div><Heading><Link href={href}>{localize(article.title,locale)}</Link></Heading>{(variant==='lead'||variant==='editorial')&&<p className='card-lead'>{localize(article.lead,locale)}</p>}<div className='card-meta'>{variant==='editorial'&&<span className='card-author-mark' aria-hidden='true'>≡</span>}{variant!=='compact'&&<span className='card-author-name'>{variant!=='editorial'&&`${t.by} `}{article.author?.name||t.authorUnknown}</span>}<time dateTime={article.publishedAt}>{formatDate(article.publishedAt,locale,true)}</time>{variant!=='editorial'&&<span>{readingMinutes(localize(article.body,locale))} {t.minRead}</span>}</div></div>
+    <div className='card-copy'><div className='card-kicker'><span className='card-category'>{article.layer==='eco'?t.ecosystem:category?localize(category.name,locale):t.world}</span>{variant==='editorial'?<span>{articleReadingMinutes(article,locale)} {t.minRead}</span>:article.region&&<span>{article.region}</span>}</div><Heading><Link href={href}>{localize(article.title,locale)}</Link></Heading>{(variant==='lead'||variant==='editorial')&&<p className='card-lead'>{localize(article.lead,locale)}</p>}<div className='card-meta'>{variant==='editorial'&&<span className='card-author-mark' aria-hidden='true'>≡</span>}{variant!=='compact'&&<span className='card-author-name'>{variant!=='editorial'&&`${t.by} `}{article.author?.name||t.authorUnknown}</span>}<time dateTime={article.publishedAt}>{formatDate(article.publishedAt,locale,true)}</time>{variant!=='editorial'&&<span>{articleReadingMinutes(article,locale)} {t.minRead}</span>}</div></div>
   </article>
 }
 export { OpportunityCard } from '@/features/opportunities/opportunity-card'

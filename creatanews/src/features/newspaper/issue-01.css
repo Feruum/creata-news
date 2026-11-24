@@ -1,5 +1,5 @@
 /* Published Creata News 01, imported from https://creata.news/issues/01. Selectors are scoped to this issue. */
-.newspaper-issue{font-size:16px;line-height:normal;text-align:start;color-scheme:light}
+.newspaper-issue{font-size:16px;line-height:normal;text-align:start}
 .newspaper-issue :where(*:not(svg):not(svg *)){all:revert;box-sizing:border-box}
 .newspaper-issue [hidden]{display:none!important}
 /* cyrillic-ext */
@@ -328,36 +328,32 @@
 }
 
 
-/* Type: вариант A (David 08.10) — словесный знак CREATA + NEWS, заголовки Unbounded 500, текст Literata.
-   Layout: newspaper sheets lying on a desk. Each sheet is a 12-column grid that
-   collapses to one column on a phone; @media print turns each sheet into an exact A3 page.
-   The paper itself is a fixed material (same in both themes); only the desk follows the theme. */
+/* The newspaper uses the site palette on screen and a light palette for A3 printing. */
 .newspaper-issue {
-  --desk: #c8ccd3;          /* стол под газетой */
-  --desk-ink: #2a2d33;
-  --paper: #efeee9;         /* газетная бумага, холодноватая */
-  --ink: #18171b;           /* чёрная краска */
-  --ink-soft: #4b4952;
-  --spot: #7b2fd1;          /* вторая краска — фиолетовый Creata Media (#a855f7), углублён для текста */
-  --spot-bright: #a855f7;
-  --rule: #18171b;
+  --desk: var(--creata-page);
+  --paper: var(--creata-panel);
+  --ink: var(--creata-text);
+  --ink-soft: var(--creata-muted);
+  --spot: var(--creata-accent);
+  --on-spot: var(--creata-on-accent);
+  --highlight: var(--creata-soft);
+  --line: var(--creata-border);
+  --rule: var(--ink);
   --f-display: var(--creata-display);
   --f-body: var(--creata-font);
   --f-label: var(--creata-font);
 }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .newspaper-issue { --desk: #16171b; --desk-ink: #b9bcc4; color-scheme: dark } }
-:root[data-theme="dark"] .newspaper-issue { --desk: #16171b; --desk-ink: #b9bcc4; color-scheme: dark }
 
 .newspaper-issue *, .newspaper-issue *::before, .newspaper-issue *::after { box-sizing: border-box; }
 .newspaper-issue { margin: 0; background: var(--desk); color: var(--ink); }
 .newspaper-issue .desk { padding-inline: 16px; padding-block: 28px 56px; display: grid; gap: 32px; justify-items: center; font-family: var(--f-body); }
 
 /* ---------- панель управления (только web) ---------- */
-.newspaper-issue .desk-bar { box-sizing: border-box; max-width: 100%; width: min(100%, 1120px); display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center; justify-content: space-between; color: var(--desk-ink); font: 600 11px/1.4 var(--f-label); letter-spacing: .1em; text-transform: uppercase; }
+.newspaper-issue .desk-bar { box-sizing: border-box; max-width: 100%; width: min(100%, 1120px); display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center; justify-content: space-between; color: var(--ink-soft); font: 600 11px/1.4 var(--f-label); letter-spacing: .1em; text-transform: uppercase; }
 .newspaper-issue .desk-bar p { margin: 0; min-width: 0; max-width: 100%; overflow-wrap: anywhere; }
-.newspaper-issue .wake-all { font: inherit; letter-spacing: inherit; color: var(--paper); background: var(--spot); border: 0; border-radius: 2px; padding: 10px 14px; cursor: pointer; }
-.newspaper-issue .wake-all[aria-pressed="true"] { background: var(--ink); }
-.newspaper-issue .wake-all:focus-visible, .newspaper-issue .live:focus-visible { outline: 3px solid var(--spot-bright); outline-offset: 3px; }
+.newspaper-issue .wake-all { font: inherit; letter-spacing: inherit; color: var(--on-spot); background: var(--spot); border: 0; border-radius: 2px; padding: 10px 14px; cursor: pointer; }
+.newspaper-issue .wake-all[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.newspaper-issue :is(.wake-all, .live, .cta-link):focus-visible { outline: 3px solid var(--spot); outline-offset: 3px; }
 
 /* ---------- лист ---------- */
 .newspaper-issue .sheet { width: min(100%, 1120px); background: var(--paper); color: var(--ink); padding: clamp(18px, 3.4vw, 44px); box-shadow: 0 1px 0 rgba(0,0,0,.08), 0 18px 40px -18px rgba(0,0,0,.45); display: grid; gap: 22px; align-content: start; hyphens: auto; }
@@ -379,7 +375,7 @@
 .newspaper-issue .mh-pub { color: var(--spot); }
 .newspaper-issue .mh-name { margin: 0; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: .3em; padding-block: 8px 4px; font: 500 clamp(34px, 7.6vw, 92px)/1 var(--f-display); letter-spacing: .01em; }
 .newspaper-issue .mh-name .wm { height: .86em; width: auto; color: var(--ink); flex: none; }
-.newspaper-issue .mh-name .mh-news { color: #4b44f0; font-family: 'Creata Wordmark'; font-weight: 500; }
+.newspaper-issue .mh-name .mh-news { color: var(--spot); font-family: 'Creata Wordmark'; font-weight: 500; }
 
 .newspaper-issue .lead-head { display: grid; gap: 10px; max-width: 64rem; }
 .newspaper-issue .lead-h { margin: 0; font: 500 clamp(28px, 4.4vw, 54px)/1.06 var(--f-display); letter-spacing: -.02em; text-wrap: balance; }
@@ -454,13 +450,11 @@
 .newspaper-issue .pull p::before { content: "«"; color: var(--spot); }
 .newspaper-issue .pull p::after { content: "»"; color: var(--spot); }
 .newspaper-issue .pull footer { font: 600 9.5px/1.3 var(--f-label); letter-spacing: .12em; text-transform: uppercase; color: var(--ink-soft); }
-.newspaper-issue .cta { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 18px 28px; align-items: center; padding: 18px 22px; background: var(--ink); color: var(--paper); }
-.newspaper-issue .cta .kicker { color: var(--spot-bright); }
+.newspaper-issue .cta { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 18px 28px; align-items: center; padding: 18px 22px; background: var(--highlight); color: var(--ink); }
 .newspaper-issue .cta-h { font: 500 clamp(22px, 2.8vw, 34px)/1.1 var(--f-display); letter-spacing: -.02em; margin-top: 4px !important; }
-.newspaper-issue .cta-t { font-size: 15px; line-height: 1.45; margin-top: 6px !important; color: color-mix(in srgb, var(--paper) 80%, transparent); }
-.newspaper-issue .cta-link { display: inline-block; margin-top: 12px; padding: 10px 16px; background: var(--spot-bright); color: var(--ink); font: 600 12px/1 var(--f-label); letter-spacing: .1em; text-transform: uppercase; text-decoration: none; }
-.newspaper-issue .cta-link:focus-visible { outline: 3px solid var(--paper); outline-offset: 3px; }
-.newspaper-issue .cta .cta-qr { display: block; position: static; width: 112px; height: 112px; background: var(--paper); padding: 6px; }
+.newspaper-issue .cta-t { font-size: 15px; line-height: 1.45; margin-top: 6px !important; color: var(--ink-soft); }
+.newspaper-issue .cta-link { display: inline-block; margin-top: 12px; padding: 10px 16px; background: var(--spot); color: var(--on-spot); font: 600 12px/1 var(--f-label); letter-spacing: .1em; text-transform: uppercase; text-decoration: none; }
+.newspaper-issue .cta .cta-qr { display: block; position: static; width: 112px; height: 112px; background: #fff; padding: 6px; }
 .newspaper-issue .fs-jump { justify-self: end; }
 /* релиз игры: ключевой арт на всю ширину */
 .newspaper-issue .sf-release .fs-lead { grid-column: 1 / -1; }
@@ -475,7 +469,7 @@
 .newspaper-issue .iv-card { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 14px; align-items: start; border-top: 3px solid var(--rule); padding-top: 12px; min-width: 0; }
 .newspaper-issue .iv-text { display: grid; gap: 6px; min-width: 0; }
 .newspaper-issue .iv-head { display: flex; gap: 10px; align-items: center; margin-bottom: 4px; }
-.newspaper-issue .iv-logo { width: 46px; height: 46px; object-fit: contain; background: var(--ink); padding: 5px; flex: none; }
+.newspaper-issue .iv-logo { width: 46px; height: 46px; object-fit: contain; background: #18171b; padding: 5px; flex: none; }
 .newspaper-issue .iv-studio { margin: 0; font: 500 16px/1.15 var(--f-display); letter-spacing: -.01em; }
 .newspaper-issue .iv-meta { font: 500 9px/1.35 var(--f-label); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft); }
 .newspaper-issue .iv-card .q { font: 600 13.5px/1.35 var(--f-body); color: var(--spot); }
@@ -558,8 +552,7 @@
 .newspaper-issue .sp-q p { font: italic 15px/1.4 var(--f-body); }
 .newspaper-issue .sp-rec { font: 500 9.5px/1.3 var(--f-label); letter-spacing: .1em; text-transform: uppercase; color: var(--spot); }
 .newspaper-issue .sp-noph { aspect-ratio: 4 / 3; border: 1.5px dashed color-mix(in srgb, var(--ink) 35%, transparent); display: grid; place-items: center; text-align: center; padding: 12px; font: 500 9.5px/1.4 var(--f-label); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft); }
-.newspaper-issue .sp-box { align-self: stretch; display: grid; align-content: center; gap: 6px; padding: 18px 20px; background: var(--ink); color: var(--paper); }
-.newspaper-issue .sp-box .kicker { color: var(--spot-bright); }
+.newspaper-issue .sp-box { align-self: stretch; display: grid; align-content: center; gap: 6px; padding: 18px 20px; background: var(--highlight); color: var(--ink); }
 
 .newspaper-issue .ph-frame { border: 2px dashed var(--spot); display: grid; place-items: center; text-align: center; padding: 14px; background: color-mix(in srgb, var(--spot) 6%, var(--paper)); }
 .newspaper-issue .ph-frame span { font: 600 10px/1.5 var(--f-label); letter-spacing: .1em; text-transform: uppercase; color: var(--spot); }
@@ -576,7 +569,7 @@
 .newspaper-issue .tl-legend i { display: inline-block; width: 18px; height: 6px; border-radius: 3px; }
 .newspaper-issue .tl-map { border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); padding: 6px 0; }
 .newspaper-issue .tl-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-.newspaper-issue .tl #metro { display: block; width: 100%; height: auto; }
+.newspaper-issue .tl #metro { display: block; width: 100%; height: auto; background: #fff; }
 .newspaper-issue .tl #metro text { font-family: var(--f-body); }
 .newspaper-issue .tl #metro .mlab { font-family: var(--f-display); font-size: 13px; letter-spacing: .06em; text-transform: uppercase; }
 .newspaper-issue .tl #metro .tlab { font-family: var(--f-display); font-size: 13px; }
@@ -586,8 +579,8 @@
 .newspaper-issue .tl-body, .newspaper-issue .tl-head, .newspaper-issue .tl-map, .newspaper-issue .tl-scroll { min-width: 0; max-width: 100%; }
 .newspaper-issue .tl-head .kicker { overflow-wrap: anywhere; }
 .newspaper-issue .tl-note { font-size: 12px; color: var(--ink-soft); margin: 0; }
-.newspaper-issue .tl-idx { columns: 3 240px; column-gap: 28px; column-rule: 1px solid #cfcac0; font-size: 13.5px; }
-.newspaper-issue .tl-idx div { break-inside: avoid; padding: 4px 0; border-bottom: 1px dotted #cfcac0; display: grid; grid-template-columns: 26px 46px 1fr; gap: 4px; }
+.newspaper-issue .tl-idx { columns: 3 240px; column-gap: 28px; column-rule: 1px solid var(--line); font-size: 13.5px; }
+.newspaper-issue .tl-idx div { break-inside: avoid; padding: 4px 0; border-bottom: 1px dotted var(--line); display: grid; grid-template-columns: 26px 46px 1fr; gap: 4px; }
 .newspaper-issue .tl-idx .n { font-family: var(--f-display); font-size: 10.5px; padding-top: 2px; }
 .newspaper-issue .tl-idx .d { color: var(--ink-soft); }
 .newspaper-issue .tl-idx .w3 { font-weight: 600; }
@@ -596,7 +589,7 @@
 /* ---------- модули ---------- */
 .newspaper-issue .modules { grid-column: 1 / -1; }
 .newspaper-issue .modules ol { list-style: none; margin: 10px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: 12px 22px; }
-.newspaper-issue .modules li { display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 10px; align-items: start; border-top: 1px solid #cfcac0; padding-top: 8px; }
+.newspaper-issue .modules li { display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 10px; align-items: start; border-top: 1px solid var(--line); padding-top: 8px; }
 .newspaper-issue .mod-ic { width: 30px; height: 30px; fill: none; stroke: var(--spot); stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
 .newspaper-issue .modules h4 { font: 500 14px/1.2 var(--f-display); margin: 2px 0 3px; }
 .newspaper-issue .modules p { margin: 0; font-size: 12.5px; line-height: 1.35; }
@@ -617,7 +610,7 @@
 .newspaper-issue .funnel { grid-column: 1 / -1; }
 .newspaper-issue .funnel ol { list-style: none; margin: 10px 0 0; padding: 0; display: grid; gap: 6px; }
 .newspaper-issue .funnel li { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 14px; align-items: center; }
-.newspaper-issue .fn-bar { display: flex; align-items: center; justify-content: flex-end; height: 34px; width: var(--w); margin-left: auto; background: var(--spot); color: #fff; padding: 0 10px; min-width: 64px; }
+.newspaper-issue .fn-bar { display: flex; align-items: center; justify-content: flex-end; height: 34px; width: var(--w); margin-left: auto; background: var(--spot); color: var(--on-spot); padding: 0 10px; min-width: 64px; }
 .newspaper-issue .fn-bar b { font: 500 18px/1 var(--f-display); }
 .newspaper-issue .fn-l { font-size: 14px; }
 .newspaper-issue .fn-note { font-size: 12px; color: var(--ink-soft); margin: 8px 0 0; }
@@ -688,7 +681,17 @@
 
 /* ---------- печать: каждый лист = полоса A3 ---------- */
 @media print {
-  .newspaper-issue { background: #fff; }
+  .newspaper-issue {
+    --paper: #fff;
+    --ink: #0e0e10;
+    --ink-soft: #64646d;
+    --spot: #4b44f0;
+    --on-spot: #fff;
+    --highlight: #ecebff;
+    --line: #dddde5;
+    color-scheme: light;
+    background: var(--paper);
+  }
   .newspaper-issue .desk { display: block; padding: 0; }
   .newspaper-issue .desk-bar { display: none; }
   .newspaper-issue .sheet { width: 297mm; height: 419mm; padding: 13mm 13mm 11mm; box-shadow: none; break-after: page; break-inside: avoid; overflow: hidden; gap: 5mm; grid-template-rows: auto auto 1fr auto; background: #fff; }
@@ -728,7 +731,7 @@
   .newspaper-issue .fs-story .st-h { font-size: 14pt; }
   .newspaper-issue .cta { padding: 5mm 6mm; }
   .newspaper-issue .cta-h { font-size: 21pt; } .newspaper-issue .cta-t { font-size: 10pt; }
-  .newspaper-issue .cta-link { padding: 0; background: none; color: var(--spot-bright); font-size: 11pt; text-transform: none; letter-spacing: 0; }
+  .newspaper-issue .cta-link { padding: 0; background: none; color: var(--spot); font-size: 11pt; text-transform: none; letter-spacing: 0; }
   .newspaper-issue .cta .cta-qr { width: 30mm; height: 30mm; padding: 1.5mm; }
   .newspaper-issue .iv-card .a { font-size: 9.6pt; } .newspaper-issue .iv-card .q { font-size: 9pt; } .newspaper-issue .iv-studio { font-size: 12pt; } .newspaper-issue .iv-meta { font-size: 6.6pt; }
   .newspaper-issue .iv-grid { gap: 6mm 6mm; }

@@ -4,8 +4,21 @@ import {ServiceAPI} from './api'
 import {copy} from './copy'
 import {deliveryFailure,formatDigest,localeFrom,splitMessage} from './digest'
 
-export function createBot(token:string,api:ServiceAPI,publicURL:string,options?:BotConfig<Context>){
+export function telegramAllowedUpdates(channelOnly:boolean):Array<'channel_post'>{
+  // Telegram keeps the previous subscription when allowed_updates is omitted.
+  return channelOnly?['channel_post']:[]
+}
+
+export function configureWebhook(bot:Bot,url:string,secret:string,channelOnly:boolean){
+  return bot.api.setWebhook(url,{
+    secret_token:secret,
+    allowed_updates:telegramAllowedUpdates(channelOnly),
+  })
+}
+
+export function createBot(token:string,api:ServiceAPI,publicURL:string,options?:BotConfig<Context>,channelOnly=false){
   const bot=new Bot(token,options)
+  if(channelOnly)return bot
   const user=(ctx:Context)=>api.request<User>('/internal/bot/users/upsert',{telegramId:String(ctx.from!.id),username:ctx.from?.username,locale:localeFrom(ctx.from?.language_code)})
   const update=(ctx:Context,patch:unknown)=>api.request<User>('/internal/bot/users/'+ctx.from!.id,patch,'PATCH')
   const languages=()=>new InlineKeyboard().text('RU','lang:ru').text('ҚАЗ','lang:kk').text('EN','lang:en')

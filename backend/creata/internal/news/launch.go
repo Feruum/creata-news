@@ -7,6 +7,7 @@ import (
 	"sort"
 	"strings"
 	"time"
+	"unicode/utf8"
 )
 
 var launchSlug = regexp.MustCompile(`^[a-z0-9]+(?:-[a-z0-9]+)*$`)
@@ -15,34 +16,43 @@ func validateLaunch(d Doc) error {
 	if !launchSlug.MatchString(str(d["slug"])) || len(str(d["slug"])) > 100 {
 		return errStatus(400, "Use a slug containing lowercase letters, numbers and hyphens")
 	}
-	if strings.TrimSpace(str(d["name"])) == "" || len(str(d["name"])) > 200 {
+	if !has([]string{"draft", "published", "archived"}, str(d["status"])) {
+		return errStatus(400, "Invalid launch status")
+	}
+	return validateLaunchContent(d, true)
+}
+
+func validateLaunchContent(d Doc, complete bool) error {
+	name, ok := d["name"].(string)
+	if !ok || utf8.RuneCountInString(name) > 200 || (complete && strings.TrimSpace(name) == "") {
 		return errStatus(400, "A startup name is required (up to 200 characters)")
 	}
 	for _, key := range []string{"country", "categoryId"} {
-		if _, ok := d[key].(string); !ok || len(str(d[key])) > 100 {
+		if value, ok := d[key].(string); !ok || utf8.RuneCountInString(value) > 100 {
 			return errStatus(400, key+" must be a string (up to 100 characters)")
 		}
 	}
-	if _, e := canonicalURL(str(d["url"])); e != nil {
+	website, websiteIsString := d["url"].(string)
+	_, urlErr := canonicalURL(website)
+	if !websiteIsString || ((complete || website != "") && urlErr != nil) {
 		return errStatus(400, "A valid product URL is required")
 	}
-	if _, e := time.Parse("2006-01-02", str(d["launchDate"])); e != nil {
+	date, dateIsString := d["launchDate"].(string)
+	_, dateErr := time.Parse("2006-01-02", date)
+	if !dateIsString || ((complete || date != "") && dateErr != nil) {
 		return errStatus(400, "A valid launch date is required")
-	}
-	if !has([]string{"draft", "published", "archived"}, str(d["status"])) {
-		return errStatus(400, "Invalid launch status")
 	}
 	for _, field := range []string{"tagline", "description", "team"} {
 		text := object(d[field])
 		filled := false
 		for _, lang := range []string{"ru", "kk", "en"} {
 			value, ok := text[lang].(string)
-			if !ok || len(value) > 20000 {
+			if !ok || utf8.RuneCountInString(value) > 20000 {
 				return errStatus(400, field+" must contain ru, kk and en strings (up to 20000 characters)")
 			}
 			filled = filled || strings.TrimSpace(value) != ""
 		}
-		if !filled {
+		if complete && !filled {
 			return errStatus(400, field+" is required in at least one language")
 		}
 	}
@@ -108,6 +118,7 @@ func prepareLaunch(ctx context.Context, tx *Tx, out, input Doc, editing bool) er
 
 func (s *Server) launchRoutes() {
 	s.launchSocialRoutes()
+	s.launchSubmissionRoutes()
 	s.handle("GET "+base+"/admin/launches", func(w http.ResponseWriter, r *http.Request) error {
 		if _, e := s.require(r, true); e != nil {
 			return e

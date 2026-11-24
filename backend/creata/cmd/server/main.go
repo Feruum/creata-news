@@ -35,6 +35,11 @@ func main() {
 		}
 		return
 	}
+	if !*migrate && *grant == "" {
+		if e := cfg.Validate(); e != nil {
+			log.Fatal(e)
+		}
+	}
 	if *testSchema != "" {
 		var e error
 		cfg.DatabaseURL, e = news.IsolatedTestSchema(ctx, cfg.Environment, cfg.DatabaseURL, *testSchema, false)

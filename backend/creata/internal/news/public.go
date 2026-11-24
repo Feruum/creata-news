@@ -9,8 +9,9 @@ import (
 
 func (s *Server) publicRoutes() {
 	s.handle("GET "+base+"/public/popular", s.popularPublic)
-	s.handle("GET "+base+"/public/articles", s.articlesPublic)
-	s.handle("GET "+base+"/public/articles/{slug}", s.articlePublic)
+	s.handle("GET "+base+"/public/articles", s.catalogResponse(s.articlesPublic))
+	s.handle("GET "+base+"/public/articles/{slug}", s.catalogResponse(s.articlePublic))
+	s.handle("GET "+base+"/public/regions", s.catalogResponse(s.regionsPublic))
 	for path, kind := range map[string]string{"categories": "category", "authors": "author", "opportunities": "opportunity"} {
 		p, k := path, kind
 		s.handle("GET "+base+"/public/"+p, func(w http.ResponseWriter, r *http.Request) error {
@@ -42,71 +43,23 @@ func (s *Server) decorate(ctx context.Context, a Doc) Doc {
 	}
 	return c
 }
-func (s *Server) articlesPublic(w http.ResponseWriter, r *http.Request) error {
-	items, e := s.Store.List(r.Context(), "publication")
-	if e != nil {
-		return e
-	}
-	out := []Doc{}
-	q := r.URL.Query()
-	for _, a := range items {
-		if q.Get("format") != "" && materialFormat(a) != q.Get("format") {
-			continue
-		}
-		if q.Get("layer") != "" && str(a["layer"]) != q.Get("layer") {
-			continue
-		}
-		if q.Get("category") != "" && str(a["categoryId"]) != q.Get("category") {
-			continue
-		}
-		if q.Get("authorId") != "" && str(a["authorId"]) != q.Get("authorId") {
-			continue
-		}
-		if q.Get("region") != "" && str(a["region"]) != q.Get("region") {
-			continue
-		}
-		if search := strings.ToLower(q.Get("q")); search != "" {
-			text := strings.ToLower(localize(a["title"], locale(q.Get("locale"))) + " " + localize(a["body"], locale(q.Get("locale"))))
-			if !strings.Contains(text, search) {
-				continue
-			}
-		}
-		out = append(out, s.decorate(r.Context(), publicArticle(a)))
-	}
-	respond(w, 200, Doc{"items": out, "total": len(out)})
-	return nil
-}
-func (s *Server) articlePublic(w http.ResponseWriter, r *http.Request) error {
-	items, e := s.Store.List(r.Context(), "publication")
-	if e != nil {
-		return e
-	}
-	for _, a := range items {
-		if str(a["slug"]) == r.PathValue("slug") {
-			p := s.decorate(r.Context(), publicArticle(a))
-			history, _ := s.Store.List(r.Context(), "publication_version")
-			corrections := []Doc{}
-			for _, v := range history {
-				if str(v["articleId"]) == str(a["id"]) && str(v["note"]) != "" {
-					corrections = append(corrections, Doc{"revision": v["revision"], "note": v["note"], "publishedAt": v["publishedAt"]})
-				}
-			}
-			p["corrections"] = corrections
-			respond(w, 200, p)
-			return nil
-		}
-	}
-	return errStatus(404, "Article not found")
-}
 func (s *Server) opportunitiesPublic(w http.ResponseWriter, r *http.Request) error {
-	items, e := s.Store.List(r.Context(), "opportunity")
+	q := r.URL.Query()
+	var ids []string
+	if raw := q.Get("ids"); raw != "" {
+		ids = strings.Split(raw, ",")
+		if len(ids) > 100 {
+			return errStatus(400, "Choose at most 100 opportunity IDs")
+		}
+	}
+	items, e := s.Store.publicOpportunityCandidates(r.Context(), ids)
 	if e != nil {
 		return e
 	}
 	out := []Doc{}
-	q := r.URL.Query()
+	now := time.Now()
 	for _, o := range items {
-		if str(o["status"]) != "approved" || !parseTime(o["deadline"]).After(time.Now()) {
+		if str(o["status"]) != "approved" || !parseTime(o["deadline"]).After(now) {
 			continue
 		}
 		if q.Get("type") != "" && str(o["type"]) != q.Get("type") {

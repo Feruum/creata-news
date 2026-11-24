@@ -11,7 +11,7 @@ import { CreataEmblem } from './creata-emblem'
 import styles from './popular-stories.module.css'
 import {useDemoArticles} from '@/demo/use-pipeline'
 
-export function PopularStories({locale,articles:initialArticles,categories,imageForArticle}:{locale:Locale;articles:Article[];categories:Category[];imageForArticle?:(article:Article)=>string|undefined}) {
+export function PopularStories({locale,articles:initialArticles,categories,imageForArticle,onNavigate}:{locale:Locale;articles:Article[];categories:Category[];imageForArticle?:(article:Article)=>string|undefined;onNavigate?:()=>void}) {
   const articles=useDemoArticles(initialArticles)
   const carousel=useCarousel<HTMLOListElement>(articles.length),trackId=useId(),title={ru:'Популярное',kk:'Танымал',en:'Most popular'}[locale],t=copy[locale]
   if(!articles.length)return null
@@ -24,7 +24,7 @@ export function PopularStories({locale,articles:initialArticles,categories,image
     </div>
     <div className={styles.body}>
       <div ref={carousel.viewport} id={trackId} className={styles.viewport} tabIndex={0} onKeyDown={carousel.keyboard} role='group' aria-roledescription='carousel' aria-label={title} data-current-index={carousel.selected} data-snap-count={carousel.snapCount}><ol ref={carousel.track} className={styles.track} role='list' aria-label={title}>
-        {articles.map((article,index)=>{const category=categories.find(item=>item.id===article.categoryId);return <li key={article.id} className={styles.card}><Link href={localePath(locale,`/articles/${article.slug}`)}><MediaImage src={imageForArticle?.(article)??article.media?.url}/><span className={styles.shade}/><span className={styles.rank} aria-hidden='true'>{index+1}</span><div className={styles.copy}>{category&&<span className={styles.category}>{localize(category.name,locale)}</span>}<h3>{localize(article.title,locale)}</h3><p>{t.by} {article.author?.name||t.authorUnknown}</p></div></Link></li>})}
+        {articles.map((article,index)=>{const category=categories.find(item=>item.id===article.categoryId);return <li key={article.id} className={styles.card}><Link href={localePath(locale,`/articles/${article.slug}`)} onNavigate={onNavigate}><MediaImage src={imageForArticle?.(article)??article.media?.url}/><span className={styles.shade}/><span className={styles.rank} aria-hidden='true'>{index+1}</span><div className={styles.copy}>{category&&<span className={styles.category}>{localize(category.name,locale)}</span>}<h3>{localize(article.title,locale)}</h3><p>{t.by} {article.author?.name||t.authorUnknown}</p></div></Link></li>})}
       </ol></div>
       <div className={styles.actions}><CarouselActions title={title} trackId={trackId} canScroll={carousel.canScroll} scroll={carousel.scroll} locale={locale}><span className={styles.period}>{locale==='ru'?'За неделю':locale==='kk'?'Осы аптада':'This week'}</span></CarouselActions></div>
     </div>

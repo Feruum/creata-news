@@ -6,7 +6,8 @@ import { clone, fail, makeContext, requireRole, type Body, type DemoClock, type 
 import { createStore } from './store'
 import { supportsRoute } from './routes'
 export { DEMO_PIPELINE_KEY, DEMO_PIPELINE_EVENT } from './model'
-export type { DemoSeed, DemoState, DemoStorage, DemoClock, DemoAudit, DemoDelivery } from './model'
+export { followedStoryRequest, isFollowableStory, listFollowedStories } from './story-content'
+export type { DemoSeed, DemoState, DemoStorage, DemoClock, DemoAudit, DemoDelivery, FollowedStoryState } from './model'
 
 /** An isolated local API. No fetch, workers, credentials, or external sends. */
 export function createPipelineDemo(seed:DemoSeed,storage?:DemoStorage,now?:DemoClock) {

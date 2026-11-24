@@ -6,7 +6,11 @@
 .language-switch button { border: 0; background: transparent; font-size: 10px; font-weight: 500; border-radius: 999px; min-height: 32px; min-width: 33px; }
 .language-switch button[aria-pressed='true'] { background: var(--accent); color: var(--white); }
 .desktop-nav { display: none; } .home-heading { font-size: 23px; margin: 0 0 18px; max-width: 360px; }
-.bottom-nav { position: fixed; left: 50%; transform: translateX(-50%); bottom: max(12px, calc(env(safe-area-inset-bottom) + 8px)); width: 198px; display: flex; gap: 4px; justify-content: center; padding: 8px; border-radius: 999px; border: 1px solid #ffffff25; background: #242522e8; backdrop-filter: blur(24px); box-shadow: 0 8px 25px #24252220; z-index: 30; }
+.app-shell {
+  --bottom-nav-inset: max(12px, calc(env(safe-area-inset-bottom) + 8px));
+  --bottom-nav-height: 58px;
+}
+.bottom-nav { position: fixed; left: 50%; transform: translateX(-50%); bottom: var(--bottom-nav-inset); height: var(--bottom-nav-height); width: 198px; display: flex; gap: 4px; justify-content: center; padding: 8px; border-radius: 999px; border: 1px solid #ffffff25; background: #242522e8; backdrop-filter: blur(24px); box-shadow: 0 8px 25px #24252220; z-index: 30; }
 .bottom-nav a { display: grid; place-items: center; height: 40px; width: 56px; border-radius: 999px; color: #c6c7bd; }
 .bottom-nav a[aria-current='page'] { background: var(--accent); color: var(--white); } .bottom-nav a span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
 @media (min-width:600px) and (max-width:899px) { .app-shell { width: min(100%,640px); padding-inline: 28px; } }

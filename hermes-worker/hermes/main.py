@@ -9,6 +9,7 @@ from .api import API, APIError
 from .ai import NotConfigured
 from .pipeline import Pipeline
 from .accounting import reconcile_outbox
+from .photos import enrich_editorial_result
 
 stop=threading.Event()
 
@@ -21,6 +22,7 @@ def run_job(api,job):
     thread=threading.Thread(target=heartbeat,daemon=True);thread.start()
     try:
         result=Pipeline(api).process(job)
+        if not lost.is_set():result=enrich_editorial_result(job,result)
         if lost.is_set():raise RuntimeError('Job lease was lost; result not committed')
         api.post('/internal/jobs/'+job['id']+'/complete',{'leaseToken':lease,'result':result})
         print(json.dumps({'job':job['id'],'status':'succeeded'}),flush=True)
@@ -37,7 +39,7 @@ def main():
     token=os.getenv('CREATA_WORKER_TOKEN','')
     if len(token)<32:raise SystemExit('CREATA_WORKER_TOKEN must contain at least 32 characters')
     api=API(os.getenv('CREATA_API_ORIGIN','http://localhost:5555'),token)
-    worker_id=os.getenv('CREATA_WORKER_ID','hermes-'+str(uuid.uuid4())[:8])
+    worker_id=os.getenv('CREATA_WORKER_ID') or 'hermes-'+str(uuid.uuid4())[:8]
     for sig in (signal.SIGINT,signal.SIGTERM):signal.signal(sig,lambda *_:stop.set())
     while not stop.is_set():
         try:

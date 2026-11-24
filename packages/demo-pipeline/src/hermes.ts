@@ -1,6 +1,7 @@
 import type { Article, Job, ResearchBrief, Source, Story } from '@creata/contracts'
 import { clone, fail, find, list, localized, pick, requireRole, validUrl, type Body, type Context, type DemoState, type DemoStory } from './model'
-import { createArticle, remember } from './editorial'
+import { createArticle, publishArticle, remember, storyPermalinkConflicts, storyPermalinkMessage } from './editorial'
+import { isFollowableStory } from './story-content'
 
 const phases=['classification','research','draft','review'] as const
 const active=(j:Job)=>['queued','running'].includes(j.status)
@@ -43,7 +44,22 @@ export function advanceJobs(c:Context) {
   j.progress={phase:isDraft?'review':j.kind,status:j.status,updatedAt:completed};j.updatedAt=completed
   const source=c.state.sources.find(s=>s.id===j.payload.sourceId);if(source){source.lastRunAt=completed;source.nextRunAt=new Date(start+10000+source.intervalMinutes*60000).toISOString();source.lastError=j.error}
  }
- for(const a of c.state.articles){if(a.scheduledAt&&Date.parse(a.scheduledAt)<=c.time&&a.status==='approved'&&a.approvedRevision===a.revision){a.status='published';a.publishedAt=a.scheduledAt;a.publishedRevision=a.revision;a.scheduledAt=undefined;c.state.publications[a.id]=clone(a)}}
+ for(const a of c.state.articles){
+  if(a.scheduledAt&&Date.parse(a.scheduledAt)<=c.time&&a.status==='approved'&&a.approvedRevision===a.revision){
+   const scheduled={...c,iso:a.scheduledAt}
+   if(storyPermalinkConflicts(c,a)){
+    a.status='review'
+    a.approvedRevision=undefined
+    a.scheduledAt=undefined
+    a.reviewNotes=[...a.reviewNotes,storyPermalinkMessage]
+    remember(scheduled,a)
+    continue
+   }
+   if(a.storyUpdates?.length)a.updatedAt=scheduled.iso
+   publishArticle(scheduled,a)
+   if(isFollowableStory(a))remember(scheduled,a)
+  }
+ }
 }
 function sourceValid(body:Body) {if(!String(body.name??'').trim())fail(400,'Укажите название источника');validUrl(body.url);if(!['rss','website','telegram'].includes(body.type))fail(400,'Неизвестный тип источника');if(body.type==='telegram'&&!['t.me','telegram.me'].includes(new URL(body.url).hostname))fail(400,'Используйте публичную ссылку t.me');if(!Number.isInteger(body.intervalMinutes)||body.intervalMinutes<1||body.intervalMinutes>1440)fail(400,'Интервал должен быть от 1 до 1440 минут')}
 const storyVersion=(story:DemoStory)=>story.updatedAt??story.createdAt

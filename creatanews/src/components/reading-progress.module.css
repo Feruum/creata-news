@@ -1,0 +1,90 @@
+.button {
+  --segment-radius: 12px;
+
+  position: fixed;
+  inset-inline: 0;
+  inset-block-end: var(--reading-progress-inset);
+  z-index: 20;
+  display: none;
+  grid-auto-columns: minmax(0, 1fr);
+  grid-auto-flow: column;
+  align-items: center;
+  inline-size: min(334px, calc(100% - 32px));
+  min-block-size: var(--reading-progress-height);
+  margin-inline: auto;
+  padding: 0;
+  border: 0;
+  border-radius: var(--segment-radius);
+  background: transparent;
+  color: var(--creata-text);
+  font-size: 16px;
+  font-weight: 750;
+  font-variant-numeric: tabular-nums;
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--creata-accent);
+  outline-offset: 3px;
+}
+
+.segment {
+  display: grid;
+  place-items: center;
+  block-size: 39px;
+  border: 1px solid color-mix(in srgb, var(--creata-accent) 60%, var(--creata-border));
+  border-radius: var(--segment-radius);
+  background: linear-gradient(to right, var(--creata-accent) var(--segment-progress), var(--creata-panel) var(--segment-progress));
+}
+
+.segment + .segment {
+  margin-inline-start: -1px;
+}
+
+.label {
+  inline-size: 100%;
+  text-align: center;
+}
+
+@supports (background-clip: text) {
+  .label {
+    background: linear-gradient(to right, var(--creata-on-accent) var(--segment-progress), var(--creata-text) var(--segment-progress));
+    background-clip: text;
+    color: transparent;
+  }
+}
+
+/* This also excludes short touch viewports when a phone is rotated. */
+@media (width >= 700px) and ((height >= 500px) or (not (pointer: coarse))) {
+  :global(.app-shell.catalog-shell):has(.button) {
+    --reading-progress-inset: max(14px, calc(env(safe-area-inset-bottom) + 8px));
+    --reading-progress-height: 44px;
+    padding-block-end: calc(var(--reading-progress-inset) + var(--reading-progress-height) + 12px);
+  }
+
+  .button {
+    display: grid;
+  }
+}
+
+@media (700px <= width < 900px) {
+  :global(.app-shell.catalog-shell):has(.button) {
+    --reading-progress-inset: calc(var(--bottom-nav-inset) + var(--bottom-nav-height) + 8px);
+  }
+
+  .button {
+    --segment-radius: 10px;
+    inline-size: min(252px, calc(100% - 32px));
+    font-size: 14px;
+  }
+
+  .segment {
+    block-size: 32px;
+  }
+}
+
+@media (forced-colors: active) {
+  .label {
+    background: none;
+    color: ButtonText;
+  }
+}

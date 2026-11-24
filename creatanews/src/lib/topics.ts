@@ -1,4 +1,5 @@
 import type { Article, Category, Locale } from './models'
+import { copy } from './i18n'
 
 // Public navigation groups, independent of imported category IDs and Creata departments.
 export const topics = [
@@ -41,6 +42,28 @@ const regions:Record<string,Record<Locale,string>>={
   GB:{ru:'Великобритания',kk:'Ұлыбритания',en:'United Kingdom'},DE:{ru:'Германия',kk:'Германия',en:'Germany'},FR:{ru:'Франция',kk:'Франция',en:'France'},NL:{ru:'Нидерланды',kk:'Нидерланд',en:'Netherlands'},AE:{ru:'ОАЭ',kk:'БАӘ',en:'UAE'},
   ONLINE:{ru:'Онлайн',kk:'Онлайн',en:'Online'},WORLDWIDE:{ru:'Весь мир',kk:'Бүкіл әлем',en:'Worldwide'},GLOBAL:{ru:'Весь мир',kk:'Бүкіл әлем',en:'Worldwide'}
 }
+
+export const centralAsiaRegion = 'central-asia'
+export const centralAsianCountries = ['KZ', 'KG', 'TJ', 'TM', 'UZ'] as const
+const centralAsiaNames = new Set([centralAsiaRegion, ...Object.values(copy).map(text => text.centralAsia.toLowerCase())])
+
+function centralAsiaCode(value: string) {
+  if (typeof value !== 'string') return
+  const name = value.trim().toLowerCase()
+  if (centralAsiaNames.has(name)) return centralAsiaRegion
+  return centralAsianCountries.find(code => code.toLowerCase() === name ||
+    Object.values(regions[code]).some(label => label.toLowerCase() === name))
+}
+
+export function matchesArticleRegion(articleRegion: string, requestedRegion: string) {
+  const requested = centralAsiaCode(requestedRegion)
+  if (!requested) return articleRegion === requestedRegion
+  const article = centralAsiaCode(articleRegion)
+  return requested === centralAsiaRegion ? article !== undefined : article === requested
+}
+
 export function regionLabel(value:string,locale:Locale):string {
-  return regions[value.toUpperCase()]?.[locale]||value
+  const code = centralAsiaCode(value)
+  if (code === centralAsiaRegion) return copy[locale].centralAsia
+  return regions[code ?? value.toUpperCase()]?.[locale] || value
 }
