@@ -206,7 +206,7 @@ func TestAPIStoryConversionWithChangedPermalinkCannotPublish(t *testing.T) {
 		revise(draft)
 		draft["slug"] = "draft-slug"
 		draft["storyUpdates"] = []any{storyUpdate("notice", "2026-03-01T14:00:00Z")}
-		draft["status"] = "approved"
+		draft["status"] = "scheduled"
 		draft["approvedRevision"] = draft["revision"]
 		draft["scheduledAt"] = time.Now().Add(-time.Minute).Format(time.RFC3339)
 		return tx.Put(ctx, "article", draft)

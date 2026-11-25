@@ -3,17 +3,25 @@ import { clone, expected, fail, find, list, localized, pick, requireRole, validU
 import { followedStoryRequest } from './story-content'
 
 const roles=['reader','author','editor','chief_editor','admin']
+const adminTheme=(value:unknown):'light'|'dark'|'cats'=>value==='dark'||value==='cats'?value:'light'
 export function auth(c:Context,method:string,p:string[],body:Body):unknown|undefined {
  const s=c.state
  if(p[0]==='auth'){
-  if(method==='GET'&&p[1]==='me')return s.session
+  if(method==='GET'&&p[1]==='me')return {...s.session,user:s.session.user?{...s.session.user,adminTheme:adminTheme(s.users.find(u=>u.id===s.session.user!.id)?.adminTheme??s.session.user.adminTheme)}:null}
   if(method==='POST'&&p[1]==='logout'){s.session.user=null;s.session.csrfToken=undefined;c.audit('demo_logout','session');return {ok:true}}
-  if(method==='POST'&&p[1]==='dev-login'){const role=String(body.role||'chief_editor');if(!roles.includes(role))fail(400,'Неизвестная роль демоверсии');const author=s.authors[0];const user:User={id:author.id,name:author.name,roles:role==='chief_editor'?['chief_editor','admin']:[role],locale:'ru',stage:'building',topics:[],frequency:'daily',paused:false,verticals:s.categories.map(x=>x.id),telegramLinked:false};s.session={user,csrfToken:'demo-local-session',providers:{google:false,telegram:false},devAuth:true};const index=s.users.findIndex(u=>u.id===user.id);if(index>=0)s.users[index]=clone(user);else s.users.push(clone(user));c.audit('demo_role_changed',user.id,{role});return s.session}
+  if(method==='POST'&&p[1]==='dev-login'){const role=String(body.role||'chief_editor');if(!roles.includes(role))fail(400,'Неизвестная роль демоверсии');const author=s.authors[0];const user:User={id:author.id,name:author.name,roles:role==='chief_editor'?['chief_editor','admin']:[role],locale:'ru',stage:'building',topics:[],frequency:'daily',paused:false,verticals:s.categories.map(x=>x.id),telegramLinked:false,adminTheme:adminTheme(s.users.find(u=>u.id===author.id)?.adminTheme)};s.session={user,csrfToken:'demo-local-session',providers:{google:false,telegram:false},devAuth:true};const index=s.users.findIndex(u=>u.id===user.id);if(index>=0)s.users[index]=clone(user);else s.users.push(clone(user));c.audit('demo_role_changed',user.id,{role});return s.session}
   if(p[1]==='google'||p[1]==='telegram')fail(501,'В демоверсии нет внешней авторизации. Используйте локальный вход с ролью.','demo_external_unavailable')
  }
  if(p[0]==='account'){
   if(!s.session.user)fail(401,'Войдите в демоверсию');const user=s.session.user
-  if(method==='PATCH'&&p.length===1){Object.assign(user,pick(body,['name','locale','stage','topics','frequency','paused']));return user}
+  if(method==='PATCH'&&p.length===1){
+   if(Object.hasOwn(body,'adminTheme')&&!['light','dark','cats'].includes(body.adminTheme))fail(400,'Неизвестная тема оформления')
+   const stored=s.users.find(u=>u.id===user.id)
+   const changes=pick(body,['name','locale','stage','topics','frequency','paused','adminTheme'])
+   Object.assign(user,{adminTheme:adminTheme(stored?.adminTheme??user.adminTheme)},changes)
+   if(stored)Object.assign(stored,changes,{adminTheme:user.adminTheme})
+   return user
+  }
   if(p[1]==='saved'){if(method==='GET')return {articles:s.articles.filter(a=>s.saved.articles.includes(a.id)).map(a=>s.publications[a.id]).filter(Boolean),opportunities:s.opportunities.filter(o=>s.saved.opportunities.includes(o.id))};if(['POST','DELETE'].includes(method)&&['articles','opportunities','article','opportunity'].includes(p[2])){const kind=p[2].startsWith('article')?'articles':'opportunities';if(method==='POST'&&!s.saved[kind].includes(p[3]))s.saved[kind].push(p[3]);if(method==='DELETE')s.saved[kind]=s.saved[kind].filter(id=>id!==p[3]);return {ok:true}}}
   if(p[1]==='followed-stories'){
    const following={
@@ -59,7 +67,7 @@ export function auxiliary(c:Context,method:string,p:string[],body:Body,q:URLSear
  if(path==='admin/staff'&&method==='GET')return list(s.users.filter(u=>u.roles.some(r=>r!=='reader')).map(({id,name,roles,verticals})=>({id,name,roles,verticals})))
  if(p[1]==='users'){if(method==='GET'&&p.length===2)return list(s.users);if(method==='PATCH'&&p.length===3){requireRole(s,['admin','chief_editor']);const user=find(s.users,p[2]);if(body.roles&&(!Array.isArray(body.roles)||body.roles.some((r:string)=>!roles.includes(r))))fail(400,'Неизвестная роль');Object.assign(user,pick(body,['roles','verticals']));if(s.session.user?.id===user.id)s.session.user=clone(user);c.audit('demo_user_updated',user.id);return user}}
  if(path==='admin/analytics'&&method==='GET'){
-  const statuses=Object.fromEntries(['new','writing','review','rework','approved','published','rejected'].map(status=>[status,s.articles.filter(a=>a.status===status).length]));const stages=Object.keys(statuses);return {published:Object.keys(s.publications).length,stories:s.stories.filter(x=>x.status!=='merged').length,subscribers:s.users.filter(u=>u.roles.includes('reader')).length,views:1240,saves:67+s.saved.articles.length,opportunityClicks:43,statuses,aiCostUsd:s.settings.ai.spentTodayUsd,simulated:true,daily:Array.from({length:7},(_,i)=>({date:new Date(c.time-(6-i)*86400000).toISOString().slice(0,10),views:[132,164,141,188,172,201,242][i]})),stageMetrics:{articleCount:s.articles.length,durations:stages.map(stage=>({stage,completedVisits:s.audit.filter(a=>a.action===`article_${stage==='review'?'submit':stage==='approved'?'approve':stage==='published'?'publish':stage}`).length,averageSeconds:120,medianSeconds:100,p90Seconds:240,currentCount:statuses[stage],averageCurrentAgeSeconds:Math.max(0,s.articles.filter(a=>a.status===stage).reduce((sum,a)=>sum+(c.time-Date.parse(a.updatedAt))/1000,0)/(statuses[stage]||1))})),funnel:stages.map(stage=>({stage,count:statuses[stage],rate:statuses[stage]/Math.max(1,s.articles.length)})),transitions:[]}}
+  const statuses=Object.fromEntries(['new','writing','review','rework','approved','scheduled','published','unpublished','rejected'].map(status=>[status,s.articles.filter(a=>a.status===status).length]));const stages=Object.keys(statuses);return {published:Object.keys(s.publications).length,stories:s.stories.filter(x=>x.status!=='merged').length,subscribers:s.users.filter(u=>u.roles.includes('reader')).length,views:1240,saves:67+s.saved.articles.length,opportunityClicks:43,statuses,aiCostUsd:s.settings.ai.spentTodayUsd,simulated:true,daily:Array.from({length:7},(_,i)=>({date:new Date(c.time-(6-i)*86400000).toISOString().slice(0,10),views:[132,164,141,188,172,201,242][i]})),stageMetrics:{articleCount:s.articles.length,durations:stages.map(stage=>({stage,completedVisits:s.audit.filter(a=>a.action===`article_${stage==='review'?'submit':stage==='approved'?'approve':stage==='published'?'publish':stage}`).length,averageSeconds:120,medianSeconds:100,p90Seconds:240,currentCount:statuses[stage],averageCurrentAgeSeconds:Math.max(0,s.articles.filter(a=>a.status===stage).reduce((sum,a)=>sum+(c.time-Date.parse(a.updatedAt))/1000,0)/(statuses[stage]||1))})),funnel:stages.map(stage=>({stage,count:statuses[stage],rate:statuses[stage]/Math.max(1,s.articles.length)})),transitions:[]}}
  }
  if(['authors','opportunities','launches'].includes(p[1])) {
   const kind=p[1] as 'authors'|'opportunities'|'launches';if(method==='GET'&&p.length===2)return list<Author|Opportunity|Launch>(s[kind])

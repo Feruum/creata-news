@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'bun:test'
-import { allowedArticleActions, articleFields, canAccessStoryFollowUps, canPublishArticle, emptyText, filterArticles, localized, storyFollowUpStatus, storyUpdateDateInput, storyUpdateTimestamp, validateSource } from './domain'
+import { allowedArticleActions, articleFields, canAccessStoryFollowUps, canPublishArticle, emptyText, filterArticles, localized, storyFollowUpStatus, storyUpdateDateInput, storyUpdateTimestamp, statuses, validateSource } from './domain'
 import type { Article, User } from './types'
 
 const user = (roles: string[], verticals: string[] = []): User => ({ id: 'u1', name: 'Editor', locale: 'ru', stage: 'exploring', topics: [], frequency: 'daily', paused: false, roles, verticals, telegramLinked: false })
@@ -25,6 +25,19 @@ describe('editorial authorization affordances', () => {
     expect(allowedArticleActions(user(['editor'], ['ai']), { ...article, layer: 'eco' })).not.toContain('approve')
     expect(allowedArticleActions(user(['editor'], ['ai']), { ...article, layer: 'eco' })).not.toContain('reject')
     expect(allowedArticleActions(user(['chief_editor']), { ...article, layer: 'eco', status: 'approved', approvedRevision: 4 })).toContain('publish')
+  })
+  test('nine editorial statuses include scheduling and withdrawal in workflow order', () => {
+    expect(statuses).toEqual(['new', 'writing', 'review', 'rework', 'approved', 'scheduled', 'published', 'unpublished', 'rejected'])
+    const chief = user(['chief_editor'])
+    const scheduled = {...article, status: 'scheduled' as const, approvedRevision: 4, scheduledAt: '2026-11-26T12:00:00Z'}
+    expect(allowedArticleActions(chief, scheduled)).toContain('schedule')
+    expect(allowedArticleActions(chief, scheduled)).toContain('publish')
+    expect(allowedArticleActions(chief, {...scheduled, approvedRevision: 3})).not.toContain('publish')
+    const withdrawn = {...article, status: 'unpublished' as const}
+    expect(allowedArticleActions(chief, withdrawn)).toContain('approve')
+    expect(allowedArticleActions(chief, withdrawn)).not.toContain('publish')
+    expect(allowedArticleActions(user(['author']), scheduled)).toEqual(['submit'])
+    expect(filterArticles([scheduled, withdrawn], {query:'', locale:'ru', status:'scheduled', categoryId:'', authorId:''})).toEqual([scheduled])
   })
   test('publishing requires approval of the current revision', () => {
     expect(allowedArticleActions(user(['chief_editor']), { ...article, status: 'approved', approvedRevision: 3 })).not.toContain('publish')

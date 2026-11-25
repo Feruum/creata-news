@@ -63,8 +63,8 @@ test('newspaper follows the Creata palette in both themes and prints on white', 
 
   await expect(issue).toHaveCSS('background-color', 'rgb(251, 250, 247)')
   await expect(sheet).toHaveCSS('background-color', 'rgb(255, 255, 255)')
-  await expect(accent).toHaveCSS('color', 'rgb(75, 68, 240)')
-  await expect(mastheadNews).toHaveCSS('color', 'rgb(75, 68, 240)')
+  await expect(accent).toHaveCSS('color', 'rgb(75, 68, 246)')
+  await expect(mastheadNews).toHaveCSS('color', 'rgb(75, 68, 246)')
 
   await page.getByRole('button', { name: 'Включить тёмную тему', exact: true }).click()
   await expect(sheet).toHaveCSS('background-color', 'rgb(25, 25, 30)')
@@ -76,7 +76,7 @@ test('newspaper follows the Creata palette in both themes and prints on white', 
   await page.emulateMedia({ media: 'print' })
   await expect(sheet).toHaveCSS('background-color', 'rgb(255, 255, 255)')
   await expect(sheet).toHaveCSS('color', 'rgb(14, 14, 16)')
-  await expect(accent).toHaveCSS('color', 'rgb(75, 68, 240)')
+  await expect(accent).toHaveCSS('color', 'rgb(75, 68, 246)')
 
   await page.emulateMedia({ media: 'screen' })
   await page.getByRole('link', { name: 'Все выпуски', exact: true }).click()

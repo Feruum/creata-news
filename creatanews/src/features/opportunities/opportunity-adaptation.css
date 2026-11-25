@@ -6,7 +6,7 @@
 .prototype-opportunity-scope .h-title a:hover{color:var(--creata-accent)}
 .prototype-opportunity-scope .border{border-style:solid}
 .prototype-opportunity-scope .border-t-2{border-top-style:solid}
-.prototype-opportunity-scope{font-family:'Golos Text',var(--creata-font);font-size:16px;line-height:1.5}
+.prototype-opportunity-scope{font-family:var(--font-text);font-size:16px;line-height:1.5}
 .prototype-opportunities-band{height:auto;margin-top:44px}
 .prototype-opportunities-band .wrap{padding-inline:0}
 .prototype-opportunities-band .btn{padding-inline:12px}

@@ -10,7 +10,7 @@ export function AdminProvider({ mode, children }: { mode: Mode; children: ReactN
   const [locale, changeLocale] = useState<Locale>(readLocale)
   const [message, setMessage] = useState('')
   const queryClient = useQueryClient()
-  const session = useQuery({ queryKey: ['session'], queryFn: () => (adminDemo?demoRequest:createApi())<Session>('/auth/me'), retry: 1 })
+  const session = useQuery({ queryKey: ['session'], queryFn: () => (adminDemo?demoRequest:createApi())<Session>('/auth/me'), retry: 1, refetchOnWindowFocus: 'always' })
   const api = adminDemo?demoRequest:createApi('/api/creata/v1', () => session.data?.csrfToken)
   const setLocale = (next: Locale) => { changeLocale(next); try { localStorage.setItem('creata-admin-locale', next) } catch {} }
   useEffect(() => { document.documentElement.lang = locale }, [locale])

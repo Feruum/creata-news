@@ -4,21 +4,21 @@
 .heroArtwork img { object-fit: cover; }
 .heroArtwork::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, #11111435, transparent 55%, #111114); }
 .heroCopy { display: flex; flex-direction: column; justify-content: space-between; gap: 64px; padding: 48px 36px 36px 28px; }
-.heroCopy h1 { font-size: clamp(30px, 2.8vw, 40px); font-weight: 500; line-height: 1.17; letter-spacing: -.04em; text-wrap: balance; }
+.heroCopy h1 { font-size: clamp(30px, 2.8vw, 40px); font-weight:700; line-height: 1.17; letter-spacing:-.025em; text-wrap: balance; }
 .heroCopy h1 a:hover { color: #bcb7ff; }
 .heroCopy p { max-width: 340px; margin-top: 22px; color: #aaa9b5; font-size: 14px; line-height: 1.75; }
-.heroByline { display: flex; align-items: center; gap: 12px; color: #f2f1f5; font-size: 11px; }
-.heroByline > span:first-child { display: grid; place-items: center; flex-shrink: 0; width: 32px; height: 36px; border-radius: 4px; background: #ecebff; color: #4b44f0; font-size: 29px; font-weight: 800; line-height: 1; }
-.heroByline small { display: block; margin-top: 4px; color: #aaa9b5; font-size: 9px; }
+.heroByline { display: flex; align-items: center; gap: 12px; color: #f2f1f5; font-size:12px; }
+.heroByline > span:first-child { display: grid; place-items: center; flex-shrink: 0; width: 32px; height: 36px; border-radius: 4px; background: #ecebff; color: #4b44f6; font-size: 29px; font-weight: 800; line-height: 1; }
+.heroByline small { display: block; margin-top: 4px; color: #aaa9b5; font-size:12px; }
 .latest { margin-top: 100px; }
 .sectionHead { display: flex; justify-content: space-between; align-items: center; gap: 28px; margin-bottom: 76px; }
-.sectionHead h2 { font-size: 32px; font-weight: 600; line-height: 1.2; letter-spacing: -.04em; }
+.sectionHead h2 { font-size: 32px; font-weight:500; line-height: 1.2; letter-spacing:-.025em; }
 .sectionTools { display: flex; align-items: center; gap: 22px; }
 .filters { display: flex; flex-wrap: wrap; gap: 7px; }
-.filters button { min-height: 34px; padding: 8px 13px; border: 1px solid var(--line); border-radius: 999px; background: transparent; font-size: 11px; line-height: 1.3; transition: background .15s, color .15s; }
+.filters button { min-height: 34px; padding: 8px 13px; border: 1px solid var(--line); border-radius: 999px; background: transparent; font-size:12px; line-height: 1.3; transition: background .15s, color .15s; }
 .filters button[aria-pressed=true] { border-color: var(--accent); background: var(--accent); color: var(--creata-on-accent); }
 .filters button:hover:not([aria-pressed=true]) { background: var(--soft); }
-.seeAll { display: flex; align-items: center; gap: 6px; min-height: 34px; font-size: 11px; white-space: nowrap; }
+.seeAll { display: flex; align-items: center; gap: 6px; min-height: 34px; font-size:12px; white-space: nowrap; }
 .storyViewport { min-width: 0; overflow: hidden; }
 .storyViewport:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; }
 .storyGrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: start; gap: 56px 30px; }
@@ -46,12 +46,12 @@
  .sectionHead h2 { font-size: 28px; }
  .sectionTools { align-items: center; justify-content: space-between; gap: 12px; margin-top: 22px; min-width: 0; }
  .filters { flex-wrap: nowrap; gap: 6px; min-width: 0; overflow-x: auto; scrollbar-width: none; padding-block: 4px; }
- .filters button { flex: 0 0 auto; min-height: 40px; padding: 10px 12px; font-size: 11px; white-space: nowrap; }
- .seeAll { flex-shrink: 0; min-height: 40px; font-size: 11px; }
+ .filters button { flex: 0 0 auto; min-height: 40px; padding: 10px 12px; font-size:12px; white-space: nowrap; }
+ .seeAll { flex-shrink: 0; min-height: 40px; font-size:12px; }
  .storyGrid { display: flex; gap: 18px; touch-action: pan-y pinch-zoom; }
  .storyGrid > article { flex: 0 0 88%; min-width: 0; }
  .mobileActions { display: block; margin-top: 20px; }
  .mobileActions > div { justify-content: flex-end; }
- .mobileActions > div > span { margin-right: auto; color: var(--muted); font-size: 10px; }
+ .mobileActions > div > span { margin-right: auto; color: var(--muted); font-size:12px; }
 }
 @media (prefers-reduced-motion: reduce) { .filters button { transition: none; } }

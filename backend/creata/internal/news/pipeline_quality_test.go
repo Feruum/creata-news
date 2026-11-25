@@ -31,7 +31,7 @@ func TestOldAIResultCannotOverwriteRejectOrNewerReworkAtSameRevision(t *testing.
 			a.request("POST", "/admin/articles/"+aid+"/actions", Doc{"action": decision, "expectedRevision": 1, "note": "New editorial decision"}, 200, "")
 			a.request("POST", "/internal/jobs/"+str(old["id"])+"/complete", Doc{"leaseToken": old["leaseToken"], "result": validArticle()}, 409, a.worker)
 			current := a.request("GET", "/admin/articles/"+aid, nil, 200, "")
-			if str(current["status"]) != map[string]string{"reject": "rejected", "rework": "rework", "unpublish": "review"}[decision] || integer(current["revision"]) != 1 {
+			if str(current["status"]) != map[string]string{"reject": "rejected", "rework": "rework", "unpublish": "unpublished"}[decision] || integer(current["revision"]) != 1 {
 				t.Fatal("Old AI result changed an editorial decision")
 			}
 			if decision == "rework" {

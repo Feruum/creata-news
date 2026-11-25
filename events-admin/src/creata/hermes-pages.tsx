@@ -9,11 +9,12 @@ import { localized, validateSource } from './domain'
 import { formatDate, type CopyKey } from './i18n'
 import { Badge, Button, Empty, ErrorPanel, ExternalLink, Field, Loading, Modal, PageHead } from './ui'
 import { AISettingsPage, RulesPage } from './settings-pages'
+import { AppearancePage } from './appearance-settings'
 import { GraphicsPage } from './graphics-page'
 import type { Job, List, Locale, Source } from './types'
 import { PipelineProgress } from './pipeline-progress'
 
-export function HermesPage(){const {section}=useParams({strict:false}) as {section:string};switch(section){case'charts':return <GraphicsPage hermes/>;case'sources':return <SourcesPage/>;case'jobs':return <JobsPage/>;case'runs':return <JobsPage runs/>;case'errors':return <JobsPage errors/>;case'rules':return <RulesPage/>;case'ai':return <AISettingsPage/>;default:return <Empty title='404'/>}}
+export function HermesPage(){const {section}=useParams({strict:false}) as {section:string};switch(section){case'charts':return <GraphicsPage hermes/>;case'sources':return <SourcesPage/>;case'jobs':return <JobsPage/>;case'runs':return <JobsPage runs/>;case'errors':return <JobsPage errors/>;case'rules':return <RulesPage/>;case'ai':return <AISettingsPage/>;case'settings':return <AppearancePage/>;default:return <Empty title='404'/>}}
 function SourceForm({source,onClose}:{source?:Source;onClose:()=>void}){
  const {api,t,locale,toast}=useAdmin();const client=useQueryClient();const cats=useCategories();const [value,setValue]=useState<Omit<Source,'id'>>(()=>source?{...source}:{name:'',type:'rss',url:'',locale,topics:[],intervalMinutes:30,active:true});const [error,setError]=useState<CopyKey|null>(null)
  const mutation=useMutation({mutationFn:()=>api(source?`/admin/sources/${encodeURIComponent(source.id)}`:'/admin/sources',{method:source?'PATCH':'POST',body:JSON.stringify(value)}),onSuccess:()=>{void client.invalidateQueries({queryKey:['sources']});toast(t('saved'));onClose()}})

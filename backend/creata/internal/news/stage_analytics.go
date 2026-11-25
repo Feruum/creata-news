@@ -16,9 +16,9 @@ func recordStage(t *Tx, ctx context.Context, a Doc, from string, u Doc) error {
 }
 
 func editorialStageMetrics(articles, audits []Doc, at time.Time) Doc {
-	stages := []string{"new", "writing", "review", "rework", "approved", "published", "rejected"}
+	stages := []string{"new", "writing", "review", "rework", "approved", "scheduled", "published", "unpublished", "rejected"}
 	events := map[string][]Doc{}
-	legacy := map[string]string{"create": "new", "edit": "review", "submit": "review", "approve": "approved", "publish": "published", "unpublish": "review", "reject": "rejected", "rework": "rework"}
+	legacy := map[string]string{"create": "new", "edit": "review", "submit": "review", "approve": "approved", "schedule": "scheduled", "publish": "published", "unpublish": "unpublished", "reject": "rejected", "rework": "rework"}
 	for _, audit := range audits {
 		target := str(audit["targetId"])
 		detail := object(audit["detail"])

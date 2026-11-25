@@ -23,7 +23,7 @@ test('classic is the public home and V2 still works via its direct URL',async({p
  const portrait=page.locator('.home-intro-art img')
  await expect(portrait).toHaveAttribute('src',/creata-human-hero-v1/)
  await expect.poll(()=>portrait.evaluate(node=>(node as HTMLImageElement).complete&&(node as HTMLImageElement).naturalWidth>0)).toBe(true)
- expect(await page.locator('.site-header .creata-logo-news').evaluate(node=>getComputedStyle(node).fill)).toBe('rgb(75, 68, 240)')
+ expect(await page.locator('.site-header .creata-logo-news').evaluate(node=>getComputedStyle(node).fill)).toBe('rgb(75, 68, 246)')
  await page.locator('.site-header .original-menu-trigger').click()
  await page.locator('#creata-menu').getByRole('link',{name:'Главная',exact:true}).click()
  await expect(page).toHaveURL(/\/ru$/)

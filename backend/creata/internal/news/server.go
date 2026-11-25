@@ -326,6 +326,9 @@ func safeUser(u Doc) Doc {
 	delete(c, "telegramId")
 	delete(c, "provider")
 	delete(c, "subject")
+	if !has([]string{"light", "dark", "cats"}, str(c["adminTheme"])) {
+		c["adminTheme"] = "light"
+	}
 	return c
 }
 func (s *Server) localRequest(r *http.Request) bool {
@@ -397,7 +400,7 @@ func (s *Server) devLogin(w http.ResponseWriter, r *http.Request) error {
 	return nil
 }
 func newUser(uid, name, lang string) Doc {
-	return Doc{"id": uid, "name": name, "locale": locale(lang), "stage": "exploring", "topics": []any{}, "frequency": "daily", "paused": false, "roles": []any{"reader"}, "verticals": []any{}, "telegramLinked": false, "createdAt": now()}
+	return Doc{"id": uid, "name": name, "locale": locale(lang), "stage": "exploring", "topics": []any{}, "frequency": "daily", "paused": false, "roles": []any{"reader"}, "verticals": []any{}, "telegramLinked": false, "adminTheme": "light", "createdAt": now()}
 }
 func (s *Server) logout(w http.ResponseWriter, r *http.Request) error {
 	if _, e := s.require(r, false); e != nil {

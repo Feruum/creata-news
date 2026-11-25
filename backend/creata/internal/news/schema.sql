@@ -27,6 +27,40 @@ CREATE INDEX IF NOT EXISTS creata_events_time ON creata_events(created_at,kind);
 CREATE TABLE IF NOT EXISTS creata_migrations(version int PRIMARY KEY,applied_at timestamptz NOT NULL DEFAULT now());
 INSERT INTO creata_migrations(version) VALUES(1) ON CONFLICT DO NOTHING;
 
+-- Convert legacy editorial states without touching historical revisions or publication snapshots.
+DO $$
+BEGIN
+ IF NOT EXISTS (SELECT 1 FROM creata_migrations WHERE version=2) THEN
+  UPDATE creata_records
+   SET data=jsonb_set(data,'{status}','"scheduled"')
+   WHERE kind='article' AND data->>'status' IN ('approved','published')
+    AND COALESCE(data->>'scheduledAt','')<>''
+    AND data->>'revision'=data->>'approvedRevision';
+  -- Older withdrawals landed in review. Reclassify only when the latest article
+  -- audit explicitly records a withdrawal of this same revision, with no public
+  -- snapshot or new approval/schedule. Ordinary review drafts remain unchanged.
+  UPDATE creata_records AS article
+   SET data=jsonb_set(article.data,'{status}','"unpublished"')
+   WHERE article.kind='article' AND article.data->>'status'='review'
+    AND article.data->>'publishedRevision' IS NULL
+    AND article.data->>'approvedRevision' IS NULL
+    AND article.data->>'scheduledAt' IS NULL
+    AND NOT EXISTS (SELECT 1 FROM creata_records publication WHERE publication.kind='publication' AND publication.id=article.id)
+    AND EXISTS (
+     SELECT 1 FROM (
+      SELECT audit.data FROM creata_records audit
+       WHERE audit.kind='audit' AND audit.data->>'targetId'=article.id
+        AND audit.data->>'action' LIKE 'article.%'
+       ORDER BY COALESCE(NULLIF(audit.data->>'createdAt','')::timestamptz,audit.created_at) DESC, audit.id DESC
+       LIMIT 1
+     ) latest
+     WHERE latest.data->>'action'='article.unpublish'
+      AND latest.data->'detail'->>'revision'=article.data->>'revision'
+    );
+  INSERT INTO creata_migrations(version) VALUES(2);
+ END IF;
+END $$;
+
 CREATE TABLE IF NOT EXISTS creata_postiz_delivery (
  id text PRIMARY KEY,
  article_id text NOT NULL,
@@ -47,3 +81,11 @@ CREATE TABLE IF NOT EXISTS creata_postiz_delivery (
 CREATE INDEX IF NOT EXISTS creata_postiz_due ON creata_postiz_delivery(next_at) WHERE status IN ('queued','sending','uncertain','accepted','draft');
 CREATE INDEX IF NOT EXISTS creata_postiz_held_media ON creata_postiz_delivery((snapshot->>'mediaUrl')) WHERE status IN ('scheduled','queued','sending');
 CREATE TABLE IF NOT EXISTS creata_postiz_throttle (scope text PRIMARY KEY, until_at timestamptz NOT NULL);
+
+-- Repair the known reference seed spelling only; keep editorially changed titles.
+UPDATE creata_records SET data=jsonb_set(data,'{title,ru}',to_jsonb('Designathon: дизайн-марафон TransforNATION'::text))
+ WHERE kind='opportunity' AND id='o-designthon' AND data->'title'->>'ru'='Designthon: дизайн-марафон TransforNATION';
+UPDATE creata_records SET data=jsonb_set(data,'{title,en}',to_jsonb('Designathon: TransforNATION design marathon'::text))
+ WHERE kind='opportunity' AND id='o-designthon' AND data->'title'->>'en'='Designthon: TransforNATION design marathon';
+UPDATE creata_records SET data=jsonb_set(data,'{title,kk}',to_jsonb('Designathon: TransforNATION дизайн марафоны'::text))
+ WHERE kind='opportunity' AND id='o-designthon' AND data->'title'->>'kk'='Designthon: TransforNATION дизайн марафоны';

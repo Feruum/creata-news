@@ -22,8 +22,8 @@ export function allowedArticleActions(user: User, article: Article): ArticleActi
   const actions: ArticleAction[] = ['submit', 'rework']
   if (canPublishArticle(user, article)) {
     actions.push('reject')
-    if (article.status === 'review' || article.status === 'rework' || article.status === 'new') actions.push('approve')
-    if (article.approvedRevision === article.revision && article.status === 'approved') actions.push('publish', 'schedule')
+    if (article.status === 'review' || article.status === 'rework' || article.status === 'new' || article.status === 'unpublished') actions.push('approve')
+    if (article.approvedRevision === article.revision && (article.status === 'approved' || article.status === 'scheduled')) actions.push('publish', 'schedule')
     if (article.publishedRevision) actions.push('unpublish')
   }
   return actions
@@ -38,7 +38,7 @@ export function validateSource(source: Pick<Source, 'name' | 'type' | 'url' | 'i
   if (!Number.isInteger(source.intervalMinutes) || source.intervalMinutes < 1 || source.intervalMinutes > 1440) return 'invalidInterval'
   return null
 }
-export const statuses = ['new', 'writing', 'review', 'rework', 'approved', 'published', 'rejected'] as const
+export const statuses = ['new', 'writing', 'review', 'rework', 'approved', 'scheduled', 'published', 'unpublished', 'rejected'] as const
 export const articleFields = (a: Article) => ({
   slug: a.slug, title: a.title, lead: a.lead, body: a.body, summary: a.summary, actions: a.actions,
   layer: a.layer, categoryId: a.categoryId, region: a.region, tags: a.tags, authorId: a.authorId,

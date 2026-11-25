@@ -8,7 +8,7 @@ test('editorial homepage preserves content and three-column hierarchy in every l
  for(const locale of ['ru','kk','en']){
   await page.setViewportSize({width:1440,height:1100});await page.goto('/'+locale+'/v2')
   await expect(page.getByRole('heading',{level:1})).toHaveCount(1);await expect(page.getByTestId('home-story-rail')).toBeVisible()
-  const type=await fonts(page);expect(type.body).toContain('Inter');expect(type.heading).toContain('Archivo');expect(type.inter&&type.archivo).toBe(true)
+  await page.evaluate(()=>document.fonts.ready);const type=await page.evaluate(()=>({body:getComputedStyle(document.body).fontFamily,heading:getComputedStyle(document.querySelector('h1')!).fontFamily,families:[...document.fonts].map(face=>face.family)}));expect(type.body).toContain('Involve');expect(type.heading).toContain('Unbounded');expect(type.families).not.toContain('Inter');expect(type.families).not.toContain('Archivo')
   if(await page.locator('html').getAttribute('data-theme')!=='light'){await page.locator('.site-header .original-menu-trigger').click();await page.locator('#creata-menu .theme-toggle').click();await page.keyboard.press('Escape')}
   await expect(page.locator('.home-header-nav')).toBeVisible()
   const lead=await page.getByTestId('home-lead').boundingBox(),rail=await page.getByTestId('home-story-rail').boundingBox()

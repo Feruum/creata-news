@@ -67,7 +67,7 @@ test('segmented reading progress follows scroll and returns to the top', async (
     })
     await expect(progress).toHaveText('12%')
     await expect(segments.first()).toHaveCSS('--segment-progress', '48%')
-    await expect(segments.first()).toHaveCSS('background-image', /rgb\(75, 68, 240\)/)
+    await expect(segments.first()).toHaveCSS('background-image', /rgb\(75, 68, 246\)/)
     await expect(segments.last()).toHaveCSS('--segment-progress', '0%')
     await expect(progress).toBeInViewport({ ratio: 1 })
 

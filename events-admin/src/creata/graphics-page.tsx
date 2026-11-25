@@ -1,5 +1,5 @@
 import {adminPath,adminBase} from './demo'
-import { PostizOptions, PostizDeliveries } from './postiz'
+import { PublicationPostizOptions, PostizDeliveries } from './postiz'
 import type { schemas } from '@creata/contracts'
 import {applicationUrls} from './demo'
 import {useEffect,useState} from 'react'
@@ -46,7 +46,7 @@ export function GraphicEditor(){
 }
 
 function GraphicEditorForm({initial}:{initial:Article}){
- const [postizTargets, setPostizTargets] = useState<schemas['PostizTarget'][]>([])
+ const [postizTargets, setPostizTargets] = useState<schemas['PostizTarget'][] | undefined>([])
  const {api,locale,t,session,toast}=useAdmin(),client=useQueryClient(),categories=useCategories(),labels=graphicCopy[locale]
  const [a,setArticle]=useState(initial),[g,setGraphic]=useState<GraphicData>(()=>structuredClone(initial.graphic||blankGraphic(initial))),[lang,setLang]=useState<Locale>(locale),[csv,setCsv]=useState(''),[csvError,setCsvError]=useState(''),[action,setAction]=useState<ArticleAction|null>(null),[note,setNote]=useState(''),[schedule,setSchedule]=useState('')
  const pick=(ru:string,kk:string,en:string)=>choose(locale,ru,kk,en)
@@ -76,7 +76,7 @@ function GraphicEditorForm({initial}:{initial:Article}){
  {problem&&<p className='callout' role='status'>{problem}</p>}<label className='cge-check'><input type='checkbox' checked={g.verified} disabled={!hasData||!!problem} onChange={e=>setGraphic({...g,verified:e.target.checked})}/>{pick('Данные сверены с первоисточником','Деректер түпнұсқамен тексерілді','Data verified against the original source')}</label>
  </fieldset></section><aside className='cge-preview'><section className='panel'><h2>{t('preview')}</h2>{hasData&&!problem?<GraphicFigure data={g} locale={lang} title={text(a.title,lang)}/>:<Empty title={pick('Добавьте данные для предпросмотра','Алдын ала көру үшін деректер қосыңыз','Add data to see the preview')}/>}</section><section className='panel'><h2>Hermes</h2><p className='muted'>{pick('Подготовит график только из найденных в источнике чисел. Затем редактор проверяет данные и одобряет публикацию.','Дереккөздегі сандардан график дайындайды. Редактор деректерді тексеріп, жариялауды мақұлдайды.','Drafts a chart from source numbers. The editor verifies the data and approves publication.')}</p><Button type='button' variant='secondary' disabled={!editable||dirty||!g.sourceUrl||hermes.isPending} onClick={()=>hermes.mutate()}><Sparkles size={14}/>{pick('Подготовить через Hermes','Hermes арқылы дайындау','Draft with Hermes')}</Button>{initial.reviewNotes.map((n,i)=><p className='note-item' key={i}>{n}</p>)}</section></aside></div>
  {(editable||user.roles.includes('admin'))&&<PostizDeliveries articleId={initial.id}/>}
- <footer className='editor-controls'><Button type='button' disabled={!editable||!dirty||!!problem||pending} onClick={()=>save.mutate()}><Save size={14}/>{t('save')}</Button><div className='editor-action-list'>{permission.map(v=><Button type='button' key={v} variant={v==='reject'||v==='unpublish'?'danger':'secondary'} disabled={dirty||pending} onClick={()=>{setAction(v);setNote('');setSchedule('');setPostizTargets([])}}>{t(v==='rework'?'requestRework':v)}</Button>)}</div></footer>
- {action&&<Modal title={t(action==='rework'?'requestRework':action)} onClose={()=>setAction(null)}><form className='form-stack' onSubmit={e=>{e.preventDefault();act.mutate()}}>{(action==='publish'||action==='schedule')&&<PostizOptions article={initial} value={postizTargets} onChange={setPostizTargets}/>}
+ <footer className='editor-controls'><Button type='button' disabled={!editable||!dirty||!!problem||pending} onClick={()=>save.mutate()}><Save size={14}/>{t('save')}</Button><div className='editor-action-list'>{permission.map(v=><Button type='button' key={v} variant={v==='reject'||v==='unpublish'?'danger':'secondary'} disabled={dirty||pending} onClick={()=>{setAction(v);setNote('');setSchedule('');setPostizTargets(initial.status==='scheduled'?undefined:[])}}>{t(v==='rework'?'requestRework':v)}</Button>)}</div></footer>
+ {action&&<Modal title={t(action==='rework'?'requestRework':action)} onClose={()=>setAction(null)}><form className='form-stack' onSubmit={e=>{e.preventDefault();act.mutate()}}>{(action==='publish'||action==='schedule')&&<PublicationPostizOptions article={initial} value={postizTargets} onChange={setPostizTargets}/>}
  {action==='schedule'&&<Field label={t('scheduledAt')}><input type='datetime-local' required value={schedule} onChange={e=>setSchedule(e.target.value)}/></Field>}<Field label={t('note')}><textarea required={action==='rework'||action==='reject'} value={note} onChange={e=>setNote(e.target.value)}/></Field>{act.error&&<ErrorPanel error={act.error}/>}<Button disabled={act.isPending}>{t(action==='rework'?'requestRework':action)}</Button></form></Modal>}</>
 }

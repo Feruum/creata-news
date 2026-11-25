@@ -29,7 +29,7 @@ test('reference wordmark fits homepage and internal headers in all locales',asyn
    const logo=page.locator('.site-header .creata-wordmark')
    await assertWordmark(logo)
    expect(await logo.locator('.creata-logo-name').evaluate(node=>getComputedStyle(node).fill)).toBe('rgb(24, 23, 27)')
-   expect(await logo.locator('.creata-logo-news').evaluate(node=>getComputedStyle(node).fill)).toBe('rgb(75, 68, 240)')
+   expect(await logo.locator('.creata-logo-news').evaluate(node=>getComputedStyle(node).fill)).toBe('rgb(75, 68, 246)')
    for(const width of [320,390,768,1440]){
     await page.setViewportSize({width,height:1000})
     await expect.poll(()=>page.evaluate(()=>document.documentElement.scrollWidth-innerWidth)).toBeLessThanOrEqual(1)

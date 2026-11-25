@@ -45,7 +45,7 @@ export function advanceJobs(c:Context) {
   const source=c.state.sources.find(s=>s.id===j.payload.sourceId);if(source){source.lastRunAt=completed;source.nextRunAt=new Date(start+10000+source.intervalMinutes*60000).toISOString();source.lastError=j.error}
  }
  for(const a of c.state.articles){
-  if(a.scheduledAt&&Date.parse(a.scheduledAt)<=c.time&&a.status==='approved'&&a.approvedRevision===a.revision){
+  if(a.scheduledAt&&Date.parse(a.scheduledAt)<=c.time&&a.status==='scheduled'&&a.approvedRevision===a.revision){
    const scheduled={...c,iso:a.scheduledAt}
    if(storyPermalinkConflicts(c,a)){
     a.status='review'

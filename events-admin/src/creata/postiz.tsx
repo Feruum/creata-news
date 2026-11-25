@@ -24,6 +24,9 @@ const copy = {
   draftMode: ['Postiz сохранит выбранные посты как черновики.', 'Postiz таңдалған жазбаларды нобай ретінде сақтайды.', 'Postiz will save the selected posts as drafts.'],
   nowMode: ['После выхода статьи Postiz отправит посты в выбранные аккаунты.', 'Мақала жарияланған соң Postiz жазбаларды таңдалған аккаунттарға жібереді.', 'Postiz will send posts to the selected accounts once the article is published.'],
   deliveries: ['Публикации в соцсетях', 'Әлеуметтік желідегі жарияланымдар', 'Social posts'],
+  keepScheduled: ['Ранее выбранные настройки публикации в соцсетях будут сохранены.', 'Әлеуметтік желілерде жариялаудың бұрын таңдалған баптаулары сақталады.', 'Previously selected social publishing settings will be kept.'],
+  replaceScheduled: ['Изменить настройки соцсетей', 'Әлеуметтік желі баптауларын өзгерту', 'Change social publishing settings'],
+  restoreScheduled: ['Сохранить предыдущие настройки', 'Алдыңғы баптауларды сақтау', 'Keep previous settings'],
   open: ['Открыть пост', 'Жазбаны ашу', 'Open post'],
   scheduled: ['Запланировано', 'Жоспарланған', 'Scheduled'],
   queued: ['В очереди', 'Кезекте', 'Queued'],
@@ -69,6 +72,23 @@ function PostizMedia({ video, value, onChange }: { video: boolean; value?: strin
     </select>
     <small>{label(video ? 'videoHint' : 'imageHint', locale)}</small>
   </label>
+}
+
+export function PublicationPostizOptions({ article, value, onChange }: {
+  article: Article
+  value: Target[] | undefined
+  onChange: (targets: Target[] | undefined) => void
+}) {
+  const { locale } = useAdmin()
+  if (adminDemo) return null
+  if (article.status === 'scheduled' && value === undefined) return <div className="form-stack">
+    <small>{label('keepScheduled', locale)}</small>
+    <button className="button secondary" type="button" onClick={() => onChange([])}>{label('replaceScheduled', locale)}</button>
+  </div>
+  return <>
+    {article.status === 'scheduled' && <button className="button secondary" type="button" onClick={() => onChange(undefined)}>{label('restoreScheduled', locale)}</button>}
+    <PostizOptions article={article} value={value ?? []} onChange={onChange}/>
+  </>
 }
 
 export function PostizOptions({ article, value, onChange }: {

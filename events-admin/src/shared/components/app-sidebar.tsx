@@ -11,14 +11,13 @@ import type { CopyKey } from '../../creata/i18n'
 import {adminPath,applicationUrls} from '../../creata/demo'
 
 const editorial=[{url:'/today',key:'today',icon:Gauge},{url:'/bank',key:'bank',icon:Layers3},{url:'/articles',key:'articles',icon:FileText},{url:'/story-follow-ups',key:'storyFollowUps',icon:CalendarClock},{url:'/charts',key:'charts',icon:Activity},{url:'/launches',key:'launches',icon:ArrowUpRight},{url:'/newspapers',key:'newspapers',icon:FileText},{url:'/opportunities',key:'opportunities',icon:Sparkles},{url:'/digests',key:'digests',icon:Radio},{url:'/authors',key:'authors',icon:Users},{url:'/analytics',key:'analytics',icon:Activity},{url:'/content',key:'content',icon:FileText},{url:'/media',key:'mediaLibrary',icon:FileText},{url:'/settings',key:'settings',icon:Settings2},{url:'/audit',key:'audit',icon:Clock3}] as const
-const hermes=[{url:'/sources',key:'sources',icon:Radio},{url:'/runs',key:'runs',icon:Activity},{url:'/jobs',key:'jobs',icon:ListTodo},{url:'/charts',key:'charts',icon:Activity},{url:'/rules',key:'rules',icon:ShieldCheck},{url:'/ai',key:'ai',icon:Sparkles},{url:'/errors',key:'errors',icon:Activity}] as const
+const hermes=[{url:'/sources',key:'sources',icon:Radio},{url:'/runs',key:'runs',icon:Activity},{url:'/jobs',key:'jobs',icon:ListTodo},{url:'/charts',key:'charts',icon:Activity},{url:'/rules',key:'rules',icon:ShieldCheck},{url:'/ai',key:'ai',icon:Sparkles},{url:'/errors',key:'errors',icon:Activity},{url:'/settings',key:'settings',icon:Settings2}] as const
 export function AppSidebar({onLogout,...props}:ComponentProps<typeof Sidebar>&{onLogout:()=>void}) {
  const { t, locale, mode, session } = useAdmin()
  const user = session?.user
  const isAdmin = user?.roles.includes('admin')
  const isHermes = mode === 'hermes'
  const items = (isHermes ? hermes : editorial)
-  .filter(item => item.key !== 'settings' || isAdmin)
   .filter(item => item.key !== 'storyFollowUps' || canAccessStoryFollowUps(user))
   .filter(item => item.key !== 'audit' || canViewAudit(user))
   .map(item => ({ url: item.url, title: t(item.key), icon: item.icon }))

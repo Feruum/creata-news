@@ -21,7 +21,7 @@ func TestEditorialStageMetricsIncludeDurationsAndFunnel(t *testing.T) {
 		t.Fatalf("bad writing duration: %v", writing)
 	}
 	funnel := array(metrics["funnel"])
-	if len(funnel) == 0 || integer(object(funnel[0])["count"]) != 2 {
+	if len(funnel) != 9 || str(object(funnel[5])["stage"]) != "scheduled" || str(object(funnel[7])["stage"]) != "unpublished" || integer(object(funnel[0])["count"]) != 2 {
 		t.Fatal("missing funnel")
 	}
 	found := false

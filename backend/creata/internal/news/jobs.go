@@ -862,7 +862,7 @@ func (s *Server) Tick(ctx context.Context) error {
 		}
 		for _, a := range articles {
 			due := parseTime(a["scheduledAt"])
-			if !due.IsZero() && !due.After(time.Now()) && integer(a["approvedRevision"]) == integer(a["revision"]) {
+			if str(a["status"]) == "scheduled" && !due.IsZero() && !due.After(time.Now()) && integer(a["approvedRevision"]) == integer(a["revision"]) {
 				e = validateEditor(t, ctx, a)
 				if e == nil {
 					e = publishable(a)

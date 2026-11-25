@@ -115,3 +115,44 @@ test('demo CMS keeps unpublished edits in preview and publishes the selected rev
  await page.getByRole('button',{name:'Опубликовать',exact:true}).click();await preview.reload()
  await expect(preview.getByRole('heading',{level:1})).toHaveText(title)
 })
+
+test('Hermes score explains selection by hover, keyboard and touch-sized click',async({page})=>{
+ await page.goto('/editorial/bank')
+ const header=page.getByRole('columnheader',{name:/Оценка Hermes/})
+ await expect(header).toBeVisible()
+ await header.getByRole('button').hover()
+ await expect(page.getByText(/Порог автоматического отбора задаётся/)).toBeVisible()
+ const score=page.getByRole('button',{name:'Почему выбрано: 92',exact:true}).first()
+ await score.hover()
+ const explanation=page.getByText('Демонстрационная оценка: подтверждённый источник, новизна, польза читателю.',{exact:true})
+ await expect(explanation).toBeVisible()
+ await page.keyboard.press('Escape')
+ await expect(explanation).not.toBeVisible()
+ await score.focus()
+ await expect(explanation).toBeVisible()
+ await page.keyboard.press('Escape')
+ await page.setViewportSize({width:390,height:844})
+ await score.click()
+ await expect(explanation).toBeVisible()
+})
+
+test('Hermes score opens on a real touch interaction',async({browser,baseURL})=>{
+ const touch=await browser.newContext({baseURL,hasTouch:true,isMobile:true,viewport:{width:390,height:844}})
+ try{
+  const page=await touch.newPage()
+  await page.goto('/editorial/bank')
+  await page.getByRole('button',{name:'Почему выбрано: 92',exact:true}).first().tap()
+  await expect(page.getByText('Демонстрационная оценка: подтверждённый источник, новизна, польза читателю.',{exact:true})).toBeVisible()
+ }finally{await touch.close()}
+})
+
+test('MIT source retains its verified RSS address and triggers a demo check',async({page})=>{
+ await page.goto('/hermes/sources')
+ const source=page.locator('.source-card').filter({has:page.getByRole('heading',{name:'Исследования и технологии · demo',exact:true})})
+ await expect(source.locator('.source-url')).toHaveAttribute('href','https://news.mit.edu/rss/topic/artificial-intelligence2')
+ await source.getByRole('button',{name:'Проверить',exact:true}).click()
+ await page.goto('/hermes/runs')
+ const run=page.locator('tbody tr').filter({hasText:'Исследования и технологии · demo'}).filter({hasText:'Проверка источника'}).first()
+ await expect(run).toBeVisible()
+ await expect(run.locator('.badge')).toHaveText('Завершено',{timeout:25000})
+})

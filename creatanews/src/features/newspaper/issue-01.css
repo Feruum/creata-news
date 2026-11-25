@@ -341,7 +341,7 @@
   --rule: var(--ink);
   --f-display: var(--creata-display);
   --f-body: var(--creata-font);
-  --f-label: var(--creata-font);
+  --f-label: var(--font-ui);
 }
 
 .newspaper-issue *, .newspaper-issue *::before, .newspaper-issue *::after { box-sizing: border-box; }
@@ -685,7 +685,7 @@
     --paper: #fff;
     --ink: #0e0e10;
     --ink-soft: #64646d;
-    --spot: #4b44f0;
+    --spot: #4b44f6;
     --on-spot: #fff;
     --highlight: #ecebff;
     --line: #dddde5;

@@ -300,7 +300,17 @@ func TestScheduledPublicationAndLeaseRecovery(t *testing.T) {
 	article := a.request("POST", "/admin/articles", validArticle(), 201, "")
 	aid := str(article["id"])
 	a.request("POST", "/admin/articles/"+aid+"/actions", Doc{"action": "approve", "expectedRevision": 1}, 200, "")
-	a.request("POST", "/admin/articles/"+aid+"/actions", Doc{"action": "schedule", "expectedRevision": 1, "scheduledAt": time.Now().Add(time.Hour).UTC().Format(time.RFC3339)}, 200, "")
+	scheduled := a.request("POST", "/admin/articles/"+aid+"/actions", Doc{"action": "schedule", "expectedRevision": 1, "scheduledAt": time.Now().Add(time.Hour).UTC().Format(time.RFC3339)}, 200, "")
+	if str(scheduled["status"]) != "scheduled" || integer(scheduled["approvedRevision"]) != 1 || str(scheduled["scheduledAt"]) == "" {
+		t.Fatal("scheduled article was not retained as an approved scheduled revision", scheduled)
+	}
+	rescheduled := a.request("POST", "/admin/articles/"+aid+"/actions", Doc{"action": "schedule", "expectedRevision": 1, "scheduledAt": time.Now().Add(2 * time.Hour).UTC().Format(time.RFC3339)}, 200, "")
+	if str(rescheduled["status"]) != "scheduled" || str(rescheduled["scheduledAt"]) == str(scheduled["scheduledAt"]) {
+		t.Fatal("rescheduling did not update publication time", rescheduled)
+	}
+	if len(array(a.request("GET", "/admin/articles?status=scheduled", nil, 200, "")["items"])) != 1 || len(array(a.request("GET", "/public/articles", nil, 200, "")["items"])) != 0 {
+		t.Fatal("scheduled article not present in the correct collections")
+	}
 	if e := a.store.Write(context.Background(), func(tx *Tx) error {
 		v, e := tx.Get(context.Background(), "article", aid)
 		if e != nil {
@@ -317,6 +327,21 @@ func TestScheduledPublicationAndLeaseRecovery(t *testing.T) {
 	if len(array(a.request("GET", "/public/articles", nil, 200, "")["items"])) != 1 {
 		t.Fatal("scheduled publication not visible")
 	}
+	withdrawn := a.request("POST", "/admin/articles/"+aid+"/actions", Doc{"action": "unpublish", "expectedRevision": 1}, 200, "")
+	if str(withdrawn["status"]) != "unpublished" || withdrawn["approvedRevision"] != nil || withdrawn["publishedRevision"] != nil || withdrawn["scheduledAt"] != nil {
+		t.Fatal("withdrawal did not clear publication and approval state", withdrawn)
+	}
+	if len(array(a.request("GET", "/admin/articles?status=unpublished", nil, 200, "")["items"])) != 1 || len(array(a.request("GET", "/public/articles", nil, 200, "")["items"])) != 0 {
+		t.Fatal("withdrawn article not present in the correct collections")
+	}
+	a.request("POST", "/admin/articles/"+aid+"/actions", Doc{"action": "publish", "expectedRevision": 1}, 409, "")
+	a.request("POST", "/admin/articles/"+aid+"/actions", Doc{"action": "approve", "expectedRevision": 1}, 200, "")
+	a.request("POST", "/admin/articles/"+aid+"/actions", Doc{"action": "schedule", "expectedRevision": 1, "scheduledAt": time.Now().Add(time.Hour).UTC().Format(time.RFC3339)}, 200, "")
+	republished := a.request("POST", "/admin/articles/"+aid+"/actions", Doc{"action": "publish", "expectedRevision": 1}, 200, "")
+	if str(republished["status"]) != "published" || republished["scheduledAt"] != nil {
+		t.Fatal("an approved scheduled article could not be immediately published", republished)
+	}
+
 	j := newJob("check", Doc{})
 	j["status"] = "running"
 	j["leaseToken"] = "old-token"

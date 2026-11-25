@@ -60,6 +60,22 @@ export function createStore(seed:DemoSeed,storage:DemoStorage=defaultStorage(),n
     }
    }
    for(const [id,article]of Object.entries(initial.publications))if(!existingIds.has(id))merged.publications[id]=clone(article)
+   // Correct the exact original demo title without overwriting editor changes.
+   const designathon=merged.opportunities.find(item=>item.id==='o-designthon')
+   if(designathon){
+    const originals={ru:'Designthon: дизайн-марафон TransforNATION',en:'Designthon: TransforNATION design marathon',kk:'Designthon: TransforNATION дизайн марафоны'} as const
+    for(const locale of ['ru','kk','en'] as const)if(designathon.title[locale]===originals[locale])designathon.title[locale]=originals[locale].replace('Designthon','Designathon')
+   }
+   // Upgrade legacy article states without recreating a removed public snapshot.
+   for(const article of merged.articles){
+    if((article.status==='approved'||article.status==='published')&&article.scheduledAt&&Number.isFinite(Date.parse(article.scheduledAt))&&article.approvedRevision===article.revision){
+     article.status='scheduled'
+    }else if(article.status==='review'&&!article.publishedRevision&&!article.approvedRevision&&!article.scheduledAt&&!merged.publications[article.id]){
+     const latest=merged.audit.find(a=>a.targetId===article.id&&a.action.startsWith('article_'))
+     const detail=latest?.detail as {revision?:number}|undefined
+     if(latest?.action==='article_unpublish'&&detail?.revision===article.revision)article.status='unpublished'
+    }
+   }
    // Recover the editorial permalink lock for demo records saved before it was stored.
    for(const article of merged.articles){
     if(article.storySlug)continue

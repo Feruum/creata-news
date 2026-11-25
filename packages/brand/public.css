@@ -1,0 +1,20 @@
+@import './foundation.css';
+/* Original Creata web font kit. Montserrat supplies Kazakh and tenge glyphs. */
+@font-face{font-family:"Unbounded";src:url("./assets/public/Unbounded-Medium.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:"Unbounded";src:url("./assets/public/Unbounded-Bold.woff2") format("woff2");font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:"Involve";src:url("./assets/public/Involve-Regular.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Involve";src:url("./assets/public/Involve-Medium.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:"Involve";src:url("./assets/public/Involve-Bold.woff2") format("woff2");font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:"Montserrat";src:url("./assets/public/Montserrat-Medium.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:"Montserrat";src:url("./assets/public/Montserrat-SemiBold.woff2") format("woff2");font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:"Montserrat";src:url("./assets/public/Montserrat-Bold.woff2") format("woff2");font-weight:700;font-style:normal;font-display:swap}
+:root{
+  --font-head:"Unbounded","Montserrat",sans-serif;
+  --font-text:"Involve","Montserrat",sans-serif;
+  --font-ui:"Montserrat",sans-serif;
+  --creata-font:var(--font-text);
+  --creata-display:var(--font-head);
+}
+
+/* The public brand palette follows the supplied #4B44F6 swatch. */
+:root,:root[data-theme="light"]{--creata-accent:#4B44F6;--creata-focus:0 0 0 3px #4b44f633}

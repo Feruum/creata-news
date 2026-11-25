@@ -135,7 +135,7 @@ func (s *Server) account(w http.ResponseWriter, r *http.Request) error {
 	return nil
 }
 func updatePreferences(u, d Doc) error {
-	for _, k := range []string{"locale", "stage", "topics", "frequency", "paused", "name"} {
+	for _, k := range []string{"locale", "stage", "topics", "frequency", "paused", "name", "adminTheme"} {
 		if v, ok := d[k]; ok {
 			switch k {
 			case "paused":
@@ -145,6 +145,10 @@ func updatePreferences(u, d Doc) error {
 			case "locale":
 				if !has([]string{"ru", "kk", "en"}, str(v)) {
 					return errStatus(400, "Unsupported locale")
+				}
+			case "adminTheme":
+				if !has([]string{"light", "dark", "cats"}, str(v)) {
+					return errStatus(400, "Unsupported admin theme")
 				}
 			case "stage":
 				if !has([]string{"exploring", "trying", "building"}, str(v)) {

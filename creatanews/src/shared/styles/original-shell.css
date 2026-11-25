@@ -3,7 +3,7 @@
 .site-header { display: flex; justify-content: space-between; align-items: center; padding: 23px 0 24px; }
 .brand { width: 136px; display: block; overflow: hidden; padding: 0; background: transparent; border-radius: 0; border-bottom: 0; } .brand img { display: block; width: 100%; height: auto; }
 .language-switch { display: flex; border: 1px solid #ffffffb3; background: #ffffff80; padding: 3px; border-radius: 999px; gap: 2px; margin: 0; min-width: 0; }
-.language-switch button { border: 0; background: transparent; font-size: 10px; font-weight: 500; border-radius: 999px; min-height: 32px; min-width: 33px; }
+.language-switch button { border: 0; background: transparent; font-size:12px; font-weight: 500; border-radius: 999px; min-height: 32px; min-width: 33px; }
 .language-switch button[aria-pressed='true'] { background: var(--accent); color: var(--white); }
 .desktop-nav { display: none; } .home-heading { font-size: 23px; margin: 0 0 18px; max-width: 360px; }
 .app-shell {

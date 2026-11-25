@@ -3289,7 +3289,7 @@ window.CN_SEED = {
   {
    "id": "o-designthon",
    "type": "Конкурс",
-   "title": "Designthon: дизайн-марафон TransforNATION",
+   "title": "Designathon: дизайн-марафон TransforNATION",
    "org": "TransforNATION",
    "forWhom": "Студенты и молодые дизайнеры",
    "stage": "trying",
@@ -3300,7 +3300,7 @@ window.CN_SEED = {
    "demo": true,
    "conditions": "Команды до 4 человек, финал офлайн.",
    "type_en": "Contest",
-   "title_en": "Designthon: TransforNATION design marathon",
+   "title_en": "Designathon: TransforNATION design marathon",
    "forWhom_en": "Students and young designers",
    "country_en": "Kazakhstan",
    "conditions_en": "Teams of up to 4, offline final.",

@@ -797,6 +797,12 @@
             "application/json": {
               "schema": {
                 "type": "object",
+                "properties": {
+                  "adminTheme": {
+                    "type": "string",
+                    "enum": ["light", "dark", "cats"]
+                  }
+                },
                 "additionalProperties": true
               }
             }
@@ -2341,6 +2347,7 @@
                   },
                   "postizTargets": {
                     "type": "array",
+                    "description": "Publication targets. When a scheduled article is rescheduled or published immediately, omission preserves its existing targets; an explicit array replaces them.",
                     "items": {
                       "$ref": "#/components/schemas/PostizTarget"
                     }
@@ -7533,7 +7540,9 @@
               "review",
               "rework",
               "approved",
+              "scheduled",
               "published",
+              "unpublished",
               "rejected"
             ]
           },
@@ -7705,7 +7714,9 @@
               "review",
               "rework",
               "approved",
+              "scheduled",
               "published",
+              "unpublished",
               "rejected"
             ]
           },
@@ -7818,6 +7829,11 @@
       "User": {
         "type": "object",
         "properties": {
+          "adminTheme": {
+            "type": "string",
+            "enum": ["light", "dark", "cats"],
+            "default": "light"
+          },
           "id": {
             "type": "string"
           },

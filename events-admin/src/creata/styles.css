@@ -205,3 +205,6 @@
 
 .site-content-fields,
 .site-content-fields fieldset { min-inline-size: 0; }
+
+/* Article scheduling is shown independently from the status color. */
+.scheduled-time{display:flex;align-items:flex-start;gap:6px;margin-top:10px;padding:6px 8px;border:1px solid var(--border);border-radius:5px;color:var(--text);background:var(--surface);font-size:12px;line-height:1.45}.scheduled-time svg{margin-top:2px;flex:none}.badge.scheduled{border-color:var(--accent);color:var(--text)}.badge.unpublished{border-style:dashed;color:var(--text)}

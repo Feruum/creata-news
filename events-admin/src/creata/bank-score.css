@@ -1,0 +1,11 @@
+.bank-score-heading{display:inline-flex;align-items:center;gap:4px;white-space:nowrap}
+.bank-score-help{display:inline-grid;place-items:center;width:32px;height:32px;padding:0;border:0;border-radius:6px;background:transparent;color:var(--muted)}
+.bank-score-help:hover,.bank-score-help[data-popup-open]{background:var(--surface);color:var(--text)}
+.bank-score-trigger{min-width:44px;min-height:36px;border:1px solid transparent;cursor:help;touch-action:manipulation}
+.bank-score-trigger:hover,.bank-score-trigger[data-popup-open]{border-color:currentColor}
+.bank-score-help:focus-visible,.bank-score-trigger:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.bank-hint-positioner{z-index:60}
+.bank-hint-popup{width:max-content;max-width:min(300px,calc(100vw - 24px));padding:12px 14px;border:1px solid var(--border);border-radius:8px;background:var(--panel);color:var(--text);box-shadow:0 6px 20px #0002;font-size:13px;font-weight:400;line-height:1.5;overflow-wrap:anywhere}
+.bank-hint-title{font-size:13px;font-weight:650;margin:0 0 5px}
+.bank-hint-description{margin:0;white-space:pre-wrap}
+@media(pointer:coarse){.bank-score-trigger,.bank-score-help{min-width:44px;min-height:44px}}

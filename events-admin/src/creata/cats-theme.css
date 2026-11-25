@@ -1,0 +1,58 @@
+/* Appearance is scoped to the newsroom/Hermes bundle, not the public brand CSS. */
+:root[data-theme='cats'] {
+  color-scheme: light;
+  --creata-page: #fff5fa;
+  --creata-panel: #fffcfe;
+  --creata-text: #301827;
+  --creata-muted: #71445e;
+  --creata-border: #e4bbd1;
+  --creata-accent: #a31d63;
+  --creata-on-accent: #fff;
+  --creata-soft: #f9dfed;
+  --creata-surface: #fceaf3;
+  --creata-focus: 0 0 0 3px #a31d6355;
+  --creata-logo-ink: #301827;
+  --creata-logo-news: #a31d63;
+}
+
+.appearance-panel { margin-bottom: 18px; }
+.appearance-panel > p { margin: 8px 0 14px; line-height: 1.55; }
+.appearance-options { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; border: 0; padding: 0; margin: 0; min-width: 0; max-width: 620px; }
+.appearance-option { position: relative; border: 1px solid var(--border); border-radius: 10px; background: var(--panel); color: var(--text); padding: 7px; display: flex; flex-direction: column; gap: 8px; cursor: pointer; min-width: 0; }
+.appearance-option:has(input:checked) { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+.appearance-option:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: 3px; }
+.appearance-option input[type='radio'] { width: 16px; height: 16px; padding: 0; margin: 0; flex-shrink: 0; cursor: pointer; accent-color: var(--accent); }
+.appearance-options:disabled .appearance-option { cursor: wait; }
+.appearance-option-label { display: flex; gap: 5px; align-items: center; justify-content: space-between; padding: 2px 4px 4px; font-weight: 600; overflow-wrap: anywhere; }
+.appearance-option-label svg { color: var(--accent); flex-shrink: 0; }
+.appearance-swatch { border-radius: 6px; height: 58px; border: 1px solid #dddde5; padding: 8px 12px; display: grid; grid-template-columns: 26px 1fr; gap: 4px 8px; align-items: center; }
+.appearance-swatch > svg, .appearance-cat-preview { grid-row: span 3; width: 26px; height: 26px; }
+.appearance-swatch i { height: 5px; border-radius: 4px; background: currentColor; opacity: .5; }
+.appearance-swatch i:last-child { width: 60%; }
+.appearance-swatch--light { background: #fbfaf7; color: #64646d; }
+.appearance-swatch--dark { background: #19191e; border-color: #34343f; color: #aaa9b5; }
+.appearance-swatch--cats { background: #ffeff7; border-color: #e4bbd1; color: #a31d63; }
+.appearance-cat-preview, .cats-header-decoration, :root[data-theme='cats'] .empty-icon, :root[data-theme='cats'] .column-empty::before, :root[data-theme='cats'] .loading::before {
+  background-image: url('./assets/cat-stars.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+:root[data-theme='cats'] .original-site-header { background: #ffebf6; border-bottom-color: #e4bbd1; }
+.cats-header-decoration { width: 40px; height: 32px; flex-shrink: 0; pointer-events: none; }
+:root[data-theme='cats'] .empty-icon { width: 56px; height: 48px; border: 0; }
+:root[data-theme='cats'] .empty-icon svg { display: none; }
+:root[data-theme='cats'] .column-empty { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 4px; }
+:root[data-theme='cats'] .column-empty::before { content: ''; width: 36px; height: 29px; }
+:root[data-theme='cats'] .loading::before { content: ''; width: 46px; height: 38px; animation: cats-loading 2.4s ease-in-out infinite alternate; }
+:root[data-theme='cats'] .loading svg.spin { display: none; }
+@keyframes cats-loading { from { transform: translateY(0); } to { transform: translateY(-3px); } }
+@media (prefers-reduced-motion: reduce) { :root[data-theme='cats'] .loading::before { animation: none!important; } }
+@media (max-width: 480px) {
+  .appearance-options { grid-template-columns: 1fr; }
+  .appearance-option { flex-direction: row; align-items: center; }
+  .appearance-swatch { width: 104px; flex-shrink: 0; }
+  .appearance-option-label { flex: 1; }
+  .cats-header-decoration { width: 30px; height: 28px; }
+}

@@ -378,6 +378,9 @@ func (s *Server) articleAction(w http.ResponseWriter, r *http.Request) error {
 			if !canPublish(u, a) {
 				return errStatus(403, "Publication approval denied")
 			}
+			if fromStatus == "scheduled" {
+				return errStatus(409, "Publication is already scheduled")
+			}
 			if e = t.validateStoryPermalink(r.Context(), a); e != nil {
 				return e
 			}
@@ -386,6 +389,7 @@ func (s *Server) articleAction(w http.ResponseWriter, r *http.Request) error {
 			}
 			a["approvedRevision"] = a["revision"]
 			a["status"] = "approved"
+			delete(a, "scheduledAt")
 		case "publish", "schedule":
 			if !canPublish(u, a) {
 				return errStatus(403, "Publication denied")
@@ -405,10 +409,16 @@ func (s *Server) articleAction(w http.ResponseWriter, r *http.Request) error {
 					return errStatus(400, "Choose a future publication time")
 				}
 				a["scheduledAt"] = due.UTC().Format(time.RFC3339)
+				a["status"] = "scheduled"
 				a["publicationNote"] = str(d["note"])
 			}
-			if e = s.stagePostiz(t, r.Context(), a, targets); e != nil {
-				return e
+			// Keep the scheduled revision's existing delivery snapshots when only
+			// the publication timing changes. An explicitly supplied target list
+			// (including an empty list) still replaces the previous selection.
+			if _, replaceTargets := d["postizTargets"]; fromStatus != "scheduled" || replaceTargets {
+				if e = s.stagePostiz(t, r.Context(), a, targets); e != nil {
+					return e
+				}
 			}
 			if action == "publish" {
 				if e = publishEditorial(t, r.Context(), a, str(d["note"])); e != nil {
@@ -419,13 +429,16 @@ func (s *Server) articleAction(w http.ResponseWriter, r *http.Request) error {
 			if !canPublish(u, a) {
 				return errStatus(403, "Publication withdrawal denied")
 			}
+			if integer(a["publishedRevision"]) <= 0 && fromStatus != "unpublished" {
+				return errStatus(409, "Only a published article can be withdrawn")
+			}
 			if e = t.Delete(r.Context(), "publication", str(a["id"])); e != nil {
 				return e
 			}
 			if _, e = t.Exec(r.Context(), "UPDATE creata_postiz_delivery SET status='cancelled',updated_at=now() WHERE article_id=$1 AND status='queued'", a["id"]); e != nil {
 				return e
 			}
-			a["status"] = "review"
+			a["status"] = "unpublished"
 			delete(a, "publishedRevision")
 			delete(a, "scheduledAt")
 			delete(a, "approvedRevision")

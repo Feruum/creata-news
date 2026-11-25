@@ -11,6 +11,7 @@ const GraphicEditor = lazy(() => import('./graphics-page').then(m => ({ default:
 const NewspaperEditor = lazy(() => import('./newspaper-editor').then(m => ({ default: m.NewspaperEditor })))
 import type { Mode } from './types'
 import './styles.css'
+import './cats-theme.css'
 import {adminBase,adminPath} from './demo'
 export function AdminApp({ mode }: { mode: Mode }) {
   const queryClient = useMemo(() => new QueryClient({ defaultOptions: { queries: { staleTime: 15_000, retry: 1, refetchOnWindowFocus: false }, mutations: { retry: false } } }), [])

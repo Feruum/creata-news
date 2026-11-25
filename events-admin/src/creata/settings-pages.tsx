@@ -6,15 +6,15 @@ import { aiSettingsPatch } from './domain'
 import { useAdmin } from './hooks'
 import { Button, ErrorPanel, Field, Loading, PageHead } from './ui'
 import { TeamAccess } from './team-access'
+import { AppearanceSettings } from './appearance-settings'
 import type { Settings } from './types'
 
 export function EditorialSettings() {
  const { t, session } = useAdmin()
  return <>
   <PageHead title={t('settings')}/>
-  {session?.user?.roles.includes('admin')
-   ? <><SettingsForm kind='editorial'/><TeamAccess/></>
-   : <section className='panel'><h2>{t('deniedTitle')}</h2><p>{t('deniedLead')}</p></section>}
+  <AppearanceSettings/>
+  {session?.user?.roles.includes('admin') && <><SettingsForm kind='editorial'/><TeamAccess/></>}
  </>
 }
 export function AISettingsPage(){const {t}=useAdmin();return <><PageHead title={t('ai')}/><SettingsForm kind='ai'/></>}

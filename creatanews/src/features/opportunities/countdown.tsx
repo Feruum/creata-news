@@ -22,7 +22,7 @@ export function Countdown({iso,locale}:{iso:string;locale:Locale}){
   return <div className='flex gap-1.5 font-mono tabular-nums' role='timer' aria-live='off'>
     {parts.map((value,index)=><span key={index} className={`${styles.timerCell} flex min-w-[44px] flex-col items-center rounded-md px-1.5 py-1`}>
       <FlowDigit value={value} className='text-[18px] font-semibold leading-none'/>
-      <span className='mt-0.5 text-[10px] uppercase opacity-60'>{units[locale][index]}</span>
+      <span className='mt-0.5 text-[12px] opacity-60'>{units[locale][index]}</span>
     </span>)}
   </div>
 }

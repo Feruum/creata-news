@@ -1,7 +1,69 @@
-/* Typography from the supplied Creata reference, shared with both admin apps. */
-body,.app-shell{font-family:var(--creata-font)}
-.app-shell :is(.eyebrow,.card-kicker,.card-meta,.deadline,.menu-explore-grid h3,.opportunity-detail,.newsletter-copy,.newsletter-copy p){font-family:var(--creata-font)}
-.prototype-opportunity-scope{font-family:var(--creata-font)}
-.prototype-opportunity-scope :is(.font-serif,.font-mono){font-family:var(--creata-font)}
-.app-shell :is(h1,h2,h3,h4,h5,h6),.prototype-opportunity-scope .h-title{font-family:var(--creata-display)}
-.newspaper-issue{--f-display:var(--creata-display);--f-body:var(--creata-font);--f-label:var(--creata-font)}
+/* Public type only. Keep UI labels distinct from editorial prose. */
+body,.app-shell{font-family:var(--font-text);font-weight:400}
+:is(h1,h2,h3,h4,h5,h6){font-family:var(--font-head);font-weight:500;letter-spacing:-.025em}
+h1{font-weight:700}
+strong,b{font-weight:700}
+.app-shell :is(button,input,select,label,time,nav,.button,.eyebrow,.card-kicker,.card-meta,.deadline,.article-byline,.listing-summary,.opportunity-facts dt,.classic-home-profile-link),
+.classic-home-footer nav,.home-footer nav,.classic-home-footer-bottom,.home-footer-bottom{font-family:var(--font-ui);font-weight:500}
+.app-shell :is(.card-kicker,.card-meta,.deadline,.eyebrow){font-size:12px;letter-spacing:normal;text-transform:none}
+.app-shell .card-kicker .card-category{font-family:var(--font-ui);font-weight:600;font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+.app-shell :is(.site-header nav,.classic-home-profile-link){font-family:var(--font-ui);font-size:14px;font-weight:500;text-transform:none;letter-spacing:normal}
+.app-shell .menu-top-row>nav,.app-shell .menu-bottom-row nav{font-size:13px}
+.app-shell .menu-explore-grid h3{font-family:var(--font-head);font-weight:500;letter-spacing:-.025em;text-transform:none}
+.prototype-opportunity-scope{font-family:var(--font-text)}
+.prototype-opportunity-scope .font-serif{font-family:var(--font-text)}
+.prototype-opportunity-scope .font-mono{font-family:var(--font-ui);font-weight:500}
+.prototype-opportunity-scope .h-title{font-family:var(--font-head);font-weight:500;letter-spacing:-.025em;overflow-wrap:anywhere}
+.prototype-opportunity-scope :is(.font-mono,.h-title) .text-\[10px\]{font-size:12px}
+.newspaper-issue{--f-display:var(--font-head);--f-body:var(--font-text);--f-label:var(--font-ui)}
+
+/* Mobile controls have room for fingers instead of tiny visible hitboxes. */
+.demo-navigation,.home-shell>.demo-navigation{display:flex;align-items:center;gap:14px;min-width:0;padding:6px 0;margin:0;border:0;border-bottom:1px solid var(--line);background:transparent;color:var(--muted);font-family:var(--font-ui);font-size:12px;line-height:1.5}
+.demo-notice-copy{flex:1;min-width:0}
+.demo-notice-short,.demo-hermes-short{display:none}
+.demo-notice-links{display:flex;align-items:center;gap:14px}
+.demo-notice-links a{display:flex;gap:4px;align-items:center;min-height:44px;min-width:44px;white-space:nowrap;color:var(--accent)}
+.demo-navigation>button{width:44px;height:44px;flex:none;border:0;background:transparent;color:var(--ink);display:grid;place-items:center;padding:0;margin-left:auto}
+.app-shell .card-kicker>span:not(.card-category){text-transform:none;letter-spacing:normal}
+.app-shell .article-card h2{overflow-wrap:anywhere}
+.app-shell .button,.prototype-opportunity-scope .btn{font-family:var(--font-ui);font-weight:600;min-height:44px;min-width:44px}
+.prototype-opportunity-scope .text-\[12px\]{font-size:12px}
+.app-shell .section-heading>a{font-family:var(--font-ui);font-size:12px;font-weight:500}
+@media(max-width:899px){
+ .app-shell .site-header .theme-toggle,.app-shell .site-header .original-menu-trigger,.app-shell .site-header .home-search-link{width:44px;height:44px;min-width:44px;min-height:44px;padding:0}
+ .app-shell .site-header .home-paper-link{min-height:44px;min-width:44px}
+ .app-shell .site-header .language-switch button,.app-shell .menu-preference-controls .language-switch button,.app-shell .menu-preference-controls .theme-toggle{min-width:44px;min-height:44px}
+ .app-shell .bottom-nav{--bottom-nav-height:64px;padding:9px 8px}
+ .app-shell .bottom-nav a{height:44px;min-width:44px}
+ .app-shell:not(.home-shell):not(.classic-home-shell){padding-bottom:calc(var(--bottom-nav-height) + var(--bottom-nav-inset) + 20px)}
+ .classic-home-footer{padding-bottom:calc(96px + env(safe-area-inset-bottom))}
+ .classic-home-footer-grid nav a,.home-footer-grid nav a,.menu-bottom-row nav a{min-height:44px;min-width:44px}
+ .app-shell main .section-heading>a,.app-shell main .section-heading h2>a,.app-shell main .article-card h2>a,.classic-home-feature-copy>a,.prototype-opportunity-scope .h-title>a{display:flex;align-items:center;min-width:44px;min-height:44px}
+ .app-shell .section-heading{flex-wrap:wrap;gap:8px 12px}
+ .home-footer-subscribe>a{min-height:44px}
+}
+@media(max-width:699px){
+ .demo-navigation,.home-shell>.demo-navigation{gap:8px;padding:2px 0;min-height:48px}
+ .demo-notice-copy,.demo-hermes-long{display:none}
+ .demo-notice-short,.demo-hermes-short{display:inline}
+ .demo-notice-links{gap:8px}
+ .app-shell .site-header .language-switch{display:none}
+ .app-shell .header-controls{gap:6px}
+ .app-shell .site-header .brand{flex-shrink:1;min-width:0;min-height:44px;display:flex;align-items:center}
+ .app-shell .site-header .creata-wordmark{max-width:100%}
+ .app-shell:not(.home-shell) .site-header .creata-wordmark{font-size:clamp(12px,4.6vw,18px)}
+ .classic-home-shell .classic-home-masthead{min-width:0;flex:1}
+ .classic-home-shell .classic-home-masthead .brand{justify-content:flex-start}
+ .classic-home-shell .classic-home-masthead .creata-wordmark{font-size:clamp(12px,4.6vw,18px)}
+ .app-shell.home-shell .site-header .home-paper-link{gap:5px;padding-inline:7px;font-size:12px}
+ .app-shell .section-heading>h2{min-width:0;max-width:100%;overflow-wrap:anywhere}
+ .app-shell .menu-preferences{grid-template-columns:minmax(0,1fr);gap:10px}
+ .app-shell .menu-preference-controls{grid-row:auto;grid-column:1;flex-wrap:wrap}
+ .app-shell .menu-preferences>p{grid-row:auto;grid-column:1}
+}
+@media(max-width:899px){
+ .classic-home-footer-brand,.home-footer-brand{display:flex;align-items:center;min-width:44px;min-height:44px}
+}
+.app-shell .home-newspaper-kicker{font-family:var(--font-ui);letter-spacing:normal;text-transform:none}
+.app-shell .article-card .card-meta,.app-shell .article-card .card-kicker{font-family:var(--font-ui)}
+.app-shell .button,.prototype-opportunity-scope .btn,.classic-home-footer-subscribe>a,.home-footer-subscribe>a{font-family:var(--font-ui)}
